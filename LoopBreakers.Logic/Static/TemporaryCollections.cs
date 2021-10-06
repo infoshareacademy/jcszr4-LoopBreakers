@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using LoopBreakers.Logic.Data;
 using System.IO;
@@ -22,19 +21,22 @@ namespace LoopBreakers.Logic.Static
             }
         }
 
-
-
         public static void Initialize()
         {
-            _users = ReadJsonFile(_usersJsonFilePath);
+            _users = ReadJsonFile<User>(_usersJsonFilePath);
         }
-        private static IList<User> ReadJsonFile(string fileName)
+        private static IList<T> ReadJsonFile<T>(string fileName)
         {
-            using FileStream stream = File.OpenRead(fileName);
-            string json = File.ReadAllText(fileName);
-            IList<User> users = JsonConvert.DeserializeObject<IList<User>>(json);
-            return users;
+            IList<T> result = new List<T>();
+
+            if (File.Exists(fileName))
+            {
+                string json = File.ReadAllText(fileName);
+                result = JsonConvert.DeserializeObject<IList<T>>(json);
+            }
+            return result;
         }
+        
     }
 
 
