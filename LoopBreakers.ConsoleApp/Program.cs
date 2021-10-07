@@ -37,7 +37,7 @@ namespace LoopBreakers.ConsoleApp
 
         private static int GetChosenOption(out int chosenOption, int menuOptionsCount)
         {
-            if (!Int32.TryParse(Console.ReadLine(), out chosenOption))
+            if (!int.TryParse(Console.ReadLine(), out chosenOption))
             {
                 Console.Write("Wrong value! Enter your selection: ");
                 GetChosenOption(out chosenOption, menuOptionsCount);
