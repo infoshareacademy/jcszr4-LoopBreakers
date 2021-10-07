@@ -42,7 +42,7 @@ namespace LoopBreakers.ConsoleApp
                 Console.Write("Wrong value! Enter your selection: ");
                 GetChosenOption(out chosenOption, menuOptionsCount);
             }
-            else if (chosenOption > menuOptionsCount)
+            else if (chosenOption > menuOptionsCount || chosenOption <=0)
             {
                 Console.Write("Wrong value! Enter your selection: ");
                 GetChosenOption(out chosenOption, menuOptionsCount);
