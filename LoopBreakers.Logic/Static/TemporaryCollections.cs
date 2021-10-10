@@ -25,7 +25,4 @@ namespace LoopBreakers.Logic.Static
             }
         }
     }
-
-
-
 }

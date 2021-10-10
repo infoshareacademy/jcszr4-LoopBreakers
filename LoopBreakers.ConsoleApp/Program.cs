@@ -14,8 +14,6 @@ namespace LoopBreakers.ConsoleApp
         {
             TemporaryCollections.InitializeCollections();
 
-
-
             //Option 1 - SearchByName
             int chosenOption = 1;   //should be comment
             if (chosenOption == 1)
