@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using LoopBreakers.Logic.Static;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace LoopBreakers.ConsoleApp
 {
