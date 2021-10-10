@@ -11,34 +11,18 @@ namespace LoopBreakers.Logic.Static
 {
     public static class TemporaryCollections
     {
-        private static string _usersJsonFilePath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName + @"\users.json";
-        private static IList<User> _users = new List<User>();
-        public static IList<User> Users
+        private static string _usersJsonFilePath = "DataSource/users.json";
+
+        public static List<User> Users = new List<User>();
+
+        public static void InitializeCollections()
         {
-            get
+            if (File.Exists(_usersJsonFilePath))
             {
-                return _users;
+                string json = File.ReadAllText(_usersJsonFilePath);
+                Users = JsonConvert.DeserializeObject<List<User>>(json);
+                
             }
         }
-
-        public static void Initialize()
-        {
-            _users = ReadJsonFile<User>(_usersJsonFilePath);
-        }
-        private static IList<T> ReadJsonFile<T>(string fileName)
-        {
-            IList<T> result = new List<T>();
-
-            if (File.Exists(fileName))
-            {
-                string json = File.ReadAllText(fileName);
-                result = JsonConvert.DeserializeObject<IList<T>>(json);
-            }
-            return result;
-        }
-        
     }
-
-
-
 }

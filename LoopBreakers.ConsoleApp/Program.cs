@@ -12,16 +12,25 @@ namespace LoopBreakers.ConsoleApp
     {
         public static void Main(string[] args)
         {
-            TemporaryCollections.Initialize();
+            TemporaryCollections.InitializeCollections();
 
-            var findName = "Wendi";
-            foreach (var user in TemporaryCollections.Users
-                .Where(user => user.FirstName == findName))
+            //Option 1 - SearchByName
+            int chosenOption = 1;   //should be comment
+            if (chosenOption == 1)
             {
-                Console.WriteLine(user.FirstName+ user.LastName);
-            }
+                
+                Console.WriteLine("Introduce the surname of user which you wish to find");
+                var entryName1 = Console.ReadLine();
+                if (TemporaryCollections.Users.Any())
+                {
+                    Search.NameSearch(entryName1);
+                }
+                else
+                {
+                    Console.WriteLine("No users in the scope");
+                }
 
-            Console.ReadKey();
+            }
         }
     }
 }
