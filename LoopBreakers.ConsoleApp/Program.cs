@@ -26,13 +26,31 @@ namespace LoopBreakers.ConsoleApp
             Console.WriteLine();
             Console.Write("Enter your selection: ");
 
-            int chosenOption;
-            
-            GetChosenOption(out chosenOption, menuOptionsCount);
+            GetChosenOption(out int chosenOption, menuOptionsCount);
             chosenOption--;
             Console.WriteLine();
             Console.WriteLine($"Your chose: \t{menuOptions[chosenOption]}");
 
+            switch (chosenOption)
+            {
+                case 0:
+                    // Find user by name();
+                    break;
+
+                case 1:
+                    // Find transfer by date();
+                    break;
+                case 2:
+                    // Find transfer by name and date();
+                    break;
+
+                case 3:
+                    // Add new bank transfer();
+                    break;
+                case 4:
+                    // Exit();
+                    break;
+            }
         }
 
         private static int GetChosenOption(out int chosenOption, int menuOptionsCount)
@@ -47,8 +65,6 @@ namespace LoopBreakers.ConsoleApp
                 Console.Write("Wrong value! Enter your selection: ");
                 GetChosenOption(out chosenOption, menuOptionsCount);
             }
-
-            
             return (chosenOption);
         }
     }
