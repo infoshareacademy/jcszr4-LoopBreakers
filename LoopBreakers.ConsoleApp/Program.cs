@@ -7,50 +7,59 @@ namespace LoopBreakers.ConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Bank transfer application!");
-            Console.WriteLine("_____________________________________");
-            List<string> menuOptions = new List<string>();
-            menuOptions.Add("1. Find user by name.");
-            menuOptions.Add("2. Find transfer by date.");
-            menuOptions.Add("3. Find transfer by name and date.");
-            menuOptions.Add("4. Add new bank transfer.");
-            menuOptions.Add("5. Exit.");
-            
-            int menuOptionsCount = menuOptions.Count;
-
-            foreach (var option in menuOptions)
+            int chosenOption;
+            int menuOptionsCount;
+            do
             {
-                Console.WriteLine($"{option}");
-            }
-            Console.WriteLine("_____________________________________");
-            Console.WriteLine();
-            Console.Write("Enter your selection: ");
+                Console.Clear();
+                Console.WriteLine("Welcome to Bank transfer application!");
+                Console.WriteLine("_____________________________________");
+                List<string> menuOptions = new List<string>();
+                menuOptions.Add("1. Find user by name.");
+                menuOptions.Add("2. Find transfer by date.");
+                menuOptions.Add("3. Find transfer by name and date.");
+                menuOptions.Add("4. Add new bank transfer.");
+                menuOptions.Add("5. Add new clint.");
+                menuOptions.Add("6. Edit client.");
+                menuOptions.Add("7. Exit.");
 
-            GetChosenOption(out int chosenOption, menuOptionsCount);
-            chosenOption--;
-            Console.WriteLine();
-            Console.WriteLine($"Your chose: \t{menuOptions[chosenOption]}");
+                menuOptionsCount = menuOptions.Count;
 
-            switch (chosenOption)
-            {
-                case 0:
-                    // Find user by name();
-                    break;
+                foreach (var option in menuOptions)
+                {
+                    Console.WriteLine($"{option}");
+                }
 
-                case 1:
-                    // Find transfer by date();
-                    break;
-                case 2:
-                    // Find transfer by name and date();
-                    break;
+                Console.WriteLine("_____________________________________");
+                Console.WriteLine();
+                Console.Write("Enter your selection: ");
 
-                case 3:
-                    // Add new bank transfer();
-                    break;
-                case 4:
-                    // Exit();
-                    break;
-            }
+                GetChosenOption(out chosenOption, menuOptionsCount);
+                Console.WriteLine();
+                Console.WriteLine($"Your chose: \t{menuOptions[chosenOption - 1]}");
+
+                switch (chosenOption)
+                {
+                    case 1:
+                        // Find user by name();
+                        break;
+                    case 2:
+                        // Find transfer by date();
+                        break;
+                    case 3:
+                        // Find transfer by name and date();
+                        break;
+                    case 4:
+                        // Add new bank transfer();
+                        break;
+                    case 5:
+                        // Add new clint();
+                        break;
+                    case 6:
+                        // Edit client();
+                        break;
+                }
+            } while (chosenOption < menuOptionsCount);
         }
 
         private static int GetChosenOption(out int chosenOption, int menuOptionsCount)
@@ -60,7 +69,7 @@ namespace LoopBreakers.ConsoleApp
                 Console.Write("Wrong value! Enter your selection: ");
                 GetChosenOption(out chosenOption, menuOptionsCount);
             }
-            else if (chosenOption > menuOptionsCount || chosenOption <=0)
+            else if (chosenOption > menuOptionsCount || chosenOption <= 0)
             {
                 Console.Write("Wrong value! Enter your selection: ");
                 GetChosenOption(out chosenOption, menuOptionsCount);
@@ -68,5 +77,5 @@ namespace LoopBreakers.ConsoleApp
             return (chosenOption);
         }
     }
-    }
+}
 
