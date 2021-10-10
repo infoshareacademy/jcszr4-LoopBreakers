@@ -43,7 +43,6 @@ namespace LoopBreakers.ConsoleApp
                 Console.Write("Enter your selection: ");
 
                 GetChosenOption(out chosenOption, menuOptionsCount);
-                Console.WriteLine();
                 Console.WriteLine($"Your chose: \t{menuOptions[chosenOption - 1]}");
 
                 switch (chosenOption)
@@ -53,7 +52,10 @@ namespace LoopBreakers.ConsoleApp
                         var entryName1 = Console.ReadLine();
                         if (TemporaryCollections.Users.Any())
                         {
-                            Search.NameSearch(entryName1);
+                            foreach (var user in Search.NameSearch(entryName1))
+                            {
+                                Console.WriteLine($"\n{user.FirstName} {user.LastName}\r\nBalance: {user.Balance} {user.Currency}\r\nAddress: {user.Address}\r\nAge: {user.Age}\r\nCompany: {user.Company}\r\nE-mail: {user.Email}\r\nGender: {user.Gender}\r\nId: {user.Id}\r\nisActive?: {user.IsActive}\r\nPhone Number: {user.Phone}\r\nDate of Reg: {user.Registered}\n");
+                            }
                         }
                         else
                         {
@@ -76,6 +78,9 @@ namespace LoopBreakers.ConsoleApp
                         // Edit client();
                         break;
                 }
+                Console.WriteLine("Enter any key to return");
+                Console.ReadKey();
+
             } while (chosenOption < menuOptionsCount);
         }
 
@@ -91,6 +96,7 @@ namespace LoopBreakers.ConsoleApp
                 Console.Write("Wrong value! Enter your selection: ");
                 GetChosenOption(out chosenOption, menuOptionsCount);
             }
+            Console.Clear();
             return (chosenOption);
         }
     }
