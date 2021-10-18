@@ -15,6 +15,8 @@ namespace LoopBreakers.Logic.Static
 
         public static List<User> Users = new List<User>();
 
+        public static List<User> FovouriteUsers = new List<User>();
+
         public static void InitializeCollections()
         {
             if (File.Exists(_usersJsonFilePath))
