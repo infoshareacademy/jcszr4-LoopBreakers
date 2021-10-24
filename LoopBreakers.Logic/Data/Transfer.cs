@@ -35,11 +35,5 @@ namespace LoopBreakers.Logic.Data
         public Currency Currency { get; set; }
     }
 
-    public enum TransferType
-    {
-        Funding,
-        Payment,
-        Canceled,
-        Blockade
-    }
+    
 }
