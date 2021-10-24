@@ -13,8 +13,8 @@ namespace LoopBreakers.ConsoleApp
     {
         public static void Main(string[] args)
         {
+            var usersRepository = new UsersLocalFileRepository();
 
-            TemporaryCollections.InitializeCollections();
             int chosenOption;
             int menuOptionsCount;
             do
@@ -52,17 +52,17 @@ namespace LoopBreakers.ConsoleApp
                     case 1:
                         Console.WriteLine("Introduce the surname of user which you wish to find");
                         var entryName1 = Console.ReadLine();
-                        if (TemporaryCollections.Users.Any())
+                        var matchingUsers = usersRepository.GetUsersWithSurnameMatchingFilter(entryName1);
+                        if (!matchingUsers.Any())
                         {
-                            foreach (var user in Search.NameSearch(entryName1))
-                            {
-                                Console.WriteLine($"\n{user.FirstName} {user.LastName}\r\nBalance: {user.Balance} {user.Currency}\r\nAddress: {user.Address}\r\nAge: {user.Age}\r\nCompany: {user.Company}\r\nE-mail: {user.Email}\r\nGender: {user.Gender}\r\nId: {user.Id}\r\nisActive?: {user.IsActive}\r\nPhone Number: {user.Phone}\r\nDate of Reg: {user.Registered}\n");
-                            }
+                            Console.WriteLine($"No matching users in the scope for surname {entryName1}");
                         }
-                        else
+                        foreach (var user in matchingUsers)
                         {
-                            Console.WriteLine("No users in the scope");
+                            Console.WriteLine(
+                                $"\n{user.FirstName} {user.LastName}\r\nBalance: {user.Balance} {user.Currency}\r\nAddress: {user.Address}\r\nAge: {user.Age}\r\nCompany: {user.Company}\r\nE-mail: {user.Email}\r\nGender: {user.Gender}\r\nId: {user.Id}\r\nisActive?: {user.IsActive}\r\nPhone Number: {user.Phone}\r\nDate of Reg: {user.Registered}\n");
                         }
+
                         break;
                     case 2:
                         // Find transfer by date();
@@ -80,20 +80,20 @@ namespace LoopBreakers.ConsoleApp
                         // Edit client();
                         break;
                     case 7:
-                        // Add fovourite client();
+                        // Add favorite client();
                         Console.Clear();
                         Console.Write("Introduce the surname of user which you wish to find: ");
                         var entryName2 = Console.ReadLine();
 
                         int id = 1;
-                        List<User> FoundedUsers = new List<User>();
-                        if (TemporaryCollections.Users.Any())
+                        List<User> usersFound = new List<User>();
+                        if (usersRepository.GetUsers.Any())
                         {
-                            foreach (var user in Search.NameSearch(entryName2))
+                            foreach (var user in usersRepository.GetUsersWithSurnameMatchingFilter(entryName2))
                             {
                                 Console.WriteLine($"\n{id}. {user.FirstName} {user.LastName}\r\nAddress: {user.Address}\r\nAge: {user.Age}");
                                 id++;
-                                FoundedUsers.Add(user);
+                                usersFound.Add(user);
                             }
                         }
                         else
@@ -103,22 +103,22 @@ namespace LoopBreakers.ConsoleApp
 
                         int index;
                         var save=-1;
-                        if (FoundedUsers.Count > 1)
+                        if (usersFound.Count > 1)
                         {
-                            Console.Write("\nType numer of user to add this item to fovourite user: ");
+                            Console.Write("\nType number of user to add this item to favorite user: ");
 
-                            GetChosenOption(out index, 1, FoundedUsers.Count);
-                            Console.Write($"If you want add user {FoundedUsers[index - 1].FirstName.ToUpper()} {FoundedUsers[index - 1].LastName.ToUpper()} to list of fovourite users press \"y\": ");
+                            GetChosenOption(out index, 1, usersFound.Count);
+                            Console.Write($"If you want add user {usersFound[index - 1].FirstName.ToUpper()} {usersFound[index - 1].LastName.ToUpper()} to list of favorite users press \"y\": ");
                             save = char.Parse(Console.ReadLine());
                             if (save == 'y')
-                                TemporaryCollections.FovouriteUsers.Add(FoundedUsers[index - 1]);
+                                usersRepository.AddFavoriteUser((usersFound[index - 1]));
                         }
-                        else if (FoundedUsers.Count == 1)
+                        else if (usersFound.Count == 1)
                         {
-                            Console.Write($"\nIf you want add user {FoundedUsers[0].FirstName.ToUpper()} {FoundedUsers[0].LastName.ToUpper()} to list of fovourite users press \"y\", if not press any key: ");
-                            GetChosenOption(out index, 1, FoundedUsers.Count);
+                            Console.Write($"\nIf you want add user {usersFound[0].FirstName.ToUpper()} {usersFound[0].LastName.ToUpper()} to list of favorite users press \"y\", if not press any key: ");
+                            save = char.Parse(Console.ReadLine());
                             if (save == 'y')
-                                TemporaryCollections.FovouriteUsers.Add(FoundedUsers[0]);
+                                usersRepository.AddFavoriteUser(usersFound[0]);
                         }
                         else
                         {
@@ -127,8 +127,8 @@ namespace LoopBreakers.ConsoleApp
                         
 
 
-                        Console.WriteLine("\nList of fovourite users:");
-                        foreach (var user in TemporaryCollections.FovouriteUsers)
+                        Console.WriteLine("\nList of favorite users:");
+                        foreach (var user in usersRepository.GetFavoriteUsers)
                         {
                             Console.WriteLine($"{user.FirstName} {user.LastName}");
                         }
