@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 using LoopBreakers.Logic.Data;
-using LoopBreakers.Logic.Static;
 using Newtonsoft.Json;
 
-namespace LoopBreakers.ConsoleApp
+namespace LoopBreakers.Logic
 {
     internal interface IUsersRepository
     {
@@ -22,13 +18,27 @@ namespace LoopBreakers.ConsoleApp
         List<User> GetUsersWithFirstNameMatchingFilter(string filter);
     }
 
-    class UsersLocalFileRepository : IUsersRepository
+    public class UsersLocalFileRepository : IUsersRepository
     {
+        private List<Transfer> DummyTransfers = new List<Transfer>
+        {
+            new Transfer() {Amount = 213, Iban = "123"},
+            new Transfer() {Amount = 213, Iban = "123"},
+            new Transfer() {Amount = 213, Iban = "534"},
+            new Transfer() {Amount = 213},
+            new Transfer() {Amount = 213},
+            new Transfer() {Amount = 213},
+        };
         private readonly List<User> _users = new List<User>();
 
         private const string UsersJsonFilePath = "DataSource/users.json";
 
         private readonly List<User> _favoriteUsers = new List<User>();
+
+        public List<Transfer> SearchTransfersForUser(string userIban)
+        {
+            return this.DummyTransfers.Where(x => x.Iban == userIban).ToList();
+        }
 
         public UsersLocalFileRepository()
         {
@@ -36,11 +46,11 @@ namespace LoopBreakers.ConsoleApp
             {
                 string json = File.ReadAllText(UsersJsonFilePath);
                 _users = JsonConvert.DeserializeObject<List<User>>(json);
-
             }
         }
 
-        public List<User> GetUsers {
+        public List<User> GetUsers 
+        {
             get { return _users; }
         }
 

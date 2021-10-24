@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using LoopBreakers.Logic.Data;
 using System.Collections;
 using System.Collections.Generic;
-using LoopBreakers.Logic.Static;
 using System.Linq;
+using LoopBreakers.Logic;
 using Microsoft.VisualBasic.CompilerServices;
 
 namespace LoopBreakers.ConsoleApp
