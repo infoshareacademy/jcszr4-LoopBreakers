@@ -22,5 +22,10 @@ namespace LoopBreakers.Logic.Data
         public string Phone { get; set; }
         public string Address { get; set; }
         public DateTime Registered { get; set; }
+
+        public void AddUserToFovouriteUsersList()
+        {
+
+        }
     }
 }
