@@ -43,7 +43,8 @@ namespace LoopBreakers.ConsoleApp
                 Console.WriteLine();
                 Console.Write("Enter your selection: ");
 
-                GetChosenOption(out chosenOption, menuOptionsCount);
+                int minOptionMenu = 1;
+                GetChosenOption(out chosenOption, minOptionMenu,  menuOptionsCount);
                 Console.WriteLine($"Your chose: \t{menuOptions[chosenOption - 1]}");
 
                 switch (chosenOption)
@@ -81,16 +82,16 @@ namespace LoopBreakers.ConsoleApp
                     case 7:
                         // Add fovourite client();
                         Console.Clear();
-                        Console.WriteLine("Introduce the surname of user which you wish to find");
+                        Console.Write("Introduce the surname of user which you wish to find: ");
                         var entryName2 = Console.ReadLine();
-                        
+
                         int id = 1;
                         List<User> FoundedUsers = new List<User>();
                         if (TemporaryCollections.Users.Any())
                         {
                             foreach (var user in Search.NameSearch(entryName2))
                             {
-                                Console.WriteLine($"\n{id}. {user.FirstName} {user.LastName}\r\nBalance: {user.Balance} {user.Currency}\r\nAddress: {user.Address}\r\nAge: {user.Age}\r\nCompany: {user.Company}\r\nE-mail: {user.Email}\r\nGender: {user.Gender}\r\nId: {user.Id}\r\nisActive?: {user.IsActive}\r\nPhone Number: {user.Phone}\r\nDate of Reg: {user.Registered}\n");
+                                Console.WriteLine($"\n{id}. {user.FirstName} {user.LastName}\r\nAddress: {user.Address}\r\nAge: {user.Age}");
                                 id++;
                                 FoundedUsers.Add(user);
                             }
@@ -99,39 +100,60 @@ namespace LoopBreakers.ConsoleApp
                         {
                             Console.WriteLine("No users in the scope");
                         }
-                        Console.WriteLine("Type numer of user to add this item to fovourite user");
-                        int index = int.Parse(Console.ReadLine());
-                        Console.WriteLine($"Do you want add {FoundedUsers[index - 1].LastName} to fovourite users list? If yes press y");
-                        var save = char.Parse(Console.ReadLine());
-                        if (save == 'y')
+
+                        int index;
+                        var save=-1;
+                        if (FoundedUsers.Count > 1)
                         {
-                            TemporaryCollections.FovouriteUsers.Add(FoundedUsers[index - 1]);
-                            foreach (var user in TemporaryCollections.FovouriteUsers)
-                            {
-                                Console.WriteLine(user.LastName);
-                            }
+                            Console.Write("\nType numer of user to add this item to fovourite user: ");
+
+                            GetChosenOption(out index, 1, FoundedUsers.Count);
+                            Console.Write($"If you want add user {FoundedUsers[index - 1].FirstName.ToUpper()} {FoundedUsers[index - 1].LastName.ToUpper()} to list of fovourite users press \"y\": ");
+                            save = char.Parse(Console.ReadLine());
+                            if (save == 'y')
+                                TemporaryCollections.FovouriteUsers.Add(FoundedUsers[index - 1]);
+                        }
+                        else if (FoundedUsers.Count == 1)
+                        {
+                            Console.Write($"\nIf you want add user {FoundedUsers[0].FirstName.ToUpper()} {FoundedUsers[0].LastName.ToUpper()} to list of fovourite users press \"y\", if not press any key: ");
+                            GetChosenOption(out index, 1, FoundedUsers.Count);
+                            if (save == 'y')
+                                TemporaryCollections.FovouriteUsers.Add(FoundedUsers[0]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("User not founded in database.");
+                        }
+                        
+
+
+                        Console.WriteLine("\nList of fovourite users:");
+                        foreach (var user in TemporaryCollections.FovouriteUsers)
+                        {
+                            Console.WriteLine($"{user.FirstName} {user.LastName}");
                         }
 
-                        
+
+
                         break;
                 }
-                Console.WriteLine("Enter any key to return");
+                Console.WriteLine("\nEnter any key to return");
                 Console.ReadKey();
 
             } while (chosenOption < menuOptionsCount);
         }
 
-        private static int GetChosenOption(out int chosenOption, int menuOptionsCount)
+        private static int GetChosenOption(out int chosenOption, int minOption, int maxOption)
         {
             if (!int.TryParse(Console.ReadLine(), out chosenOption))
             {
-                Console.Write("Wrong value! Enter your selection: ");
-                GetChosenOption(out chosenOption, menuOptionsCount);
+                Console.Write("Wrong value! Only numbers: ");
+                GetChosenOption(out chosenOption, minOption, maxOption);
             }
-            else if (chosenOption > menuOptionsCount || chosenOption <= 0)
+            else if (chosenOption > maxOption || chosenOption < minOption)
             {
                 Console.Write("Wrong value! Enter your selection: ");
-                GetChosenOption(out chosenOption, menuOptionsCount);
+                GetChosenOption(out chosenOption, minOption, maxOption);
             }
             Console.Clear();
             return (chosenOption);
