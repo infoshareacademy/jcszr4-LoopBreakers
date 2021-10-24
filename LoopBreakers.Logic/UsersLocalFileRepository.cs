@@ -10,10 +10,9 @@ namespace LoopBreakers.Logic
     internal interface IUsersRepository
     {
         List<User> GetUsers { get; }
-        List<User> GetFavoriteUsers { get; }
+
 
         void AddUser(User user);
-        void AddFavoriteUser(User favoriteUser);
         List<User> GetUsersWithSurnameMatchingFilter(string filter);
         List<User> GetUsersWithFirstNameMatchingFilter(string filter);
     }
@@ -33,7 +32,7 @@ namespace LoopBreakers.Logic
 
         private const string UsersJsonFilePath = "DataSource/users.json";
 
-        private readonly List<User> _favoriteUsers = new List<User>();
+        private List<Recipient> _recipientList = new List<Recipient>();
 
         public List<Transfer> SearchTransfersForUser(string userIban)
         {
@@ -54,20 +53,27 @@ namespace LoopBreakers.Logic
             get { return _users; }
         }
 
-        public List<User> GetFavoriteUsers
+       
+
+        public List<Recipient> GetRecipient
         {
-            get { return _favoriteUsers; }
+            get { return _recipientList; }
         }
+
+
 
         public void AddUser(User user)
         {
             _users.Add(user);
         }
 
-        public void AddFavoriteUser(User favoriteUser)
+      
+
+        public void AddRecipient(Recipient recipient)
         {
-            _favoriteUsers.Add(favoriteUser);
+            _recipientList.Add(recipient);
         }
+
 
         public List<User> GetUsersWithSurnameMatchingFilter(string filter)
         {
@@ -78,5 +84,9 @@ namespace LoopBreakers.Logic
         {
             return _users.Where(user => user.FirstName.Contains(filter, StringComparison.OrdinalIgnoreCase)).ToList();
         }
+
+
+
     }
+
 }
