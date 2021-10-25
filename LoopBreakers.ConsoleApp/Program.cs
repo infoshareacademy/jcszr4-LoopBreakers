@@ -22,15 +22,17 @@ namespace LoopBreakers.ConsoleApp
                 Console.Clear();
                 Console.WriteLine("Welcome to Bank transfer application!");
                 Console.WriteLine("_____________________________________");
-                List<string> menuOptions = new List<string>();
-                menuOptions.Add("1. Find user by name.");
-                menuOptions.Add("2. Find transfer by date.");
-                menuOptions.Add("3. Find transfer by name and date.");
-                menuOptions.Add("4. Add new bank transfer.");
-                menuOptions.Add("5. Add new clint.");
-                menuOptions.Add("6. Edit client.");
-                menuOptions.Add("7. Add recipient.");
-                menuOptions.Add("8. Exit.");
+                List<string> menuOptions = new List<string>
+                {
+                    "1. Find user by name.",
+                    "2. Find transfer by date.",
+                    "3. Find transfer by name and date.",
+                    "4. Add new bank transfer.",
+                    "5. Add new clint.",
+                    "6. Edit client.",
+                    "7. Add recipient.",
+                    "8. Exit."
+                };
 
                 menuOptionsCount = menuOptions.Count;
 
@@ -86,7 +88,7 @@ namespace LoopBreakers.ConsoleApp
                         Console.Write("Type first name: ");
                         var firstName = GetTextWithoutNumbers(2, 20);
 
-                        Console.Write("Type lastname: ");
+                        Console.Write("Type last name: ");
                         var lastName = GetTextWithoutNumbers(2, 20);
 
                         Console.Write("Type address: ");
@@ -160,10 +162,10 @@ namespace LoopBreakers.ConsoleApp
 
         private static string GetTextIban()
         {
-            string iban = GetText(26, 26);
+            string iban = GetText(28, 28);
             if (!iban.ToUpper().StartsWith("PL"))
             {
-                Console.Write("Wrong value. Iban must stat with PL. Type again: ");
+                Console.Write("Wrong range - full polish iban has 28 characters, iban without country code at the beginning has 26. So range should be 28. Type again: ");
                 GetTextIban();
             }
             return iban;
