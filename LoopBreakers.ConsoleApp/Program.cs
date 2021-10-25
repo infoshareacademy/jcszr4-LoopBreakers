@@ -22,15 +22,17 @@ namespace LoopBreakers.ConsoleApp
                 Console.Clear();
                 Console.WriteLine("Welcome to Bank transfer application!");
                 Console.WriteLine("_____________________________________");
-                List<string> menuOptions = new List<string>();
-                menuOptions.Add("1. Find user by name.");
-                menuOptions.Add("2. Find transfer by date.");
-                menuOptions.Add("3. Find transfer by name and date.");
-                menuOptions.Add("4. Add new bank transfer.");
-                menuOptions.Add("5. Add new clint.");
-                menuOptions.Add("6. Edit client.");
-                menuOptions.Add("7. Add fovourite client.");
-                menuOptions.Add("8. Exit.");
+                List<string> menuOptions = new List<string>
+                {
+                    "1. Find user by name.",
+                    "2. Find transfer by date.",
+                    "3. Find transfer by name and date.",
+                    "4. Add new bank transfer.",
+                    "5. Add new clint.",
+                    "6. Edit client.",
+                    "7. Add recipient.",
+                    "8. Exit."
+                };
 
                 menuOptionsCount = menuOptions.Count;
 
@@ -80,61 +82,26 @@ namespace LoopBreakers.ConsoleApp
                         // Edit client();
                         break;
                     case 7:
-                        // Add favorite client();
                         Console.Clear();
-                        Console.Write("Introduce the surname of user which you wish to find: ");
-                        var entryName2 = Console.ReadLine();
+                        Console.WriteLine("Add Recipient\n");
 
-                        int id = 1;
-                        List<User> usersFound = new List<User>();
-                        if (usersRepository.GetUsers.Any())
-                        {
-                            foreach (var user in usersRepository.GetUsersWithSurnameMatchingFilter(entryName2))
-                            {
-                                Console.WriteLine($"\n{id}. {user.FirstName} {user.LastName}\r\nAddress: {user.Address}\r\nAge: {user.Age}");
-                                id++;
-                                usersFound.Add(user);
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("No users in the scope");
-                        }
+                        Console.Write("Type first name: ");
+                        var firstName = GetTextWithoutNumbers(2, 20);
 
-                        int index;
-                        var save=-1;
-                        if (usersFound.Count > 1)
-                        {
-                            Console.Write("\nType number of user to add this item to favorite user: ");
+                        Console.Write("Type last name: ");
+                        var lastName = GetTextWithoutNumbers(2, 20);
 
-                            GetChosenOption(out index, 1, usersFound.Count);
-                            Console.Write($"If you want add user {usersFound[index - 1].FirstName.ToUpper()} {usersFound[index - 1].LastName.ToUpper()} to list of favorite users press \"y\": ");
-                            save = char.Parse(Console.ReadLine());
-                            if (save == 'y')
-                                usersRepository.AddFavoriteUser((usersFound[index - 1]));
-                        }
-                        else if (usersFound.Count == 1)
-                        {
-                            Console.Write($"\nIf you want add user {usersFound[0].FirstName.ToUpper()} {usersFound[0].LastName.ToUpper()} to list of favorite users press \"y\", if not press any key: ");
-                            save = char.Parse(Console.ReadLine());
-                            if (save == 'y')
-                                usersRepository.AddFavoriteUser(usersFound[0]);
-                        }
-                        else
-                        {
-                            Console.WriteLine("User not founded in database.");
-                        }
-                        
+                        Console.Write("Type address: ");
+                        var address = GetText(8, 40);
 
+                        Console.Write("Type Iban: ");
+                        var iban = GetTextIban();
 
-                        Console.WriteLine("\nList of favorite users:");
-                        foreach (var user in usersRepository.GetFavoriteUsers)
-                        {
-                            Console.WriteLine($"{user.FirstName} {user.LastName}");
-                        }
+                        Recipient newRecipient = new Recipient(firstName, lastName, address, iban);
+                        usersRepository.AddRecipient(newRecipient);
 
-
-
+                        List<Recipient> listOfRecipients = new List<Recipient>();
+                        listOfRecipients = usersRepository.GetRecipient;
                         break;
                 }
                 Console.WriteLine("\nEnter any key to return");
@@ -142,6 +109,8 @@ namespace LoopBreakers.ConsoleApp
 
             } while (chosenOption < menuOptionsCount);
         }
+
+        
 
         private static int GetChosenOption(out int chosenOption, int minOption, int maxOption)
         {
@@ -157,6 +126,49 @@ namespace LoopBreakers.ConsoleApp
             }
             Console.Clear();
             return (chosenOption);
+        }
+
+        private static string GetText( int minLenght, int maxLenght)
+        {
+            string textFromUser = Console.ReadLine();
+            if (textFromUser.Length < minLenght || textFromUser.Length > maxLenght)
+            {
+                Console.Write($"Wrong value (min: {minLenght}, max: {maxLenght} sign). Type again: ");
+                GetText(minLenght, maxLenght);
+            }
+            return textFromUser;
+        }
+
+        private static string GetTextWithoutNumbers( int minLenght, int maxLenght)
+        {
+            string textFromUser = GetText(minLenght, maxLenght);
+            bool TextWithNumer = false;
+            foreach (char sign in textFromUser)
+            {
+                if (char.IsDigit(sign))
+                {
+                    TextWithNumer = true;
+                    break;
+                }
+            }
+
+            if (TextWithNumer)
+            {
+                Console.Write($"Wrong value. Type again without numbers: ");
+                GetTextWithoutNumbers( minLenght, maxLenght);
+            }
+            return textFromUser;
+        }
+
+        private static string GetTextIban()
+        {
+            string iban = GetText(28, 28);
+            if (!iban.ToUpper().StartsWith("PL"))
+            {
+                Console.Write("Wrong range - full polish iban has 28 characters, iban without country code at the beginning has 26. So range should be 28. Type again: ");
+                GetTextIban();
+            }
+            return iban;
         }
     }
 }
