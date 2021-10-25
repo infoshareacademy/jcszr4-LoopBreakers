@@ -74,6 +74,20 @@ namespace LoopBreakers.Logic
             _recipientList.Add(recipient);
         }
 
+        public void EditRecipient(int choosenRecipient, string newFirstName, string newLastName, string newAddress, string newIban)
+        {
+            choosenRecipient--;
+            _recipientList[choosenRecipient].FirstName = newFirstName;
+            _recipientList[choosenRecipient].LastName = newLastName;
+            _recipientList[choosenRecipient].Address = newAddress;
+            _recipientList[choosenRecipient].Iban = newIban;
+        }
+
+        public void RemoveRecipient(int choosenRecipient)
+        {
+            _recipientList.RemoveAt(choosenRecipient-1);
+        }
+
 
         public List<User> GetUsersWithSurnameMatchingFilter(string filter)
         {

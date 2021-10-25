@@ -31,7 +31,9 @@ namespace LoopBreakers.ConsoleApp
                     "5. Add new clint.",
                     "6. Edit client.",
                     "7. Add recipient.",
-                    "8. Exit."
+                    "8. Edit recipient.",
+                    "9. Remove recipient.",
+                    "10. Exit."
                 };
 
                 menuOptionsCount = menuOptions.Count;
@@ -100,8 +102,90 @@ namespace LoopBreakers.ConsoleApp
                         Recipient newRecipient = new Recipient(firstName, lastName, address, iban);
                         usersRepository.AddRecipient(newRecipient);
 
+                        //List<Recipient> listOfRecipients = new List<Recipient>();
+                        //listOfRecipients = usersRepository.GetRecipient;
+                        break;
+                    case 8:
+                        // Edit recipient();
+                        Console.Clear();
+                        Console.WriteLine("Edit Recipient\n");
+
+
                         List<Recipient> listOfRecipients = new List<Recipient>();
                         listOfRecipients = usersRepository.GetRecipient;
+
+                        if (!listOfRecipients.Any())
+                        {
+                            Console.WriteLine("You don't have any recipients :");
+                        }
+                        else
+                        {
+                            Console.WriteLine("List of your recipients:");
+                            int id = 1;
+                            foreach (var recipient in listOfRecipients)
+                            {
+                                Console.WriteLine($"{id,3}. {recipient.FirstName,15} {recipient.LastName,20} {recipient.Address,40} {recipient.Iban,30}", id, recipient.FirstName);
+                                id++;
+                            }
+
+                            Console.Write("Type number of recipient to edit:");
+                            int choosenRecipient;
+                            GetChosenOption(out choosenRecipient, 1, listOfRecipients.Count);
+
+                            Recipient recipientToEdit = listOfRecipients[choosenRecipient - 1];
+
+                            Console.WriteLine($"\nCurrent first name: {recipientToEdit.FirstName}");
+                            Console.Write("Type new first name: ");
+                            var newFirstName = GetTextWithoutNumbers(2, 20);
+
+                            Console.WriteLine($"\nCurrent last name: {recipientToEdit.LastName}");
+                            Console.Write("Type new last name: ");
+                            var newLastName = GetTextWithoutNumbers(2, 20);
+
+                            Console.WriteLine($"\nCurrent address: {recipientToEdit.Address}");
+                            Console.Write("Type new address: ");
+                            var newAddress = GetText(8, 40);
+
+                            Console.WriteLine($"\nCurrent iban: {recipientToEdit.Iban}");
+                            Console.Write("Type new iban: ");
+                            var newIban = GetTextIban();
+
+                            usersRepository.EditRecipient(choosenRecipient, newFirstName, newLastName, newAddress,
+                                newIban);
+                        }
+
+                        break;
+                    case 9:
+                        // Remove recipient();
+                        Console.Clear();
+                        Console.WriteLine("Remove recipient\n");
+
+                        List<Recipient> listOfRecipientsToRemove = new List<Recipient>();
+                        listOfRecipientsToRemove = usersRepository.GetRecipient;
+
+                        if (!listOfRecipientsToRemove.Any())
+                        {
+                            Console.WriteLine("You don't have any recipients :");
+                        }
+                        else
+                        {
+                            Console.WriteLine("List of your recipients:");
+                            int id = 1;
+                            foreach (var recipient in listOfRecipientsToRemove)
+                            {
+                                Console.WriteLine(
+                                    $"{id,3}. {recipient.FirstName,15} {recipient.LastName,20} {recipient.Address,40} {recipient.Iban,30}",
+                                    id, recipient.FirstName);
+                                id++;
+                            }
+
+                            Console.Write("Type number of recipient to remove: ");
+                            int choosenRecipient;
+                            GetChosenOption(out choosenRecipient, 1, listOfRecipientsToRemove.Count);
+                            usersRepository.RemoveRecipient(choosenRecipient);
+                            Console.Write("Chosen recipient was removed.");
+                        }
+
                         break;
                 }
                 Console.WriteLine("\nEnter any key to return");
