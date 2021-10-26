@@ -102,17 +102,14 @@ namespace LoopBreakers.ConsoleApp
                         Recipient newRecipient = new Recipient(firstName, lastName, address, iban);
                         usersRepository.AddRecipient(newRecipient);
 
-                        //List<Recipient> listOfRecipients = new List<Recipient>();
-                        //listOfRecipients = usersRepository.GetRecipient;
                         break;
                     case 8:
                         // Edit recipient();
                         Console.Clear();
                         Console.WriteLine("Edit Recipient\n");
 
+                        List<Recipient> listOfRecipients = usersRepository.GetRecipient;
 
-                        List<Recipient> listOfRecipients = new List<Recipient>();
-                        listOfRecipients = usersRepository.GetRecipient;
 
                         if (!listOfRecipients.Any())
                         {
@@ -160,8 +157,7 @@ namespace LoopBreakers.ConsoleApp
                         Console.Clear();
                         Console.WriteLine("Remove recipient\n");
 
-                        List<Recipient> listOfRecipientsToRemove = new List<Recipient>();
-                        listOfRecipientsToRemove = usersRepository.GetRecipient;
+                        List<Recipient> listOfRecipientsToRemove = usersRepository.GetRecipient;
 
                         if (!listOfRecipientsToRemove.Any())
                         {
@@ -185,7 +181,6 @@ namespace LoopBreakers.ConsoleApp
                             usersRepository.RemoveRecipient(choosenRecipient);
                             Console.Write("Chosen recipient was removed.");
                         }
-
                         break;
                 }
                 Console.WriteLine("\nEnter any key to return");
