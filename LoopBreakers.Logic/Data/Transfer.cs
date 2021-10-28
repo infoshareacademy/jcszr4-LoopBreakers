@@ -33,7 +33,5 @@ namespace LoopBreakers.Logic.Data
         public string Reference { get; set; }
 
         public Currency Currency { get; set; }
-    }
-
-    
+    } 
 }
