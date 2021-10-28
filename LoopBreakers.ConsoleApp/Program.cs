@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LoopBreakers.Logic;
 using Microsoft.VisualBasic.CompilerServices;
+using System.ComponentModel.DataAnnotations;
 
 namespace LoopBreakers.ConsoleApp
 {
@@ -46,7 +47,7 @@ namespace LoopBreakers.ConsoleApp
                 Console.Write("Enter your selection: ");
 
                 int minOptionMenu = 1;
-                GetChosenOption(out chosenOption, minOptionMenu,  menuOptionsCount);
+                GetChosenOption(out chosenOption, minOptionMenu, menuOptionsCount);
                 Console.WriteLine($"Your chose: \t{menuOptions[chosenOption - 1]}");
 
                 switch (chosenOption)
@@ -76,7 +77,8 @@ namespace LoopBreakers.ConsoleApp
                         // Add new bank transfer();
                         break;
                     case 5:
-                        // Add new clint();
+                        // Add new clint
+                        usersRepository.AddUser(Client.AddNew());
                         break;
                     case 6:
                         // Edit client();
@@ -110,7 +112,7 @@ namespace LoopBreakers.ConsoleApp
             } while (chosenOption < menuOptionsCount);
         }
 
-        
+
 
         private static int GetChosenOption(out int chosenOption, int minOption, int maxOption)
         {
@@ -124,11 +126,11 @@ namespace LoopBreakers.ConsoleApp
                 Console.Write("Wrong value! Enter your selection: ");
                 GetChosenOption(out chosenOption, minOption, maxOption);
             }
-            Console.Clear();
+            //Console.Clear();
             return (chosenOption);
         }
 
-        private static string GetText( int minLenght, int maxLenght)
+        public static string GetText(int minLenght, int maxLenght)
         {
             string textFromUser = Console.ReadLine();
             if (textFromUser.Length < minLenght || textFromUser.Length > maxLenght)
@@ -139,7 +141,77 @@ namespace LoopBreakers.ConsoleApp
             return textFromUser;
         }
 
-        private static string GetTextWithoutNumbers( int minLenght, int maxLenght)
+        public static int GetNumber(int minValue, int maxValue)
+        {
+            string textFromUser = Console.ReadLine();
+            int intFromUser;
+            if (int.TryParse(textFromUser, out intFromUser))
+            {
+                if ((intFromUser < minValue) || (intFromUser > maxValue))
+                {
+                    Console.Write($"Value is out of range: {minValue} - {maxValue}. Type again: ");
+                    GetNumber(minValue, maxValue);
+                }
+            }
+            else
+            {
+                Console.Write($"Wrong value. Type again: ");
+                GetNumber(minValue, maxValue);
+            }
+            return intFromUser;
+        }
+
+        public static decimal GetDecimal()
+        {
+            string textFromUser = Console.ReadLine();
+            decimal decimalFromUser;
+            if (!decimal.TryParse(textFromUser, out decimalFromUser))
+            {
+                Console.Write($"Wrong value. Type again: ");
+                GetDecimal();
+            }
+            return decimalFromUser;
+        }
+
+        public static string GetEmail(int minLenght, int maxLenght)
+        {
+            string textFromUser = GetText(minLenght, maxLenght);
+            var emailChecker = new EmailAddressAttribute();
+
+            if (!emailChecker.IsValid(textFromUser))
+            {
+                Console.Write("Entered e-mail is invalid. Type again: ");
+                GetEmail(minLenght, maxLenght);
+            }
+            return textFromUser;
+        }
+
+        public static (string stringFromEnum, int chosenOption) GetEnum<T>()
+        {
+            string stringFromEnum = "";
+            int count = 1;
+            foreach (var item in Enum.GetValues(typeof(T)))
+            {
+                Console.WriteLine($"{count++}: {item.ToString()}");
+            }
+            Console.Write("Select an option: ");
+            int chosenOption;
+            GetChosenOption(out chosenOption, 1, count-1);
+            stringFromEnum = Enum.GetName(typeof(T), chosenOption-1);
+            return (stringFromEnum, chosenOption-1);
+        }
+
+        public static bool GetBool()
+        {
+            Console.WriteLine("1: Yes");
+            Console.WriteLine("2: No");
+            Console.Write("Select an option: ");
+            int chosenOption;
+            GetChosenOption(out chosenOption, 1, 2);
+            return chosenOption == 1 ? true : false;
+        }
+
+        public static string GetTextWithoutNumbers( int minLenght, int maxLenght)
         {
             string textFromUser = GetText(minLenght, maxLenght);
             bool TextWithNumer = false;
