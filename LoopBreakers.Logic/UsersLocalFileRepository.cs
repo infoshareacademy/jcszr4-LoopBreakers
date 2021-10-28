@@ -53,25 +53,33 @@ namespace LoopBreakers.Logic
             get { return _users; }
         }
 
-       
-
         public List<Recipient> GetRecipient
         {
             get { return _recipientList; }
         }
-
-
 
         public void AddUser(User user)
         {
             _users.Add(user);
         }
 
-      
-
         public void AddRecipient(Recipient recipient)
         {
             _recipientList.Add(recipient);
+        }
+
+        public void EditRecipient(int chosenRecipient, string newFirstName, string newLastName, string newAddress, string newIban)
+        {
+            chosenRecipient--;
+            _recipientList[chosenRecipient].FirstName = newFirstName;
+            _recipientList[chosenRecipient].LastName = newLastName;
+            _recipientList[chosenRecipient].Address = newAddress;
+            _recipientList[chosenRecipient].Iban = newIban;
+        }
+
+        public void RemoveRecipient(int chosenRecipient)
+        {
+            _recipientList.RemoveAt(chosenRecipient-1);
         }
 
 

@@ -13,11 +13,11 @@ namespace LoopBreakers.Logic.Data
         public string Address { get; set; }
         public string Iban { get; set; }
 
-        public Recipient(string firstName, string lastName, string addres, string iban )
+        public Recipient(string firstName, string lastName, string address, string iban )
         {
             FirstName = firstName;
             LastName = lastName;
-            Address = addres;
+            Address = address;
             Iban = iban;
         }
     }
