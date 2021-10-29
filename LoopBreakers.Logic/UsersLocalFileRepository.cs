@@ -21,12 +21,12 @@ namespace LoopBreakers.Logic
     {
         private List<Transfer> DummyTransfers = new List<Transfer>
         {
-            new Transfer() {Amount = 213, Iban = "123"},
-            new Transfer() {Amount = 213, Iban = "123"},
-            new Transfer() {Amount = 213, Iban = "534"},
-            new Transfer() {Amount = 213},
-            new Transfer() {Amount = 213},
-            new Transfer() {Amount = 213},
+            new Transfer() {Amount = 213, Iban = "123", Created=DateTime.Now.AddDays(-5),LastName="Szczerba"},
+            new Transfer() {Amount = 214, Iban = "123",Created=DateTime.Now.AddDays(-10),LastName="Szczerba"},
+            new Transfer() {Amount = 215, Iban = "534",Created=DateTime.Now.AddDays(-15),LastName="Szczerba"},
+            new Transfer() {Amount = 216,Iban = "555", Created=DateTime.Now.AddDays(-88),LastName="Szczerba"},
+            new Transfer() {Amount = 217,Iban = "666",Created=DateTime.Now.AddDays(-120),LastName="Szczerba"},
+            new Transfer() {Amount = 218,Iban = "777",Created=DateTime.Now.AddDays(-150),LastName="Szczerba"},
         };
         private readonly List<User> _users = new List<User>();
 
@@ -38,7 +38,10 @@ namespace LoopBreakers.Logic
         {
             return this.DummyTransfers.Where(x => x.Iban == userIban).ToList();
         }
-
+        public List<Transfer> SortTransfersByDate(string userLastname,DateTime startDate, DateTime endDate)
+        {
+            return this.DummyTransfers.Where(x => x.LastName.Contains(userLastname, StringComparison.OrdinalIgnoreCase) && x.Created >= startDate && x.Created <= endDate).OrderBy(x => x.Created).ToList();
+        }
         public UsersLocalFileRepository()
         {
             if (File.Exists(UsersJsonFilePath))
