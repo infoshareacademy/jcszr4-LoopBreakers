@@ -74,9 +74,7 @@ namespace LoopBreakers.ConsoleApp
                         break;
                     case 3:
                         Console.Clear();
-                        List<Transfer> foundTransfers;
-                        Console.WriteLine("Introduce the surname of user which you wish to find");
-                        var entryNameCase3 = Console.ReadLine();
+                        List<Transfer> foundTransfers;                      
                         Console.WriteLine("Choose the period of transfers performed");
                         Console.WriteLine("1. Last month");
                         Console.WriteLine("2. Last 3 month");
@@ -90,11 +88,11 @@ namespace LoopBreakers.ConsoleApp
                         if (optionChosed >= 1 && optionChosed < 4)
                         {
                             ChoosedTimePeriod(optionChosed, out DateTime startDateSearch, out DateTime EndDateSearch);
-                            foundTransfers = usersRepository.SortTransfersByDate(entryNameCase3, startDateSearch, EndDateSearch);
+                            foundTransfers = usersRepository.SortTransfersByDate(startDateSearch, EndDateSearch);
                             Console.Clear();
                             foreach (var item in foundTransfers)
                             {
-                                Console.WriteLine($"Iban: {item.Iban}    ||    Amount:{item.Amount}  ||  Date of Transfer: {item.Created.Date}");
+                                Console.WriteLine($"Iban: {item.Iban}  ||Type of transfer: {item.Type}    ||    Amount:{item.Amount} {item.Currency.ToString().ToUpper()}  ||  Date of Transfer: {item.Created.Date}");
                             }
 
                         }
@@ -113,22 +111,14 @@ namespace LoopBreakers.ConsoleApp
                             }
                             else
                             {
-                               foundTransfers = usersRepository.SortTransfersByDate(entryNameCase3, startDateConverted, endDateConverted);
+                               foundTransfers = usersRepository.SortTransfersByDate(startDateConverted, endDateConverted);
                                Console.Clear();
                                foreach (var item in foundTransfers)
                                {
-                                   Console.WriteLine($"Iban: {item.Iban}    ||    Amount:{item.Amount}  ||  Date of Transfer: {item.Created.Date}");
+                                   Console.WriteLine($"Iban: {item.Iban}  ||Type of transfer: {item.Type}    ||    Amount:{item.Amount} {item.Currency.ToString().ToUpper()}  ||  Date of Transfer: {item.Created.Date}");
                                }
                             }
                         }
-
-
-
-
-
-
-
-
                         // Find transfer by name and date();
                         break;
                     case 4:
@@ -378,7 +368,7 @@ namespace LoopBreakers.ConsoleApp
             return iban;
         }
 
-        public static void ChoosedTimePeriod(int userTransferPeriodOption, out DateTime startPeriod, out DateTime endPeriod)
+        private static void ChoosedTimePeriod(int userTransferPeriodOption, out DateTime startPeriod, out DateTime endPeriod)
         {
             if (userTransferPeriodOption == 1)
             {
