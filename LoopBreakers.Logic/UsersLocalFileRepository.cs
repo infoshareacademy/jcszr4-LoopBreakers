@@ -38,9 +38,9 @@ namespace LoopBreakers.Logic
         {
             return this.DummyTransfers.Where(x => x.Iban == userIban).ToList();
         }
-        public List<Transfer> SortTransfersByDate(string userLastname,DateTime startDate, DateTime endDate)
+        public List<Transfer> SortTransfersByDate(DateTime startDate, DateTime endDate)
         {
-            return this.DummyTransfers.Where(x => x.LastName.Contains(userLastname, StringComparison.OrdinalIgnoreCase) && x.Created >= startDate && x.Created <= endDate).OrderBy(x => x.Created).ToList();
+            return this.DummyTransfers.Where(x=>x.Created >= startDate && x.Created <= endDate).OrderBy(x => x.Created).ToList();
         }
         public UsersLocalFileRepository()
         {
