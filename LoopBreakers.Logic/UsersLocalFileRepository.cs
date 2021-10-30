@@ -10,25 +10,25 @@ namespace LoopBreakers.Logic
     internal interface IUsersRepository
     {
         List<User> GetUsers { get; }
-
-
         void AddUser(User user);
+        void EditUser(User user, int userIndex);
         List<User> GetUsersWithSurnameMatchingFilter(string filter);
         List<User> GetUsersWithFirstNameMatchingFilter(string filter);
     }
 
     public class UsersLocalFileRepository : IUsersRepository
     {
-        private List<Transfer> DummyTransfers = new List<Transfer>
+        private readonly List<Transfer> _transfers = new List<Transfer>
         {
-            new Transfer() {Amount = 213, Iban = "123", Created=DateTime.Now.AddDays(-5),LastName="Szczerba"},
-            new Transfer() {Amount = 214, Iban = "123",Created=DateTime.Now.AddDays(-10),LastName="Szczerba"},
-            new Transfer() {Amount = 215, Iban = "534",Created=DateTime.Now.AddDays(-15),LastName="Szczerba"},
-            new Transfer() {Amount = 216,Iban = "555", Created=DateTime.Now.AddDays(-88),LastName="Szczerba"},
-            new Transfer() {Amount = 217,Iban = "666",Created=DateTime.Now.AddDays(-120),LastName="Szczerba"},
-            new Transfer() {Amount = 218,Iban = "777",Created=DateTime.Now.AddDays(-150),LastName="Szczerba"},
+            new Transfer() { Amount = 213, Iban = "123", Created = DateTime.Now.AddDays(-5), LastName = "Szczerba"},
+            new Transfer() { Amount = 214, Iban = "123", Created = DateTime.Now.AddDays(-10), LastName = "Szczerba"},
+            new Transfer() { Amount = 215, Iban = "534", Created = DateTime.Now.AddDays(-15), LastName = "Szczerba"},
+            new Transfer() { Amount = 216, Iban = "555", Created = DateTime.Now.AddDays(-88), LastName = "Szczerba"},
+            new Transfer() { Amount = 217, Iban = "666", Created = DateTime.Now.AddDays(-120), LastName = "Szczerba"},
+            new Transfer() { Amount = 218, Iban = "777", Created = DateTime.Now.AddDays(-150), LastName = "Szczerba"},
         };
-        private readonly List<User> _users = new List<User>();
+
+    private readonly List<User> _users = new List<User>();
 
         private const string UsersJsonFilePath = "DataSource/users.json";
 
@@ -36,11 +36,11 @@ namespace LoopBreakers.Logic
 
         public List<Transfer> SearchTransfersForUser(string userIban)
         {
-            return this.DummyTransfers.Where(x => x.Iban == userIban).ToList();
+            return this._transfers.Where(x => x.Iban == userIban).ToList();
         }
         public List<Transfer> SortTransfersByDate(DateTime startDate, DateTime endDate)
         {
-            return this.DummyTransfers.Where(x=>x.Created >= startDate && x.Created <= endDate).OrderBy(x => x.Created).ToList();
+            return this._transfers.Where(x=>x.Created >= startDate && x.Created <= endDate).OrderBy(x => x.Created).ToList();
         }
         public UsersLocalFileRepository()
         {
@@ -61,9 +61,24 @@ namespace LoopBreakers.Logic
             get { return _recipientList; }
         }
 
+        public List<Transfer> GetTransfers
+        {
+            get { return _transfers; }
+        }
+
+        public void AddTransfer(Transfer transfer)
+        {
+            _transfers.Add(transfer);
+        }
+
         public void AddUser(User user)
         {
             _users.Add(user);
+        }
+
+        public void EditUser(User user, int userIndex)
+        {
+            _users[userIndex] = user;
         }
 
         public void AddRecipient(Recipient recipient)
@@ -85,7 +100,6 @@ namespace LoopBreakers.Logic
             _recipientList.RemoveAt(chosenRecipient-1);
         }
 
-
         public List<User> GetUsersWithSurnameMatchingFilter(string filter)
         {
             return _users.Where(user => user.LastName.Contains(filter, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -95,9 +109,5 @@ namespace LoopBreakers.Logic
         {
             return _users.Where(user => user.FirstName.Contains(filter, StringComparison.OrdinalIgnoreCase)).ToList();
         }
-
-
-
     }
-
 }

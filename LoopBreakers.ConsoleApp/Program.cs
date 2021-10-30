@@ -65,7 +65,7 @@ namespace LoopBreakers.ConsoleApp
                         foreach (var user in matchingUsers)
                         {
                             Console.WriteLine(
-                                $"\n{user.FirstName} {user.LastName}\r\nBalance: {user.Balance} {user.Currency}\r\nAddress: {user.Address}\r\nAge: {user.Age}\r\nCompany: {user.Company}\r\nE-mail: {user.Email}\r\nGender: {user.Gender}\r\nId: {user.Id}\r\nisActive?: {user.IsActive}\r\nPhone Number: {user.Phone}\r\nDate of Reg: {user.Registered}\n");
+                                $"\n{user.FirstName} {user.LastName}\r\nBalance: {user.Balance} {user.Currency}\r\nAddress: {user.Address}\r\nAge: {user.Age}\r\nCompany: {user.Company}\r\nE-mail: {user.Email}\r\nGender: {user.Gender}\r\nId: {user.Id}\r\nisActive?: {user.IsActive}\r\nPhone Number: {user.Phone}\r\nDate of Reg: {user.Registered}\r\nIBAN: {user.Iban}\n");
                         }
 
                         break;
@@ -122,14 +122,16 @@ namespace LoopBreakers.ConsoleApp
                         // Find transfer by name and date();
                         break;
                     case 4:
-                        // Add new bank transfer();
+                        // Add new bank transfer
+                        Client.SendTransfer(usersRepository);
                         break;
                     case 5:
                         // Add new clint
                         usersRepository.AddUser(Client.AddNew());
                         break;
                     case 6:
-                        // Edit client();
+                        // Edit client
+                        Client.Edit(usersRepository);
                         break;
                     case 7:
                         Console.Clear();
@@ -239,7 +241,7 @@ namespace LoopBreakers.ConsoleApp
 
 
 
-        private static int GetChosenOption(out int chosenOption, int minOption, int maxOption)
+        public static int GetChosenOption(out int chosenOption, int minOption, int maxOption)
         {
             if (!int.TryParse(Console.ReadLine(), out chosenOption))
             {
@@ -357,7 +359,7 @@ namespace LoopBreakers.ConsoleApp
             return textFromUser;
         }
 
-        private static string GetTextIban()
+        public static string GetTextIban()
         {
             string iban = GetText(28, 28);
             if (!iban.ToUpper().StartsWith("PL"))
@@ -389,13 +391,10 @@ namespace LoopBreakers.ConsoleApp
             {
                 startPeriod = DateTime.Now.AddDays(1);
                 endPeriod = DateTime.Now.AddDays(1);
-
             }
         }
         private static void ChoosedTimePeriodCustomed(string customedStartDate, string customedEndDate, out DateTime startPeriod, out DateTime endPeriod)
         {
-
-
             try
             {
                 startPeriod = Convert.ToDateTime(customedStartDate);
@@ -413,9 +412,3 @@ namespace LoopBreakers.ConsoleApp
         }
     }
 }
-        
-        
-
-    
-
-
