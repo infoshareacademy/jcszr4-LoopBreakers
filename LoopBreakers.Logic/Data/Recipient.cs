@@ -21,6 +21,4 @@ namespace LoopBreakers.Logic.Data
             Iban = iban;
         }
     }
-
-
 }
