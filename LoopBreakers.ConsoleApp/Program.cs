@@ -29,7 +29,7 @@ namespace LoopBreakers.ConsoleApp
                     "2. Find transfer by date.",
                     "3. Find transfer by name and date.",
                     "4. Add new bank transfer.",
-                    "5. Add new clint.",
+                    "5. Add new client.",
                     "6. Edit client.",
                     "7. Add recipient.",
                     "8. Edit recipient.",
@@ -259,7 +259,7 @@ namespace LoopBreakers.ConsoleApp
 
         public static string GetText(int minLenght, int maxLenght)
         {
-            string textFromUser = Console.ReadLine();
+            string textFromUser = Console.ReadLine().Trim();
             if (textFromUser.Length < minLenght || textFromUser.Length > maxLenght)
             {
                 Console.Write($"Wrong value (min: {minLenght}, max: {maxLenght} sign). Type again: ");

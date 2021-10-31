@@ -28,7 +28,7 @@ namespace LoopBreakers.Logic
             new Transfer() { Amount = 218, Iban = "777", Created = DateTime.Now.AddDays(-150), LastName = "Szczerba"},
         };
 
-    private readonly List<User> _users = new List<User>();
+        private readonly List<User> _users = new List<User>();
 
         private const string UsersJsonFilePath = "DataSource/users.json";
 
