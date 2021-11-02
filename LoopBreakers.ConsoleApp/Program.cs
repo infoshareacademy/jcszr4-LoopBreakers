@@ -7,6 +7,7 @@ using System.Linq;
 using LoopBreakers.Logic;
 using Microsoft.VisualBasic.CompilerServices;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace LoopBreakers.ConsoleApp
 {
@@ -16,6 +17,7 @@ namespace LoopBreakers.ConsoleApp
         {
             var usersRepository = new UsersLocalFileRepository();
 
+            ConsoleKey addedInput;
             int chosenOption;
             int menuOptionsCount;
             do
@@ -69,9 +71,110 @@ namespace LoopBreakers.ConsoleApp
                         }
 
                         break;
+
                     case 2:
-                        // Find transfer by date();
-                        break;
+                        List<Transfer> transfersList;
+                        var startDate = DateTime.Today;
+                        var endDateOne = startDate.AddDays(30);
+                        var endDateTwo = startDate.AddDays(90);
+                        var endDateThree = startDate.AddDays(182);
+                        var endDateFour = startDate.AddDays(360);
+                        do
+                        {
+                            Console.WriteLine("Enter the user surname: ");
+                            var entrySurname = Console.ReadLine();
+                            var matchingUser = usersRepository.GetUsersWithSurnameMatchingFilter(entrySurname);
+                            if (!matchingUser.Any())
+                            {
+                                Console.WriteLine("\nThe given value is incorrect\n");
+                            }
+                            if (matchingUser.Any())
+                            {
+                                foreach (var user in matchingUser)
+                                {
+                                    Console.WriteLine("Choose the period of transfers performed");
+                                    var months = new Dictionary<int, string>();
+                                    months.Add(1, "1 Month");
+                                    months.Add(2, "3 Months");
+                                    months.Add(3, "6 Months");
+                                    months.Add(4, "9 Months");
+                                    months.Add(5, "12 Months");
+                                    
+
+                                    foreach (KeyValuePair<int, string> kvp in months)
+                                    {
+                                        Console.WriteLine($"{kvp.Key}, {kvp.Value}");
+                                    }
+
+                                    Console.WriteLine("\nSelect an opiton: \n");
+                                    addedInput = Console.ReadKey().Key;
+                                    
+                                    if (addedInput == ConsoleKey.Add || addedInput == 0)
+                                    {
+                                        Console.WriteLine("\nThe given value is incorrect, please enter a valid value\n");
+                                    }
+
+                                    if (addedInput == ConsoleKey.D1)
+                                    {
+                                        
+                                        transfersList = usersRepository.SortTransfersByDate(startDate, endDateOne);
+                                        foreach (var transfer in transfersList)
+                                        {
+                                            Console.WriteLine("Iban Number:                   | Transfer Type:        | Date:                   | Amount:                  ");
+                                            Console.WriteLine($"{transfer.Iban}               | {transfer.Type}       | {transfer.Created.Date} | {transfer.Amount}        ");
+                                        }
+                                    }
+                                    if (addedInput == ConsoleKey.D2)
+                                    {
+
+                                        transfersList = usersRepository.SortTransfersByDate(startDate, endDateTwo);
+                                        foreach (var transfer in transfersList)
+                                        {
+                                            Console.WriteLine("Iban Number:                   | Transfer Type:        | Date:                   | Amount:                  ");
+                                            Console.WriteLine($"{transfer.Iban}               | {transfer.Type}       | {transfer.Created.Date} | {transfer.Amount}        ");
+                                        }
+                                    }
+                                    if (addedInput == ConsoleKey.D3)
+                                    {
+
+                                        transfersList = usersRepository.SortTransfersByDate(startDate, endDateThree);
+                                        foreach (var transfer in transfersList)
+                                        {
+                                            Console.WriteLine("Iban Number:                   | Transfer Type:        | Date:                   | Amount:                  ");
+                                            Console.WriteLine($"{transfer.Iban}               | {transfer.Type}       | {transfer.Created.Date} | {transfer.Amount}        ");
+                                        }
+                                    }
+                                    if (addedInput == ConsoleKey.D4)
+                                    {
+
+                                        transfersList = usersRepository.SortTransfersByDate(startDate, endDateTwo);
+                                        foreach (var transfer in transfersList)
+                                        {
+                                            Console.WriteLine("Iban Number:                   | Transfer Type:        | Date:                   | Amount:                  ");
+                                            Console.WriteLine($"{transfer.Iban}               | {transfer.Type}       | {transfer.Created.Date} | {transfer.Amount}        ");
+                                        }
+                                    }
+                                    if (addedInput == ConsoleKey.D5)
+                                    {
+
+                                        transfersList = usersRepository.SortTransfersByDate(startDate, endDateTwo);
+                                        foreach (var transfer in transfersList)
+                                        {
+                                            Console.WriteLine("Iban Number:                   | Transfer Type:        | Date:                   | Amount:                  ");
+                                            Console.WriteLine($"{transfer.Iban}               | {transfer.Type}       | {transfer.Created.Date} | {transfer.Amount}        ");
+                                        }
+                                    }
+                                }
+
+                                Console.WriteLine("\nPres the ESC key to exit or any key to continue\n");
+                                }
+
+                        } while (Console.ReadKey().Key != ConsoleKey.Escape) ;
+
+                            // Find transfer by date();
+
+
+                            break;
                     case 3:
                         Console.Clear();
                         List<Transfer> foundTransfers;                      
@@ -239,7 +342,7 @@ namespace LoopBreakers.ConsoleApp
             } while (chosenOption < menuOptionsCount);
         }
 
-
+        
 
         public static int GetChosenOption(out int chosenOption, int minOption, int maxOption)
         {
