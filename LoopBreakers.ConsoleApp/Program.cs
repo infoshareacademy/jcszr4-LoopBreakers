@@ -21,7 +21,8 @@ namespace LoopBreakers.ConsoleApp
             do
             {
                 Console.Clear();
-                Console.WriteLine("Welcome to Bank transfer application!");
+                Console.WriteLine("Crated by: Ma³gorzata £ukasik, Marcel Olkowski, Rafa³ Szczerba, Tadeusz Trojan, Bart³omiej Zieliñski ");
+                Console.WriteLine("\nWelcome to Bank transfer application!");
                 Console.WriteLine("_____________________________________");
                 List<string> menuOptions = new List<string>
                 {
@@ -31,7 +32,7 @@ namespace LoopBreakers.ConsoleApp
                     "4. Add new bank transfer.",
                     "5. Add new client.",
                     "6. Edit client.",
-                    "7. Add recipient.",
+                    "7. Add new recipient.",
                     "8. Edit recipient.",
                     "9. Remove recipient.",
                     "10. Exit."
@@ -134,8 +135,24 @@ namespace LoopBreakers.ConsoleApp
                         Client.Edit(usersRepository);
                         break;
                     case 7:
-                        Recipient.AddRecipient(usersRepository);
-                        
+                        Console.Clear();
+                        Console.WriteLine("Add Recipient\n");
+
+                        Console.Write("Type first name: ");
+                        var firstName =  GetTextWithoutNumbers(2, 20);
+
+                        Console.Write("Type last name: ");
+                        var lastName = GetTextWithoutNumbers(2, 20);
+
+                        Console.Write("Type address: ");
+                        var address = GetText(5, 40);
+
+                        Console.Write("Type Iban: ");
+                        var iban = GetTextIban();
+
+                        Recipient newRecipient = new Recipient(firstName, lastName, address, iban.ToUpper());
+                        usersRepository.AddRecipient(newRecipient);
+
 
                         break;
                     case 8:

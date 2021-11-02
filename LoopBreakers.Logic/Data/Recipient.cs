@@ -23,9 +23,9 @@ namespace LoopBreakers.Logic.Data
 
         public static void PrintRecipient(List<Recipient> listOfRecipients)
         {
-            Console.WriteLine("List of your recipients:");
+            Console.WriteLine("List of your recipients:\n");
             int id = 1;
-            Console.WriteLine($"| {"ID",3} | {"FirstName",15} | {"LastName",15} | {"Iban",30} | {"Address",35} |");
+            Console.WriteLine($"| {"ID",3} | {"FIRST NAME",15} | {"LAST NAME",15} | {"IBAN",30} | {"ADDRESS",35} |");
             foreach (var recipient in listOfRecipients)
             {
                 Console.WriteLine($"| {id,3} | {recipient.FirstName,15} | {recipient.LastName,15} | {recipient.Iban,30} | {recipient.Address,35} |");
@@ -33,25 +33,6 @@ namespace LoopBreakers.Logic.Data
             }
         }
 
-        public static void AddRecipient(UsersLocalFileRepository usersRepository)
-        {
-            Console.Clear();
-            Console.WriteLine("Add Recipient\n");
 
-            Console.Write("Type first name: ");
-            //var firstName = GetTextWithoutNumbers(2, 20);
-
-            Console.Write("Type last name: ");
-            //var lastName = GetTextWithoutNumbers(2, 20);
-
-            Console.Write("Type address: ");
-            //var address = GetText(5, 40);
-
-            Console.Write("Type Iban: ");
-            //var iban = GetTextIban();
-
-            //Recipient newRecipient = new Recipient(firstName, lastName, address, iban.ToUpper());
-            //usersRepository.AddRecipient(newRecipient);
-        }
     }
 }
