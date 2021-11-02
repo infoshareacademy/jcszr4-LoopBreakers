@@ -23,5 +23,6 @@ namespace LoopBreakers.Logic.Validators
             
             return (outputText, isValid);
         }
+
     }
 }
