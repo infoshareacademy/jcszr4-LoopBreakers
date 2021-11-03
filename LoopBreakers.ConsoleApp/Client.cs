@@ -2,6 +2,7 @@
 using LoopBreakers.Logic.Data;
 using LoopBreakers.Logic.Enums;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LoopBreakers.ConsoleApp
@@ -189,7 +190,7 @@ namespace LoopBreakers.ConsoleApp
                 Console.Write("\nSelect an opiton: ");
                 Program.GetChosenOption(out int chosenOption, 1, monthOptionsCount);
                 var dateSearch = DateTime.Now.AddMonths(-monthsOption.Keys.ElementAt(chosenOption - 1));
-                var transferListByDate = transferList.Where(x => x.Created > dateSearch).ToList();
+                var transferListByDate = usersRepository.GetTransfersByDate(transferList, dateSearch);
                 if (!transferListByDate.Any())
                 {
                     Console.WriteLine("There are no transfers in selected period of time!");

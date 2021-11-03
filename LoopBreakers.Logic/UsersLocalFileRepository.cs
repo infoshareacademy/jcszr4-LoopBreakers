@@ -43,6 +43,10 @@ namespace LoopBreakers.Logic
         {
             return this._transfers.Where(x => x.LastName.ToLower() == userSurname.ToLower()).ToList();
         }
+        public List<Transfer> GetTransfersByDate(List<Transfer> transferList, DateTime searchFromDate)
+        {
+            return transferList.Where(x => x.Created > searchFromDate).ToList();
+        }
         public List<Transfer> SortTransfersByDate(DateTime startDate, DateTime endDate)
         {
             return this._transfers.Where(x=>x.Created >= startDate && x.Created <= endDate).OrderBy(x => x.Created).ToList();
