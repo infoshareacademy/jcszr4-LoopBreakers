@@ -21,7 +21,8 @@ namespace LoopBreakers.ConsoleApp
             do
             {
                 Console.Clear();
-                Console.WriteLine("Welcome to Bank transfer application!");
+                Console.WriteLine("Crated by: Ma³gorzata £ukasik, Marcel Olkowski, Rafa³ Szczerba, Tadeusz Trojan, Bart³omiej Zieliñski ");
+                Console.WriteLine("\nWelcome to Bank transfer application!");
                 Console.WriteLine("_____________________________________");
                 List<string> menuOptions = new List<string>
                 {
@@ -31,7 +32,7 @@ namespace LoopBreakers.ConsoleApp
                     "4. Add new bank transfer.",
                     "5. Add new client.",
                     "6. Edit client.",
-                    "7. Add recipient.",
+                    "7. Add new recipient.",
                     "8. Edit recipient.",
                     "9. Remove recipient.",
                     "10. Exit."
@@ -122,123 +123,29 @@ namespace LoopBreakers.ConsoleApp
                         // Find transfer by name and date();
                         break;
                     case 4:
-                        // Add new bank transfer
                         Client.SendTransfer(usersRepository);
                         break;
                     case 5:
-                        // Add new clint
                         usersRepository.AddUser(Client.AddNew());
                         break;
                     case 6:
-                        // Edit client
                         Client.Edit(usersRepository);
                         break;
                     case 7:
-                        Console.Clear();
-                        Console.WriteLine("Add Recipient\n");
-
-                        Console.Write("Type first name: ");
-                        var firstName = GetTextWithoutNumbers(2, 20);
-
-                        Console.Write("Type last name: ");
-                        var lastName = GetTextWithoutNumbers(2, 20);
-
-                        Console.Write("Type address: ");
-                        var address = GetText(8, 40);
-
-                        Console.Write("Type Iban: ");
-                        var iban = GetTextIban();
-
-                        Recipient newRecipient = new Recipient(firstName, lastName, address, iban);
-                        usersRepository.AddRecipient(newRecipient);
-
+                        Recipient.AddNewRecipient(usersRepository);
                         break;
                     case 8:
-                        // Edit recipient();
-                        Console.Clear();
-                        Console.WriteLine("Edit Recipient\n");
-
-                        List<Recipient> listOfRecipients = usersRepository.GetRecipient;
-
-
-                        if (!listOfRecipients.Any())
-                        {
-                            Console.WriteLine("You don't have any recipients :");
-                        }
-                        else
-                        {
-                            Console.WriteLine("List of your recipients:");
-                            int id = 1;
-                            foreach (var recipient in listOfRecipients)
-                            {
-                                Console.WriteLine($"{id,3}. {recipient.FirstName,15} {recipient.LastName,20} {recipient.Address,40} {recipient.Iban,30}", id, recipient.FirstName);
-                                id++;
-                            }
-
-                            Console.Write("Type number of recipient to edit:");
-                            int choosenRecipient;
-                            GetChosenOption(out choosenRecipient, 1, listOfRecipients.Count);
-
-                            Recipient recipientToEdit = listOfRecipients[choosenRecipient - 1];
-
-                            Console.WriteLine($"\nCurrent first name: {recipientToEdit.FirstName}");
-                            Console.Write("Type new first name: ");
-                            var newFirstName = GetTextWithoutNumbers(2, 20);
-
-                            Console.WriteLine($"\nCurrent last name: {recipientToEdit.LastName}");
-                            Console.Write("Type new last name: ");
-                            var newLastName = GetTextWithoutNumbers(2, 20);
-
-                            Console.WriteLine($"\nCurrent address: {recipientToEdit.Address}");
-                            Console.Write("Type new address: ");
-                            var newAddress = GetText(8, 40);
-
-                            Console.WriteLine($"\nCurrent iban: {recipientToEdit.Iban}");
-                            Console.Write("Type new iban: ");
-                            var newIban = GetTextIban();
-
-                            usersRepository.EditRecipient(choosenRecipient, newFirstName, newLastName, newAddress,
-                                newIban);
-                        }
-
+                        Recipient.EditRecipient(usersRepository);
                         break;
                     case 9:
-                        Console.Clear();
-                        Console.WriteLine("Remove recipient\n");
-
-                        List<Recipient> listOfRecipientsToRemove = usersRepository.GetRecipient;
-
-                        if (!listOfRecipientsToRemove.Any())
-                        {
-                            Console.WriteLine("You don't have any recipients :");
-                        }
-                        else
-                        {
-                            Console.WriteLine("List of your recipients:");
-                            int id = 1;
-                            foreach (var recipient in listOfRecipientsToRemove)
-                            {
-                                Console.WriteLine(
-                                    $"{id,3}. {recipient.FirstName,15} {recipient.LastName,20} {recipient.Address,40} {recipient.Iban,30}",
-                                    id, recipient.FirstName);
-                                id++;
-                            }
-
-                            Console.Write("Type number of recipient to remove: ");
-                            int choosenRecipient;
-                            GetChosenOption(out choosenRecipient, 1, listOfRecipientsToRemove.Count);
-                            usersRepository.RemoveRecipient(choosenRecipient);
-                            Console.Write("Chosen recipient was removed.");
-                        }
+                        Recipient.RemoveRecipient(usersRepository);
                         break;
                 }
-                Console.WriteLine("\nEnter any key to return");
+                Console.Write("\nEnter any key to return:");
                 Console.ReadKey();
 
             } while (chosenOption < menuOptionsCount);
         }
-
-
 
         public static int GetChosenOption(out int chosenOption, int minOption, int maxOption)
         {
@@ -370,7 +277,7 @@ namespace LoopBreakers.ConsoleApp
                 Console.Write("Wrong range - full polish iban has 28 characters, iban without country code at the beginning has 26. So range should be 28. Type again: ");
                 iban = GetTextIban();
             }
-            return iban;
+            return iban.ToUpper();
         }
 
         private static void ChoosedTimePeriod(int userTransferPeriodOption, out DateTime startPeriod, out DateTime endPeriod)

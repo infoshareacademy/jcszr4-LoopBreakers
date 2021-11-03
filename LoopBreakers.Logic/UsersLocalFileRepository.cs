@@ -5,6 +5,7 @@ using System.Linq;
 using LoopBreakers.Logic.Data;
 using Newtonsoft.Json;
 
+
 namespace LoopBreakers.Logic
 {
     internal interface IUsersRepository
@@ -32,7 +33,7 @@ namespace LoopBreakers.Logic
 
         private const string UsersJsonFilePath = "DataSource/users.json";
 
-        private List<Recipient> _recipientList = new List<Recipient>();
+        private List<RecipientStructure> _recipientList = new List<RecipientStructure>();
 
         public List<Transfer> SearchTransfersForUser(string userIban)
         {
@@ -56,7 +57,7 @@ namespace LoopBreakers.Logic
             get { return _users; }
         }
 
-        public List<Recipient> GetRecipient
+        public List<RecipientStructure> GetRecipient
         {
             get { return _recipientList; }
         }
@@ -81,7 +82,7 @@ namespace LoopBreakers.Logic
             _users[userIndex] = user;
         }
 
-        public void AddRecipient(Recipient recipient)
+        public void AddRecipient(RecipientStructure recipient)
         {
             _recipientList.Add(recipient);
         }
@@ -109,5 +110,6 @@ namespace LoopBreakers.Logic
         {
             return _users.Where(user => user.FirstName.Contains(filter, StringComparison.OrdinalIgnoreCase)).ToList();
         }
+       
     }
 }
