@@ -21,7 +21,7 @@ namespace LoopBreakers.ConsoleApp
             do
             {
                 Console.Clear();
-                Console.WriteLine("Crated by: Ma³gorzata £ukasik, Marcel Olkowski, Rafa³ Szczerba, Tadeusz Trojan, Bart³omiej Zieliñski ");
+                Console.WriteLine("Crated by: Małgorzata £ukasik, Marcel Olkowski, Rafał Szczerba, Tadeusz Trojan, Bartłomiej Zieliński ");
                 Console.WriteLine("\nWelcome to Bank transfer application!");
                 Console.WriteLine("_____________________________________");
                 List<string> menuOptions = new List<string>
@@ -165,7 +165,7 @@ namespace LoopBreakers.ConsoleApp
         public static string GetText(int minLenght, int maxLenght)
         {
             string textFromUser = Console.ReadLine().Trim();
-            else if (textFromUser.Length < minLenght || textFromUser.Length > maxLenght)
+            if (textFromUser.Length < minLenght || textFromUser.Length > maxLenght)
             {
                 if (minLenght == maxLenght)
                 {
