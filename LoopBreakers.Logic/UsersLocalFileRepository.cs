@@ -5,7 +5,6 @@ using System.Linq;
 using LoopBreakers.Logic.Data;
 using Newtonsoft.Json;
 
-
 namespace LoopBreakers.Logic
 {
     internal interface IUsersRepository
@@ -21,12 +20,12 @@ namespace LoopBreakers.Logic
     {
         private readonly List<Transfer> _transfers = new List<Transfer>
         {
-            new Transfer() { Amount = 213, Iban = "123", Created = DateTime.Now.AddDays(-5), LastName = "Szczerba"},
-            new Transfer() { Amount = 214, Iban = "123", Created = DateTime.Now.AddDays(-10), LastName = "Szczerba"},
-            new Transfer() { Amount = 215, Iban = "534", Created = DateTime.Now.AddDays(-15), LastName = "Szczerba"},
-            new Transfer() { Amount = 216, Iban = "555", Created = DateTime.Now.AddDays(-88), LastName = "Szczerba"},
-            new Transfer() { Amount = 217, Iban = "666", Created = DateTime.Now.AddDays(-120), LastName = "Szczerba"},
-            new Transfer() { Amount = 218, Iban = "777", Created = DateTime.Now.AddDays(-150), LastName = "Szczerba"},
+            new Transfer() { Amount = 213, Iban = "PL12345678901234567890123456", Created = DateTime.Now.AddDays(-5), LastName = "Szczerba"},
+            new Transfer() { Amount = 214, Iban = "PL09876543211234567890987654", Created = DateTime.Now.AddDays(-10), LastName = "Szczerba"},
+            new Transfer() { Amount = 215, Iban = "PL53465464654646464667876834", Created = DateTime.Now.AddDays(-15), LastName = "Szczerba"},
+            new Transfer() { Amount = 216, Iban = "PL98375236543638654545755555", Created = DateTime.Now.AddDays(-88), LastName = "Szczerba"},
+            new Transfer() { Amount = 217, Iban = "PL02857934785397468527454666", Created = DateTime.Now.AddDays(-120), LastName = "Szczerba"},
+            new Transfer() { Amount = 218, Iban = "PL73478346342564365345346777", Created = DateTime.Now.AddDays(-150), LastName = "Szczerba"},
         };
 
         private readonly List<User> _users = new List<User>();
@@ -110,6 +109,5 @@ namespace LoopBreakers.Logic
         {
             return _users.Where(user => user.FirstName.Contains(filter, StringComparison.OrdinalIgnoreCase)).ToList();
         }
-       
     }
 }

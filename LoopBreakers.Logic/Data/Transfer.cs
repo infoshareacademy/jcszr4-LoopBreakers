@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LoopBreakers.Logic.Enums;
 
 namespace LoopBreakers.Logic.Data
@@ -20,9 +16,7 @@ namespace LoopBreakers.Logic.Data
         /// Recipient's last name
         /// </summary>
         public string LastName { get; set; }
-
         public string FromId { get; set; }
-
         public TransferType Type { get; set; }
         public decimal Amount { get; set; }
         public DateTime Created { get; set; }
@@ -31,7 +25,6 @@ namespace LoopBreakers.Logic.Data
         /// Text of the transfer.
         /// </summary>
         public string Reference { get; set; }
-
         public Currency Currency { get; set; }
     } 
 }

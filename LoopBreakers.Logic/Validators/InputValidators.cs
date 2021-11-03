@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LoopBreakers.Logic.Validators
 {
@@ -20,9 +16,7 @@ namespace LoopBreakers.Logic.Validators
                 outputText = inputText;
                 isValid = true;
             }
-            
             return (outputText, isValid);
         }
-
     }
 }

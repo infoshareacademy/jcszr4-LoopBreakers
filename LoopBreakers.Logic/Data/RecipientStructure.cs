@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LoopBreakers.Logic.Data
 {
@@ -13,10 +9,7 @@ namespace LoopBreakers.Logic.Data
         public string Address { get; set; }
         public string Iban { get; set; }
 
-        public RecipientStructure()
-        {
-
-        }
+        public RecipientStructure() { }
         public RecipientStructure(string firstName, string lastName, string address, string iban)
         {
             FirstName = firstName;
@@ -24,9 +17,5 @@ namespace LoopBreakers.Logic.Data
             Address = address;
             Iban = iban;
         }
-
-
-
-
     }
 }

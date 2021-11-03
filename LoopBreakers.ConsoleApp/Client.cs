@@ -50,7 +50,6 @@ namespace LoopBreakers.ConsoleApp
             if (usersRepository.GetUsers.Any())
             {
                 int i = 1;
-
                 usersRepository.GetUsers.ForEach(c => Console.WriteLine($"{i++,-3} {c.FirstName,-15} {c.LastName}"));
                 Console.Write("Enter your selection: ");
                 Program.GetChosenOption(out int chosenOption, 1, usersRepository.GetUsers.Count());

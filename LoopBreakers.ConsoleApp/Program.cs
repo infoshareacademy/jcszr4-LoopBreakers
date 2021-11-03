@@ -1,11 +1,8 @@
 using System;
-using System.Threading.Tasks;
 using LoopBreakers.Logic.Data;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using LoopBreakers.Logic;
-using Microsoft.VisualBasic.CompilerServices;
 using System.ComponentModel.DataAnnotations;
 
 namespace LoopBreakers.ConsoleApp
@@ -95,7 +92,6 @@ namespace LoopBreakers.ConsoleApp
                             {
                                 Console.WriteLine($"Iban: {item.Iban}  ||Type of transfer: {item.Type}    ||    Amount:{item.Amount} {item.Currency.ToString().ToUpper()}  ||  Date of Transfer: {item.Created.Date}");
                             }
-
                         }
                         else if (optionChosed == 4)
                         {
@@ -120,7 +116,6 @@ namespace LoopBreakers.ConsoleApp
                                }
                             }
                         }
-                        // Find transfer by name and date();
                         break;
                     case 4:
                         Client.SendTransfer(usersRepository);

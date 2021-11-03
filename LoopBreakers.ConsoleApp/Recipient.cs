@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LoopBreakers.ConsoleApp;
 
 namespace LoopBreakers.Logic.Data
 {
     public class Recipient
     {
-      
         public static void PrintRecipient(List<RecipientStructure> listOfRecipients)
         {
             Console.WriteLine("List of your recipients:\n");
@@ -17,8 +14,7 @@ namespace LoopBreakers.Logic.Data
             Console.WriteLine($"| {"ID",3} | {"FIRST NAME",15} | {"LAST NAME",15} | {"IBAN",30} | {"ADDRESS",35} |");
             foreach (var recipient in listOfRecipients)
             {
-                Console.WriteLine($"| {id,3} | {recipient.FirstName,15} | {recipient.LastName,15} | {recipient.Iban,30} | {recipient.Address,35} |");
-                id++;
+                Console.WriteLine($"| {id++,3} | {recipient.FirstName,15} | {recipient.LastName,15} | {recipient.Iban,30} | {recipient.Address,35} |");
             }
         }
 
@@ -53,15 +49,13 @@ namespace LoopBreakers.Logic.Data
             if (!listOfRecipients.Any())
             {
                 Console.WriteLine("You don't have any recipients!");
-
             }
             else
             {
                 Recipient.PrintRecipient(listOfRecipients);
 
                 Console.Write("\nType number of recipient to edit:");
-                int choosenRecipient;
-                Program.GetChosenOption(out choosenRecipient, 1, listOfRecipients.Count);
+                Program.GetChosenOption(out int choosenRecipient, 1, listOfRecipients.Count);
                 RecipientStructure recipientToEdit = listOfRecipients[choosenRecipient - 1];
 
                 Console.WriteLine($"\nCurrent first name: {recipientToEdit.FirstName}");
@@ -78,32 +72,26 @@ namespace LoopBreakers.Logic.Data
 
                 Console.WriteLine($"\nCurrent iban: {recipientToEdit.Iban}");
                 Console.Write("Type new iban: ");
-                var newIban = Program.GetTextIban().ToUpper();
+                var newIban = Program.GetTextIban();
 
                 usersRepository.EditRecipient(choosenRecipient, newFirstName, newLastName, newAddress, newIban);
             }
-        
         }
 
         public static void RemoveRecipient(UsersLocalFileRepository usersRepository) 
         {
             Console.Clear();
             Console.WriteLine("Remove recipient\n");
-
             List<RecipientStructure> listOfRecipientsToRemove = usersRepository.GetRecipient;
 
             if (!listOfRecipientsToRemove.Any())
             {
-
                 Console.WriteLine("You don't have any recipients!");
             }
             else
             {
-                Recipient.PrintRecipient(listOfRecipientsToRemove);
-
                 Console.Write("Type number of recipient to remove: ");
-                int choosenRecipient;
-                Program.GetChosenOption(out choosenRecipient, 1, listOfRecipientsToRemove.Count);
+                Program.GetChosenOption(out int choosenRecipient, 1, listOfRecipientsToRemove.Count);
                 usersRepository.RemoveRecipient(choosenRecipient);
                 Console.Write("\nChosen recipient was removed.");
             }
