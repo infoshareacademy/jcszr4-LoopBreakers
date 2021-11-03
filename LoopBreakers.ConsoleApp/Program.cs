@@ -1,11 +1,8 @@
 using System;
-using System.Threading.Tasks;
 using LoopBreakers.Logic.Data;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using LoopBreakers.Logic;
-using Microsoft.VisualBasic.CompilerServices;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
@@ -24,20 +21,26 @@ namespace LoopBreakers.ConsoleApp
             do
             {
                 Console.Clear();
-                Console.WriteLine("Welcome to Bank transfer application!");
-                Console.WriteLine("_____________________________________");
+                Console.WriteLine("==================================================================");
+                Console.WriteLine("           Welcome to Bank transfer application!\n");
+                Console.WriteLine("You can menage clients, make transfers and check transfers history");
+                Console.WriteLine("==================================================================");
+                Console.WriteLine("Created by: Małgorzata Łukasik, Marcel Olkowski, ");
+                Console.WriteLine("            Rafał Szczerba, Tadeusz Trojan, Bartłomiej Zieliński");
+                Console.WriteLine("==================================================================");
+                Console.WriteLine("\nSelect an option:\n");
                 List<string> menuOptions = new List<string>
                 {
-                    "1. Find user by name.",
-                    "2. Find transfer by date.",
-                    "3. Find transfer by name and date.",
-                    "4. Add new bank transfer.",
-                    "5. Add new clint.",
-                    "6. Edit client.",
-                    "7. Add recipient.",
-                    "8. Edit recipient.",
-                    "9. Remove recipient.",
-                    "10. Exit."
+                    " 1. Find user by name.",
+                    " 2. Find transfer by name and date.",
+                    " 3. Find transfer by date.",
+                    " 4. Add new bank transfer.",
+                    " 5. Add new client.",
+                    " 6. Edit client.",
+                    " 7. Add new recipient.",
+                    " 8. Edit recipient.",
+                    " 9. Remove recipient.",
+                    " 10. Exit."
                 };
 
                 menuOptionsCount = menuOptions.Count;
@@ -58,7 +61,8 @@ namespace LoopBreakers.ConsoleApp
                 switch (chosenOption)
                 {
                     case 1:
-                        Console.WriteLine("Introduce the surname of user which you wish to find");
+                        Console.Clear(); 
+                        Console.WriteLine("Introduce the surname of user which you wish to find:");
                         var entryName1 = Console.ReadLine();
                         var matchingUsers = usersRepository.GetUsersWithSurnameMatchingFilter(entryName1);
                         if (!matchingUsers.Any())
@@ -70,7 +74,6 @@ namespace LoopBreakers.ConsoleApp
                             Console.WriteLine(
                                 $"\n{user.FirstName} {user.LastName}\r\nBalance: {user.Balance} {user.Currency}\r\nAddress: {user.Address}\r\nAge: {user.Age}\r\nCompany: {user.Company}\r\nE-mail: {user.Email}\r\nGender: {user.Gender}\r\nId: {user.Id}\r\nisActive?: {user.IsActive}\r\nPhone Number: {user.Phone}\r\nDate of Reg: {user.Registered}\r\nIBAN: {user.Iban}\n");
                         }
-
                         break;
 
                     case 2:
@@ -98,7 +101,6 @@ namespace LoopBreakers.ConsoleApp
                             {
                                 Console.WriteLine($"Iban: {item.Iban}  ||Type of transfer: {item.Type}    ||    Amount:{item.Amount} {item.Currency.ToString().ToUpper()}  ||  Date of Transfer: {item.Created.Date}");
                             }
-
                         }
                         else if (optionChosed == 4)
                         {
@@ -123,128 +125,32 @@ namespace LoopBreakers.ConsoleApp
                                }
                             }
                         }
-                        // Find transfer by name and date();
                         break;
                     case 4:
-                        // Add new bank transfer
                         Client.SendTransfer(usersRepository);
                         break;
                     case 5:
-                        // Add new clint
                         usersRepository.AddUser(Client.AddNew());
                         break;
                     case 6:
-                        // Edit client
                         Client.Edit(usersRepository);
                         break;
                     case 7:
-                        Console.Clear();
-                        Console.WriteLine("Add Recipient\n");
-
-                        Console.Write("Type first name: ");
-                        var firstName = GetTextWithoutNumbers(2, 20);
-
-                        Console.Write("Type last name: ");
-                        var lastName = GetTextWithoutNumbers(2, 20);
-
-                        Console.Write("Type address: ");
-                        var address = GetText(8, 40);
-
-                        Console.Write("Type Iban: ");
-                        var iban = GetTextIban();
-
-                        Recipient newRecipient = new Recipient(firstName, lastName, address, iban);
-                        usersRepository.AddRecipient(newRecipient);
-
+                        Recipient.AddNewRecipient(usersRepository);
                         break;
                     case 8:
-                        // Edit recipient();
-                        Console.Clear();
-                        Console.WriteLine("Edit Recipient\n");
-
-                        List<Recipient> listOfRecipients = usersRepository.GetRecipient;
-
-
-                        if (!listOfRecipients.Any())
-                        {
-                            Console.WriteLine("You don't have any recipients :");
-                        }
-                        else
-                        {
-                            Console.WriteLine("List of your recipients:");
-                            int id = 1;
-                            foreach (var recipient in listOfRecipients)
-                            {
-                                Console.WriteLine($"{id,3}. {recipient.FirstName,15} {recipient.LastName,20} {recipient.Address,40} {recipient.Iban,30}", id, recipient.FirstName);
-                                id++;
-                            }
-
-                            Console.Write("Type number of recipient to edit:");
-                            int choosenRecipient;
-                            GetChosenOption(out choosenRecipient, 1, listOfRecipients.Count);
-
-                            Recipient recipientToEdit = listOfRecipients[choosenRecipient - 1];
-
-                            Console.WriteLine($"\nCurrent first name: {recipientToEdit.FirstName}");
-                            Console.Write("Type new first name: ");
-                            var newFirstName = GetTextWithoutNumbers(2, 20);
-
-                            Console.WriteLine($"\nCurrent last name: {recipientToEdit.LastName}");
-                            Console.Write("Type new last name: ");
-                            var newLastName = GetTextWithoutNumbers(2, 20);
-
-                            Console.WriteLine($"\nCurrent address: {recipientToEdit.Address}");
-                            Console.Write("Type new address: ");
-                            var newAddress = GetText(8, 40);
-
-                            Console.WriteLine($"\nCurrent iban: {recipientToEdit.Iban}");
-                            Console.Write("Type new iban: ");
-                            var newIban = GetTextIban();
-
-                            usersRepository.EditRecipient(choosenRecipient, newFirstName, newLastName, newAddress,
-                                newIban);
-                        }
-
+                        Recipient.EditRecipient(usersRepository);
                         break;
                     case 9:
-                        // Remove recipient();
-                        Console.Clear();
-                        Console.WriteLine("Remove recipient\n");
-
-                        List<Recipient> listOfRecipientsToRemove = usersRepository.GetRecipient;
-
-                        if (!listOfRecipientsToRemove.Any())
-                        {
-                            Console.WriteLine("You don't have any recipients :");
-                        }
-                        else
-                        {
-                            Console.WriteLine("List of your recipients:");
-                            int id = 1;
-                            foreach (var recipient in listOfRecipientsToRemove)
-                            {
-                                Console.WriteLine(
-                                    $"{id,3}. {recipient.FirstName,15} {recipient.LastName,20} {recipient.Address,40} {recipient.Iban,30}",
-                                    id, recipient.FirstName);
-                                id++;
-                            }
-
-                            Console.Write("Type number of recipient to remove: ");
-                            int choosenRecipient;
-                            GetChosenOption(out choosenRecipient, 1, listOfRecipientsToRemove.Count);
-                            usersRepository.RemoveRecipient(choosenRecipient);
-                            Console.Write("Chosen recipient was removed.");
-                        }
+                        Recipient.RemoveRecipient(usersRepository);
                         break;
                 }
-                Console.WriteLine("\nEnter any key to return");
+                Console.Write("\nEnter any key to return:");
                 Console.ReadKey();
 
             } while (chosenOption < menuOptionsCount);
         }
-
-        
-
+      
         public static int GetChosenOption(out int chosenOption, int minOption, int maxOption)
         {
             if (!int.TryParse(Console.ReadLine(), out chosenOption))
@@ -257,17 +163,23 @@ namespace LoopBreakers.ConsoleApp
                 Console.Write("Wrong value! Enter your selection: ");
                 GetChosenOption(out chosenOption, minOption, maxOption);
             }
-            //Console.Clear();
             return (chosenOption);
         }
 
         public static string GetText(int minLenght, int maxLenght)
         {
-            string textFromUser = Console.ReadLine();
+            string textFromUser = Console.ReadLine().Trim();
             if (textFromUser.Length < minLenght || textFromUser.Length > maxLenght)
             {
-                Console.Write($"Wrong value (min: {minLenght}, max: {maxLenght} sign). Type again: ");
-                GetText(minLenght, maxLenght);
+                if (minLenght == maxLenght)
+                {
+                    Console.Write($"Wrong value ({maxLenght} characters are required). Type again: ");
+                }
+                else
+                {
+                    Console.Write($"Wrong value (min: {minLenght}, max: {maxLenght} sign). Type again: ");
+                }
+                textFromUser = GetText(minLenght, maxLenght);
             }
             return textFromUser;
         }
@@ -281,13 +193,13 @@ namespace LoopBreakers.ConsoleApp
                 if ((intFromUser < minValue) || (intFromUser > maxValue))
                 {
                     Console.Write($"Value is out of range: {minValue} - {maxValue}. Type again: ");
-                    GetNumber(minValue, maxValue);
+                    intFromUser = GetNumber(minValue, maxValue);
                 }
             }
             else
             {
                 Console.Write($"Wrong value. Type again: ");
-                GetNumber(minValue, maxValue);
+                intFromUser = GetNumber(minValue, maxValue);
             }
             return intFromUser;
         }
@@ -299,7 +211,7 @@ namespace LoopBreakers.ConsoleApp
             if (!decimal.TryParse(textFromUser, out decimalFromUser))
             {
                 Console.Write($"Wrong value. Type again: ");
-                GetDecimal();
+                decimalFromUser = GetDecimal();
             }
             return decimalFromUser;
         }
@@ -312,7 +224,7 @@ namespace LoopBreakers.ConsoleApp
             if (!emailChecker.IsValid(textFromUser))
             {
                 Console.Write("Entered e-mail is invalid. Type again: ");
-                GetEmail(minLenght, maxLenght);
+                textFromUser = GetEmail(minLenght, maxLenght);
             }
             return textFromUser;
         }
@@ -326,8 +238,7 @@ namespace LoopBreakers.ConsoleApp
                 Console.WriteLine($"{count++}: {item.ToString()}");
             }
             Console.Write("Select an option: ");
-            int chosenOption;
-            GetChosenOption(out chosenOption, 1, count - 1);
+            GetChosenOption(out int chosenOption, 1, count - 1);
             stringFromEnum = Enum.GetName(typeof(T), chosenOption - 1);
             return (stringFromEnum, chosenOption - 1);
         }
@@ -337,8 +248,7 @@ namespace LoopBreakers.ConsoleApp
             Console.WriteLine("1: Yes");
             Console.WriteLine("2: No");
             Console.Write("Select an option: ");
-            int chosenOption;
-            GetChosenOption(out chosenOption, 1, 2);
+            GetChosenOption(out int chosenOption, 1, 2);
             return chosenOption == 1 ? true : false;
         }
 
@@ -358,7 +268,7 @@ namespace LoopBreakers.ConsoleApp
             if (TextWithNumer)
             {
                 Console.Write($"Wrong value. Type again without numbers: ");
-                GetTextWithoutNumbers(minLenght, maxLenght);
+                textFromUser = GetTextWithoutNumbers(minLenght, maxLenght);
             }
             return textFromUser;
         }
@@ -369,9 +279,9 @@ namespace LoopBreakers.ConsoleApp
             if (!iban.ToUpper().StartsWith("PL"))
             {
                 Console.Write("Wrong range - full polish iban has 28 characters, iban without country code at the beginning has 26. So range should be 28. Type again: ");
-                GetTextIban();
+                iban = GetTextIban();
             }
-            return iban;
+            return iban.ToUpper();
         }
 
         private static void ChoosedTimePeriod(int userTransferPeriodOption, out DateTime startPeriod, out DateTime endPeriod)

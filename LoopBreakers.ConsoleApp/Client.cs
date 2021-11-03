@@ -2,10 +2,7 @@
 using LoopBreakers.Logic.Data;
 using LoopBreakers.Logic.Enums;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LoopBreakers.ConsoleApp
 {
@@ -53,11 +50,9 @@ namespace LoopBreakers.ConsoleApp
             if (usersRepository.GetUsers.Any())
             {
                 int i = 1;
-                int chosenOption;
-
                 usersRepository.GetUsers.ForEach(c => Console.WriteLine($"{i++,-3} {c.FirstName,-15} {c.LastName}"));
                 Console.Write("Enter your selection: ");
-                Program.GetChosenOption(out chosenOption, 1, usersRepository.GetUsers.Count());
+                Program.GetChosenOption(out int chosenOption, 1, usersRepository.GetUsers.Count());
                 chosenOption--;
 
                 User client = usersRepository.GetUsers[chosenOption];
@@ -122,16 +117,20 @@ namespace LoopBreakers.ConsoleApp
             if (usersRepository.GetUsers.Any())
             {
                 int i = 1;
-                int chosenOption;
-
                 usersRepository.GetUsers.ForEach(c => Console.WriteLine($"{i++,-3} {c.FirstName,-15} {c.LastName}"));
                 Console.Write("\nEnter your selection: ");
-                Program.GetChosenOption(out chosenOption, 1, usersRepository.GetUsers.Count());
+                Program.GetChosenOption(out int chosenOption, 1, usersRepository.GetUsers.Count());
                 chosenOption--;
 
                 User client = usersRepository.GetUsers[chosenOption];
                 Console.Clear();
+                if (client.Balance == 0)
+                {
+                    Console.WriteLine($"Client balance is 0 {client.Currency}. Transfer can not be created.");
+                    return;
+                }
                 Console.WriteLine($"Transfer will be send from: {client.FirstName} {client.LastName}");
+                Console.WriteLine($"Client current balance: {client.Balance} {client.Currency}");
 
                 Transfer transfer = new Transfer();
                 Console.Write("\nType recipient IBAN: ");
@@ -142,12 +141,13 @@ namespace LoopBreakers.ConsoleApp
                 transfer.LastName = Program.GetTextWithoutNumbers(2, 20);
                 Console.Write("\nType reference: ");
                 transfer.Reference = Program.GetText(1, 100);
-                Console.Write("\nType amout: ");
-                transfer.Amount = Program.GetDecimal();
-                Console.WriteLine("\nSelect currency: ");
-                transfer.Currency = (Currency)Program.GetEnum<Currency>().chosenOption;
-                transfer.Created = DateTime.Now;
-                transfer.Type = TransferType.Payment;
+                do
+                {
+                    Console.Write($"\nType amout in {client.Currency}: ");
+                    transfer.Amount = Program.GetDecimal();
+                }
+                while (transfer.Amount > client.Balance);
+                client.Balance -= transfer.Amount;
 
                 usersRepository.AddTransfer(transfer);
                 Console.WriteLine("\nNew transfer created!");
