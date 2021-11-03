@@ -18,21 +18,26 @@ namespace LoopBreakers.ConsoleApp
             do
             {
                 Console.Clear();
-                Console.WriteLine("Crated by: Małgorzata £ukasik, Marcel Olkowski, Rafał Szczerba, Tadeusz Trojan, Bartłomiej Zieliński ");
-                Console.WriteLine("\nWelcome to Bank transfer application!");
-                Console.WriteLine("_____________________________________");
+                Console.WriteLine("==================================================================");
+                Console.WriteLine("           Welcome to Bank transfer application!\n");
+                Console.WriteLine("You can menage clients, make transfers and check transfers history");
+                Console.WriteLine("==================================================================");
+                Console.WriteLine("Created by: Małgorzata Łukasik, Marcel Olkowski, ");
+                Console.WriteLine("            Rafał Szczerba, Tadeusz Trojan, Bartłomiej Zieliński");
+                Console.WriteLine("==================================================================");
+                Console.WriteLine("\nSelect an option:\n");
                 List<string> menuOptions = new List<string>
                 {
-                    "1. Find user by name.",
-                    "2. Find transfer by date.",
-                    "3. Find transfer by name and date.",
-                    "4. Add new bank transfer.",
-                    "5. Add new client.",
-                    "6. Edit client.",
-                    "7. Add new recipient.",
-                    "8. Edit recipient.",
-                    "9. Remove recipient.",
-                    "10. Exit."
+                    " 1. Find user by name.",
+                    " 2. Find transfer by name and date.",
+                    " 3. Find transfer by date.",
+                    " 4. Add new bank transfer.",
+                    " 5. Add new client.",
+                    " 6. Edit client.",
+                    " 7. Add new recipient.",
+                    " 8. Edit recipient.",
+                    " 9. Remove recipient.",
+                    " 10. Exit."
                 };
 
                 menuOptionsCount = menuOptions.Count;
@@ -53,7 +58,8 @@ namespace LoopBreakers.ConsoleApp
                 switch (chosenOption)
                 {
                     case 1:
-                        Console.WriteLine("Introduce the surname of user which you wish to find");
+                        Console.Clear(); 
+                        Console.WriteLine("Introduce the surname of user which you wish to find:");
                         var entryName1 = Console.ReadLine();
                         var matchingUsers = usersRepository.GetUsersWithSurnameMatchingFilter(entryName1);
                         if (!matchingUsers.Any())
@@ -65,7 +71,6 @@ namespace LoopBreakers.ConsoleApp
                             Console.WriteLine(
                                 $"\n{user.FirstName} {user.LastName}\r\nBalance: {user.Balance} {user.Currency}\r\nAddress: {user.Address}\r\nAge: {user.Age}\r\nCompany: {user.Company}\r\nE-mail: {user.Email}\r\nGender: {user.Gender}\r\nId: {user.Id}\r\nisActive?: {user.IsActive}\r\nPhone Number: {user.Phone}\r\nDate of Reg: {user.Registered}\r\nIBAN: {user.Iban}\n");
                         }
-
                         break;
                     case 2:
                         // Find transfer by date();
