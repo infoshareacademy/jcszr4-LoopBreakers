@@ -21,7 +21,7 @@ namespace LoopBreakers.ConsoleApp
             do
             {
                 Console.Clear();
-                Console.WriteLine("Crated by: Ma³gorzata £ukasik, Marcel Olkowski, Rafa³ Szczerba, Tadeusz Trojan, Bart³omiej Zieliñski ");
+                Console.WriteLine("Crated by: MaÂ³gorzata Â£ukasik, Marcel Olkowski, RafaÂ³ Szczerba, Tadeusz Trojan, BartÂ³omiej ZieliÃ±ski ");
                 Console.WriteLine("\nWelcome to Bank transfer application!");
                 Console.WriteLine("_____________________________________");
                 List<string> menuOptions = new List<string>
@@ -159,17 +159,23 @@ namespace LoopBreakers.ConsoleApp
                 Console.Write("Wrong value! Enter your selection: ");
                 GetChosenOption(out chosenOption, minOption, maxOption);
             }
-            //Console.Clear();
             return (chosenOption);
         }
 
         public static string GetText(int minLenght, int maxLenght)
         {
             string textFromUser = Console.ReadLine().Trim();
-            if (textFromUser.Length < minLenght || textFromUser.Length > maxLenght)
+            else if (textFromUser.Length < minLenght || textFromUser.Length > maxLenght)
             {
-                Console.Write($"Wrong value (min: {minLenght}, max: {maxLenght} sign). Type again: ");
-                GetText(minLenght, maxLenght);
+                if (minLenght == maxLenght)
+                {
+                    Console.Write($"Wrong value ({maxLenght} characters are required). Type again: ");
+                }
+                else
+                {
+                    Console.Write($"Wrong value (min: {minLenght}, max: {maxLenght} sign). Type again: ");
+                }
+                textFromUser = GetText(minLenght, maxLenght);
             }
             return textFromUser;
         }
@@ -183,13 +189,13 @@ namespace LoopBreakers.ConsoleApp
                 if ((intFromUser < minValue) || (intFromUser > maxValue))
                 {
                     Console.Write($"Value is out of range: {minValue} - {maxValue}. Type again: ");
-                    GetNumber(minValue, maxValue);
+                    intFromUser = GetNumber(minValue, maxValue);
                 }
             }
             else
             {
                 Console.Write($"Wrong value. Type again: ");
-                GetNumber(minValue, maxValue);
+                intFromUser = GetNumber(minValue, maxValue);
             }
             return intFromUser;
         }
@@ -201,7 +207,7 @@ namespace LoopBreakers.ConsoleApp
             if (!decimal.TryParse(textFromUser, out decimalFromUser))
             {
                 Console.Write($"Wrong value. Type again: ");
-                GetDecimal();
+                decimalFromUser = GetDecimal();
             }
             return decimalFromUser;
         }
@@ -214,7 +220,7 @@ namespace LoopBreakers.ConsoleApp
             if (!emailChecker.IsValid(textFromUser))
             {
                 Console.Write("Entered e-mail is invalid. Type again: ");
-                GetEmail(minLenght, maxLenght);
+                textFromUser = GetEmail(minLenght, maxLenght);
             }
             return textFromUser;
         }
@@ -228,8 +234,7 @@ namespace LoopBreakers.ConsoleApp
                 Console.WriteLine($"{count++}: {item.ToString()}");
             }
             Console.Write("Select an option: ");
-            int chosenOption;
-            GetChosenOption(out chosenOption, 1, count - 1);
+            GetChosenOption(out int chosenOption, 1, count - 1);
             stringFromEnum = Enum.GetName(typeof(T), chosenOption - 1);
             return (stringFromEnum, chosenOption - 1);
         }
@@ -239,8 +244,7 @@ namespace LoopBreakers.ConsoleApp
             Console.WriteLine("1: Yes");
             Console.WriteLine("2: No");
             Console.Write("Select an option: ");
-            int chosenOption;
-            GetChosenOption(out chosenOption, 1, 2);
+            GetChosenOption(out int chosenOption, 1, 2);
             return chosenOption == 1 ? true : false;
         }
 
@@ -260,7 +264,7 @@ namespace LoopBreakers.ConsoleApp
             if (TextWithNumer)
             {
                 Console.Write($"Wrong value. Type again without numbers: ");
-                GetTextWithoutNumbers(minLenght, maxLenght);
+                textFromUser = GetTextWithoutNumbers(minLenght, maxLenght);
             }
             return textFromUser;
         }
@@ -271,7 +275,7 @@ namespace LoopBreakers.ConsoleApp
             if (!iban.ToUpper().StartsWith("PL"))
             {
                 Console.Write("Wrong range - full polish iban has 28 characters, iban without country code at the beginning has 26. So range should be 28. Type again: ");
-                GetTextIban();
+                iban = GetTextIban();
             }
             return iban.ToUpper();
         }
