@@ -2,10 +2,7 @@
 using LoopBreakers.Logic.Data;
 using LoopBreakers.Logic.Enums;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LoopBreakers.ConsoleApp
 {
@@ -53,11 +50,10 @@ namespace LoopBreakers.ConsoleApp
             if (usersRepository.GetUsers.Any())
             {
                 int i = 1;
-                int chosenOption;
 
                 usersRepository.GetUsers.ForEach(c => Console.WriteLine($"{i++,-3} {c.FirstName,-15} {c.LastName}"));
                 Console.Write("Enter your selection: ");
-                Program.GetChosenOption(out chosenOption, 1, usersRepository.GetUsers.Count());
+                Program.GetChosenOption(out int chosenOption, 1, usersRepository.GetUsers.Count());
                 chosenOption--;
 
                 User client = usersRepository.GetUsers[chosenOption];
@@ -122,11 +118,9 @@ namespace LoopBreakers.ConsoleApp
             if (usersRepository.GetUsers.Any())
             {
                 int i = 1;
-                int chosenOption;
-
                 usersRepository.GetUsers.ForEach(c => Console.WriteLine($"{i++,-3} {c.FirstName,-15} {c.LastName}"));
                 Console.Write("\nEnter your selection: ");
-                Program.GetChosenOption(out chosenOption, 1, usersRepository.GetUsers.Count());
+                Program.GetChosenOption(out int chosenOption, 1, usersRepository.GetUsers.Count());
                 chosenOption--;
 
                 User client = usersRepository.GetUsers[chosenOption];
