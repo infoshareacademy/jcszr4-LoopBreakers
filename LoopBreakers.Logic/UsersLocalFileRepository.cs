@@ -34,9 +34,14 @@ namespace LoopBreakers.Logic
 
         private List<RecipientStructure> _recipientList = new List<RecipientStructure>();
 
-        public List<Transfer> SearchTransfersForUser(string userIban)
+        public List<Transfer> GetTransfersForUserByIban(string userIban)
         {
             return this._transfers.Where(x => x.Iban == userIban).ToList();
+        }
+
+        public List<Transfer> GetTransfersForUserBySurname(string userSurname)
+        {
+            return this._transfers.Where(x => x.LastName.ToLower() == userSurname.ToLower()).ToList();
         }
         public List<Transfer> SortTransfersByDate(DateTime startDate, DateTime endDate)
         {

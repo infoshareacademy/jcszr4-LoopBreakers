@@ -157,5 +157,54 @@ namespace LoopBreakers.ConsoleApp
                 Console.WriteLine("There are no clients in the database");
             }
         }
+
+        public static void SearchTransfersBySurnameAndDate(UsersLocalFileRepository usersRepository)
+        {
+            Console.Clear();
+            Console.Write("Enter the client surname: ");
+            var userSurname = Program.GetText(3, 20);
+            var transferList = usersRepository.GetTransfersForUserBySurname(userSurname);
+            if (!transferList.Any())
+            {
+                Console.WriteLine($"\nThere are no transfers for client with surname: {userSurname}\n");
+            }
+            else
+            {
+                Console.WriteLine("Choose the period of transfers performed:");
+                var monthsOption = new Dictionary<int, string>()
+                {
+                    { 1, " 1:  1 month"},
+                    { 3, " 2:  3 months"},
+                    { 6, " 3:  6 months"},
+                    { 9, " 4:  9 months" },
+                    { 12, " 5: 12 months"}
+                };
+
+                int monthOptionsCount = monthsOption.Count;
+
+                foreach (var option in monthsOption)
+                {
+                    Console.WriteLine($"{option.Value}");
+                }
+                Console.Write("\nSelect an opiton: ");
+                Program.GetChosenOption(out int chosenOption, 1, monthOptionsCount);
+                var dateSearch = DateTime.Now.AddMonths(-monthsOption.Keys.ElementAt(chosenOption - 1));
+                var transferListByDate = transferList.Where(x => x.Created > dateSearch).ToList();
+                if (!transferListByDate.Any())
+                {
+                    Console.WriteLine("There are no transfers in selected period of time!");
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine($"Transfers found from date: {dateSearch}:\n");
+                    Console.WriteLine($"{"IBAN Number ",-30} | {"Transfer Type",-15} | {"Date ",-20} | Amount");
+                    foreach (var item in transferListByDate)
+                    {
+                        Console.WriteLine($"{item.Iban,-30} | {item.Type,-15} | {item.Created.Date,-20} | {item.Amount}");
+                    }
+                }
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LoopBreakers.Logic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace LoopBreakers.ConsoleApp
 {
@@ -13,8 +14,10 @@ namespace LoopBreakers.ConsoleApp
         {
             var usersRepository = new UsersLocalFileRepository();
 
+
             int chosenOption;
             int menuOptionsCount;
+            int monthOptionsCount;
             do
             {
                 Console.Clear();
@@ -72,8 +75,9 @@ namespace LoopBreakers.ConsoleApp
                                 $"\n{user.FirstName} {user.LastName}\r\nBalance: {user.Balance} {user.Currency}\r\nAddress: {user.Address}\r\nAge: {user.Age}\r\nCompany: {user.Company}\r\nE-mail: {user.Email}\r\nGender: {user.Gender}\r\nId: {user.Id}\r\nisActive?: {user.IsActive}\r\nPhone Number: {user.Phone}\r\nDate of Reg: {user.Registered}\r\nIBAN: {user.Iban}\n");
                         }
                         break;
+
                     case 2:
-                        // Find transfer by date();
+                        Client.SearchTransfersBySurnameAndDate(usersRepository);
                         break;
                     case 3:
                         Console.Clear();
@@ -146,7 +150,7 @@ namespace LoopBreakers.ConsoleApp
 
             } while (chosenOption < menuOptionsCount);
         }
-
+      
         public static int GetChosenOption(out int chosenOption, int minOption, int maxOption)
         {
             if (!int.TryParse(Console.ReadLine(), out chosenOption))
