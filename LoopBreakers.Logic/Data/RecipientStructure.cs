@@ -4,6 +4,7 @@ namespace LoopBreakers.Logic.Data
 {
     public class RecipientStructure
     {
+        public Guid Guid { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
@@ -16,6 +17,7 @@ namespace LoopBreakers.Logic.Data
             LastName = lastName;
             Address = address;
             Iban = iban;
+            Guid = Guid.NewGuid();
         }
     }
 }

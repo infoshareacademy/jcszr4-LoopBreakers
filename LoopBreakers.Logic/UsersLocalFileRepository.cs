@@ -118,5 +118,10 @@ namespace LoopBreakers.Logic
         {
             return _users.Where(user => user.FirstName.Contains(filter, StringComparison.OrdinalIgnoreCase)).ToList();
         }
+
+        public string GetGuidOfRecipient(int choosenRecipient)
+        {
+            return _recipientList[choosenRecipient].Guid.ToString();
+        }
     }
 }
