@@ -98,14 +98,6 @@ namespace LoopBreakers.Logic.Data
             }
         }
 
-
-
-
-
-
-
-
-
         internal static void SendTransfer(UsersLocalFileRepository usersRepository)
         {
             Console.Clear();
@@ -140,7 +132,6 @@ namespace LoopBreakers.Logic.Data
                 }
                 else
                 {
-                    
                     Recipient.PrintRecipient(listOfRecipientsForTransfer);
                     Console.Write("Type number of recipient for transfer: ");
                     Program.GetChosenOption(out  choosenRecipient, 1, listOfRecipientsForTransfer.Count);
@@ -151,9 +142,8 @@ namespace LoopBreakers.Logic.Data
                 transfer.LastName = listOfRecipientsForTransfer[choosenRecipient-1].LastName;
                 transfer.Iban = listOfRecipientsForTransfer[choosenRecipient-1].Iban;
                 transfer.FromId = listOfRecipientsForTransfer[choosenRecipient-1].Guid.ToString();
-
-
-
+                transfer.Created = DateTime.Now;
+               
                 Console.Write("\nType reference: ");
                 transfer.Reference = Program.GetText(1, 100);
                 do
@@ -171,8 +161,6 @@ namespace LoopBreakers.Logic.Data
             {
                 Console.WriteLine("There are no clients in the database");
             }
-
-
         }
     }
 }
