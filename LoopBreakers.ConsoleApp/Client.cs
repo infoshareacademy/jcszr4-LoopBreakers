@@ -1,6 +1,7 @@
 ﻿using LoopBreakers.Logic;
 using LoopBreakers.Logic.Data;
 using LoopBreakers.Logic.Enums;
+using LoopBreakers.Logic.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,7 @@ namespace LoopBreakers.ConsoleApp
             Console.WriteLine("\nNew client added!");
             return client;
         }
+
 
         public static void Edit(UsersLocalFileRepository usersRepository)
         {
@@ -111,6 +113,7 @@ namespace LoopBreakers.ConsoleApp
             }
         }
 
+
         public static void SendTransfer(UsersLocalFileRepository usersRepository)
         {
             Console.Clear();
@@ -122,7 +125,6 @@ namespace LoopBreakers.ConsoleApp
                 Console.Write("\nEnter your selection: ");
                 Program.GetChosenOption(out int chosenOption, 1, usersRepository.GetUsers.Count());
                 chosenOption--;
-
                 User client = usersRepository.GetUsers[chosenOption];
                 Console.Clear();
                 if (client.Balance == 0)
@@ -144,7 +146,7 @@ namespace LoopBreakers.ConsoleApp
                 transfer.Reference = Program.GetText(1, 100);
                 do
                 {
-                    Console.Write($"\nType amout in {client.Currency}: ");
+                    Console.Write($"\nType amount in {client.Currency}: ");
                     transfer.Amount = Program.GetDecimal();
                 }
                 while (transfer.Amount > client.Balance);
@@ -156,6 +158,76 @@ namespace LoopBreakers.ConsoleApp
             else
             {
                 Console.WriteLine("There are no clients in the database");
+            }
+        }
+
+
+        public static void SearchTransfersByDate(UsersLocalFileRepository usersRepository)
+        {
+            Console.Clear();
+            List<Transfer> foundTransfers;
+            Console.WriteLine("Choose the period of transfers performed");
+            Console.WriteLine("1. Last month");
+            Console.WriteLine("2. Last 3 month");
+            Console.WriteLine("3. Last 6 month");
+            Console.WriteLine("4. Custom:");
+            if (!int.TryParse(Console.ReadLine(), out int optionChosed) || optionChosed > 4 || optionChosed < 1)
+            {
+                Console.WriteLine("You introduced wrong value");
+                return;
+            }
+            if (optionChosed >= 1 && optionChosed < 4)
+            {
+                InputValidators.ChoosedTimePeriod(optionChosed, out DateTime startDateSearch, out DateTime EndDateSearch);
+                foundTransfers = usersRepository.SortTransfersByDate(startDateSearch, EndDateSearch);
+                Console.Clear();
+                Console.WriteLine($"{"Iban",-30}{"Type of Transfer",-20}{"Date Of Transfer",-30}Amount");
+                foreach (var item in foundTransfers)
+                {
+                    Console.WriteLine($"{item.Iban,-30}{item.Type,-20}{item.Created,-30}  {item.Amount} {item.Currency.ToString().ToUpper()}  ");
+                }
+            }
+            else if (optionChosed == 4)
+            {
+                Console.Clear();
+                Console.WriteLine("Introduce start date of transfer period [DD/MM/YYYY]");
+                string startDateIntroduced = Console.ReadLine();
+                Console.WriteLine("Introduce end date of transfer period [DD/MM/YYYY]");
+                string endDateIntroduced = Console.ReadLine();
+                InputValidators.ChoosedTimePeriodCustomed(startDateIntroduced, endDateIntroduced, out DateTime startDateConverted, out DateTime endDateConverted);
+                if (startDateConverted.Date == DateTime.Now.AddDays(1).Date)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Incorrect format of intoduced start/end date of transfer");
+                }
+                else
+                {
+                    foundTransfers = usersRepository.SortTransfersByDate(startDateConverted, endDateConverted);
+                    Console.Clear();
+                    Console.WriteLine($"{"Iban",-30}{"Type of Transfer",-20}{"Date Of Transfer",-30}Amount");
+                    foreach (var item in foundTransfers)
+                    {
+                        Console.WriteLine($"{item.Iban,-30}{item.Type,-20}{item.Created,-30}  {item.Amount} {item.Currency.ToString().ToUpper()}  ");
+                    }
+                }
+            }
+        }
+
+
+        public static void SearchTransfersBySurname(UsersLocalFileRepository usersRepository)
+        {
+            Console.Clear();
+            Console.WriteLine("Introduce the surname of user which you wish to find:");
+            var entryName1 = Program.GetText(3, 20);
+            var matchingUsers = usersRepository.GetUsersWithSurnameMatchingFilter(entryName1);
+            if (!matchingUsers.Any())
+            {
+                Console.WriteLine($"No matching users in the scope for surname {entryName1}");
+            }
+            foreach (var user in matchingUsers)
+            {
+                Console.WriteLine(
+                    $"\n{user.FirstName} {user.LastName}\r\nBalance: {user.Balance} {user.Currency}\r\nAddress: {user.Address}\r\nAge: {user.Age}\r\nCompany: {user.Company}\r\nE-mail: {user.Email}\r\nGender: {user.Gender}\r\nId: {user.Id}\r\nisActive?: {user.IsActive}\r\nPhone Number: {user.Phone}\r\nDate of Reg: {user.Registered}\r\nIBAN: {user.Iban}\n");
             }
         }
 

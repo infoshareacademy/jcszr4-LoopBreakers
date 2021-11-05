@@ -20,12 +20,12 @@ namespace LoopBreakers.Logic
     {
         private readonly List<Transfer> _transfers = new List<Transfer>
         {
-            new Transfer() { Amount = 213, Iban = "PL12345678901234567890123456", Created = DateTime.Now.AddDays(-5), LastName = "Szczerba"},
-            new Transfer() { Amount = 214, Iban = "PL09876543211234567890987654", Created = DateTime.Now.AddDays(-10), LastName = "Szczerba"},
+            new Transfer() { Amount = 213, Iban = "PL1234567890123", Created = DateTime.Now.AddDays(-5), LastName = "Szczerba"},
+            new Transfer() { Amount = 214, Iban = "PL098765432112345678904", Created = DateTime.Now.AddDays(-10), LastName = "Szczerba"},
             new Transfer() { Amount = 215, Iban = "PL53465464654646464667876834", Created = DateTime.Now.AddDays(-15), LastName = "Szczerba"},
-            new Transfer() { Amount = 216, Iban = "PL98375236543638654545755555", Created = DateTime.Now.AddDays(-88), LastName = "Szczerba"},
+            new Transfer() { Amount = 216, Iban = "PL983752365436386545457555", Created = DateTime.Now.AddDays(-88), LastName = "Szczerba"},
             new Transfer() { Amount = 217, Iban = "PL02857934785397468527454666", Created = DateTime.Now.AddDays(-120), LastName = "Szczerba"},
-            new Transfer() { Amount = 218, Iban = "PL73478346342564365345346777", Created = DateTime.Now.AddDays(-150), LastName = "Szczerba"},
+            new Transfer() { Amount = 218, Iban = "PL73478346342564365345332", Created = DateTime.Now.AddDays(-150), LastName = "Szczerba"},
         };
 
         private readonly List<User> _users = new List<User>();
@@ -45,7 +45,7 @@ namespace LoopBreakers.Logic
         }
         public List<Transfer> GetTransfersByDate(List<Transfer> transferList, DateTime searchFromDate)
         {
-            return transferList.Where(x => x.Created > searchFromDate).ToList();
+            return this._transfers.Where(x => x.Created > searchFromDate).ToList();
         }
         public List<Transfer> SortTransfersByDate(DateTime startDate, DateTime endDate)
         {
