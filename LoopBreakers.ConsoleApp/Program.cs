@@ -58,69 +58,13 @@ namespace LoopBreakers.ConsoleApp
                 switch (chosenOption)
                 {
                     case 1:
-                        Console.Clear(); 
-                        Console.WriteLine("Introduce the surname of user which you wish to find:");
-                        var entryName1 = Console.ReadLine();
-                        var matchingUsers = usersRepository.GetUsersWithSurnameMatchingFilter(entryName1);
-                        if (!matchingUsers.Any())
-                        {
-                            Console.WriteLine($"No matching users in the scope for surname {entryName1}");
-                        }
-                        foreach (var user in matchingUsers)
-                        {
-                            Console.WriteLine(
-                                $"\n{user.FirstName} {user.LastName}\r\nBalance: {user.Balance} {user.Currency}\r\nAddress: {user.Address}\r\nAge: {user.Age}\r\nCompany: {user.Company}\r\nE-mail: {user.Email}\r\nGender: {user.Gender}\r\nId: {user.Id}\r\nisActive?: {user.IsActive}\r\nPhone Number: {user.Phone}\r\nDate of Reg: {user.Registered}\r\nIBAN: {user.Iban}\n");
-                        }
+                        Client.SearchTransfersBySurname(usersRepository);
                         break;
                     case 2:
                         Client.SearchTransfersBySurnameAndDate(usersRepository);
                         break;
                     case 3:
-                        Console.Clear();
-                        List<Transfer> foundTransfers;                      
-                        Console.WriteLine("Choose the period of transfers performed");
-                        Console.WriteLine("1. Last month");
-                        Console.WriteLine("2. Last 3 month");
-                        Console.WriteLine("3. Last 6 month");
-                        Console.WriteLine("4. Custom:");
-                        if (!int.TryParse(Console.ReadLine(), out int optionChosed) || optionChosed > 4 || optionChosed < 1)
-                        {
-                            Console.WriteLine("You introduced wrong value");
-                            break;
-                        }
-                        if (optionChosed >= 1 && optionChosed < 4)
-                        {
-                            ChoosedTimePeriod(optionChosed, out DateTime startDateSearch, out DateTime EndDateSearch);
-                            foundTransfers = usersRepository.SortTransfersByDate(startDateSearch, EndDateSearch);
-                            Console.Clear();
-                            foreach (var item in foundTransfers)
-                            {
-                                Console.WriteLine($"Iban: {item.Iban}  ||Type of transfer: {item.Type}    ||    Amount:{item.Amount} {item.Currency.ToString().ToUpper()}  ||  Date of Transfer: {item.Created.Date}");
-                            }
-                        }
-                        else if (optionChosed == 4)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Introduce start date of transfer period [DD/MM/YYYY]");
-                            string startDateIntroduced = Console.ReadLine();
-                            Console.WriteLine("Introduce end date of transfer period [DD/MM/YYYY]");
-                            string endDateIntroduced = Console.ReadLine();
-                            ChoosedTimePeriodCustomed(startDateIntroduced, endDateIntroduced, out DateTime startDateConverted, out DateTime endDateConverted);
-                            if (startDateConverted.Date==DateTime.Now.AddDays(1).Date)
-                            {
-                                Console.Clear();
-                                Console.WriteLine("Incorrect format of intoduced start/end date of transfer");
-                            }
-                            else
-                            {
-                               foundTransfers = usersRepository.SortTransfersByDate(startDateConverted, endDateConverted);
-                               Console.Clear();
-                               foreach (var item in foundTransfers)
-                               {
-                                   Console.WriteLine($"Iban: {item.Iban}  ||Type of transfer: {item.Type}    ||    Amount:{item.Amount} {item.Currency.ToString().ToUpper()}  ||  Date of Transfer: {item.Created.Date}");
-                               }
-                            }
-                        }
+                        Client.SearchTransfersByDate(usersRepository);
                         break;
                     case 4:
                         Client.SendTransfer(usersRepository);
@@ -280,45 +224,7 @@ namespace LoopBreakers.ConsoleApp
             return iban.ToUpper();
         }
 
-        private static void ChoosedTimePeriod(int userTransferPeriodOption, out DateTime startPeriod, out DateTime endPeriod)
-        {
-            if (userTransferPeriodOption == 1)
-            {
-                startPeriod = DateTime.Now.AddDays(-30);
-                endPeriod = DateTime.Now;
-            }
-            else if (userTransferPeriodOption == 2)
-            {
-                startPeriod = DateTime.Now.AddDays(-90);
-                endPeriod = DateTime.Now;
-            }
-            else if (userTransferPeriodOption == 3)
-            {
-                startPeriod = DateTime.Now.AddDays(-180);
-                endPeriod = DateTime.Now;
-            }
-            else
-            {
-                startPeriod = DateTime.Now.AddDays(1);
-                endPeriod = DateTime.Now.AddDays(1);
-            }
-        }
-        private static void ChoosedTimePeriodCustomed(string customedStartDate, string customedEndDate, out DateTime startPeriod, out DateTime endPeriod)
-        {
-            try
-            {
-                startPeriod = Convert.ToDateTime(customedStartDate);
-                if (startPeriod > DateTime.Now)
-                {
-                    startPeriod = DateTime.Now;
-                } 
-                endPeriod = Convert.ToDateTime(customedEndDate);
-            }
-            catch
-            {
-                startPeriod = DateTime.Now.AddDays(1);
-                endPeriod = DateTime.Now.AddDays(1);
-            }
-        }
+        
+        
     }
 }
