@@ -90,10 +90,76 @@ namespace LoopBreakers.Logic.Data
             }
             else
             {
+                Recipient.PrintRecipient(listOfRecipientsToRemove);
                 Console.Write("Type number of recipient to remove: ");
                 Program.GetChosenOption(out int choosenRecipient, 1, listOfRecipientsToRemove.Count);
                 usersRepository.RemoveRecipient(choosenRecipient);
                 Console.Write("\nChosen recipient was removed.");
+            }
+        }
+
+        internal static void SendTransfer(UsersLocalFileRepository usersRepository)
+        {
+            Console.Clear();
+            Console.WriteLine("Send transfert to recipient\n");
+            List<RecipientStructure> listOfRecipientsForTransfer = usersRepository.GetRecipient;
+            
+            if (usersRepository.GetUsers.Any())
+            {
+                int i = 1;
+                usersRepository.GetUsers.ForEach(c => Console.WriteLine($"{i++,-3} {c.FirstName,-15} {c.LastName}"));
+                Console.Write("\nEnter your selection: ");
+                Program.GetChosenOption(out int chosenOption, 1, usersRepository.GetUsers.Count());
+                chosenOption--;
+
+                User client = usersRepository.GetUsers[chosenOption];
+                Console.Clear();
+                if (client.Balance == 0)
+                {
+                    Console.WriteLine($"Client balance is 0 {client.Currency}. Transfer can not be created.");
+                    return;
+                }
+                Console.WriteLine($"Transfer will be send from: {client.FirstName} {client.LastName}");
+                Console.WriteLine($"Client current balance: {client.Balance} {client.Currency}");
+
+                Transfer transfer = new Transfer();
+                int choosenRecipient = 0;
+                if (!listOfRecipientsForTransfer.Any())
+                {
+                    Console.WriteLine("You don't have any recipients!");
+                    Console.ReadKey();
+                    return;
+                }
+                else
+                {
+                    Recipient.PrintRecipient(listOfRecipientsForTransfer);
+                    Console.Write("Type number of recipient for transfer: ");
+                    Program.GetChosenOption(out  choosenRecipient, 1, listOfRecipientsForTransfer.Count);
+                    //string guid = usersRepository.GetGuidOfRecipient(choosenRecipient);
+                }
+
+                transfer.FirstName = listOfRecipientsForTransfer[choosenRecipient-1].FirstName;
+                transfer.LastName = listOfRecipientsForTransfer[choosenRecipient-1].LastName;
+                transfer.Iban = listOfRecipientsForTransfer[choosenRecipient-1].Iban;
+                transfer.FromId = listOfRecipientsForTransfer[choosenRecipient-1].Guid.ToString();
+                transfer.Created = DateTime.Now;
+               
+                Console.Write("\nType reference: ");
+                transfer.Reference = Program.GetText(1, 100);
+                do
+                {
+                    Console.Write($"\nType amout in {client.Currency}: ");
+                    transfer.Amount = Program.GetDecimal();
+                }
+                while (transfer.Amount > client.Balance);
+                client.Balance -= transfer.Amount;
+
+                usersRepository.AddTransfer(transfer);
+                Console.WriteLine("\nNew transfer created!");
+            }
+            else
+            {
+                Console.WriteLine("There are no clients in the database");
             }
         }
     }

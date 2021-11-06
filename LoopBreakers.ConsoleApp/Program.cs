@@ -37,7 +37,8 @@ namespace LoopBreakers.ConsoleApp
                     " 7. Add new recipient.",
                     " 8. Edit recipient.",
                     " 9. Remove recipient.",
-                    " 10. Exit."
+                    " 10. Transfer to recipient.",
+                    " 11. Exit."
                 };
 
                 menuOptionsCount = menuOptions.Count;
@@ -83,6 +84,9 @@ namespace LoopBreakers.ConsoleApp
                         break;
                     case 9:
                         Recipient.RemoveRecipient(usersRepository);
+                        break;
+                    case 10:
+                        Recipient.SendTransfer(usersRepository);
                         break;
                 }
                 Console.Write("\nEnter any key to return:");
