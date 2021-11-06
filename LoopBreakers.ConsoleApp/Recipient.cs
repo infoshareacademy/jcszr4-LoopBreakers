@@ -91,7 +91,7 @@ namespace LoopBreakers.Logic.Data
             else
             {
                 PrintRecipient(listOfRecipientsToRemove);
-                Console.Write("Type number of recipient to remove: ");
+                Console.Write("\nType number of recipient to remove: ");
                 Program.GetChosenOption(out int choosenRecipient, 1, listOfRecipientsToRemove.Count);
                 usersRepository.RemoveRecipient(choosenRecipient);
                 Console.Write("\nChosen recipient was removed.");
@@ -101,7 +101,7 @@ namespace LoopBreakers.Logic.Data
         internal static void SendTransfer(UsersLocalFileRepository usersRepository)
         {
             Console.Clear();
-            Console.WriteLine("Send transfert to recipient\n");
+            Console.WriteLine("Send transfert from client:\n");
             List<RecipientStructure> listOfRecipientsForTransfer = usersRepository.GetRecipient;
             
             if (usersRepository.GetUsers.Any())
@@ -127,7 +127,6 @@ namespace LoopBreakers.Logic.Data
                 if (!listOfRecipientsForTransfer.Any())
                 {
                     Console.WriteLine("\nYou don't have any recipients!");
-                    Console.ReadKey();
                     return;
                 }
                 else
