@@ -148,9 +148,13 @@ namespace LoopBreakers.ConsoleApp
                 {
                     Console.Write($"\nType amount in {client.Currency}: ");
                     transfer.Amount = Program.GetDecimal();
-                    if(transfer.Amount > client.Balance || transfer.Amount <= 0)
+                    if(transfer.Amount > client.Balance)
                     {
-                        Console.Write($"\nAmout should be between 0 {client.Currency} and {client.Balance} {client.Currency}!");
+                        Console.Write($"\nThe amount should not be greater than {client.Balance} {client.Currency}!");
+                    }
+                    else if (transfer.Amount <= 0)
+                    {
+                        Console.Write($"\nThe amount should be greater than 0 {client.Currency}!"); 
                     }
                     else
                     {
@@ -163,6 +167,7 @@ namespace LoopBreakers.ConsoleApp
                 transfer.Created = DateTime.Now;
                 transfer.Type = TransferType.Payment;
                 usersRepository.AddTransfer(transfer);
+                Console.Clear();
                 Console.WriteLine("\nNew transfer created!");
             }
             else
@@ -181,6 +186,7 @@ namespace LoopBreakers.ConsoleApp
             Console.WriteLine("2. Last 3 month");
             Console.WriteLine("3. Last 6 month");
             Console.WriteLine("4. Custom:");
+            Console.Write("\nEnter your selection: ");
             if (!int.TryParse(Console.ReadLine(), out int optionChosed) || optionChosed > 4 || optionChosed < 1)
             {
                 Console.WriteLine("You introduced wrong value");
