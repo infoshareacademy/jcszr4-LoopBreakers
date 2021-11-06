@@ -148,10 +148,20 @@ namespace LoopBreakers.ConsoleApp
                 {
                     Console.Write($"\nType amount in {client.Currency}: ");
                     transfer.Amount = Program.GetDecimal();
+                    if(transfer.Amount > client.Balance || transfer.Amount <= 0)
+                    {
+                        Console.Write($"\nAmout should be between 0 {client.Currency} and {client.Balance} {client.Currency}!");
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                while (transfer.Amount > client.Balance);
+                while (true);
                 client.Balance -= transfer.Amount;
-
+                transfer.Currency = (Currency) Enum.Parse(typeof(Currency), client.Currency);
+                transfer.Created = DateTime.Now;
+                transfer.Type = TransferType.Payment;
                 usersRepository.AddTransfer(transfer);
                 Console.WriteLine("\nNew transfer created!");
             }
@@ -207,7 +217,7 @@ namespace LoopBreakers.ConsoleApp
                     Console.WriteLine($"{"Iban",-30}{"Type of Transfer",-20}{"Date Of Transfer",-30}Amount");
                     foreach (var item in foundTransfers)
                     {
-                        Console.WriteLine($"{item.Iban,-30}{item.Type,-20}{item.Created,-30}  {item.Amount} {item.Currency.ToString().ToUpper()}  ");
+                        Console.WriteLine($"{item.Iban,-30}{item.Type,-20}{item.Created,-30}  {item.Amount} {item.Currency}  ");
                     }
                 }
             }
@@ -274,7 +284,7 @@ namespace LoopBreakers.ConsoleApp
                     Console.WriteLine($"{"IBAN Number ",-30} | {"Transfer Type",-15} | {"Date ",-20} | Amount");
                     foreach (var item in transferListByDate)
                     {
-                        Console.WriteLine($"{item.Iban,-30} | {item.Type,-15} | {item.Created.Date,-20} | {item.Amount}");
+                        Console.WriteLine($"{item.Iban,-30} | {item.Type,-15} | {item.Created,-20} | {item.Amount} {item.Currency}");
                     }
                 }
             }

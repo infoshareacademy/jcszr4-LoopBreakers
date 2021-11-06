@@ -28,7 +28,7 @@ namespace LoopBreakers.ConsoleApp
                 Console.WriteLine("\nSelect an option:\n");
                 List<string> menuOptions = new List<string>
                 {
-                    " 1. Find user by name.",
+                    " 1. Find client by name.",
                     " 2. Find transfer by name and date.",
                     " 3. Find transfer by date.",
                     " 4. Add new bank transfer.",
@@ -223,8 +223,5 @@ namespace LoopBreakers.ConsoleApp
             }
             return iban.ToUpper();
         }
-
-        
-        
     }
 }
