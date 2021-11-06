@@ -90,7 +90,7 @@ namespace LoopBreakers.Logic.Data
             }
             else
             {
-                Recipient.PrintRecipient(listOfRecipientsToRemove);
+                PrintRecipient(listOfRecipientsToRemove);
                 Console.Write("Type number of recipient to remove: ");
                 Program.GetChosenOption(out int choosenRecipient, 1, listOfRecipientsToRemove.Count);
                 usersRepository.RemoveRecipient(choosenRecipient);
@@ -126,14 +126,14 @@ namespace LoopBreakers.Logic.Data
                 int choosenRecipient = 0;
                 if (!listOfRecipientsForTransfer.Any())
                 {
-                    Console.WriteLine("You don't have any recipients!");
+                    Console.WriteLine("\nYou don't have any recipients!");
                     Console.ReadKey();
                     return;
                 }
                 else
                 {
-                    Recipient.PrintRecipient(listOfRecipientsForTransfer);
-                    Console.Write("Type number of recipient for transfer: ");
+                    PrintRecipient(listOfRecipientsForTransfer);
+                    Console.Write("\nType number of recipient for transfer: ");
                     Program.GetChosenOption(out  choosenRecipient, 1, listOfRecipientsForTransfer.Count);
                     //string guid = usersRepository.GetGuidOfRecipient(choosenRecipient);
                 }
@@ -148,10 +148,22 @@ namespace LoopBreakers.Logic.Data
                 transfer.Reference = Program.GetText(1, 100);
                 do
                 {
-                    Console.Write($"\nType amout in {client.Currency}: ");
+                    Console.Write($"\nType amount in {client.Currency}: ");
                     transfer.Amount = Program.GetDecimal();
+                    if (transfer.Amount > client.Balance)
+                    {
+                        Console.Write($"\nThe amount should not be greater than {client.Balance} {client.Currency}!");
+                    }
+                    else if (transfer.Amount <= 0)
+                    {
+                        Console.Write($"\nThe amount should be greater than 0 {client.Currency}!");
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                while (transfer.Amount > client.Balance);
+                while (true);
                 client.Balance -= transfer.Amount;
 
                 usersRepository.AddTransfer(transfer);

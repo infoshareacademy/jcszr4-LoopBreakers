@@ -148,7 +148,7 @@ namespace LoopBreakers.ConsoleApp
                 {
                     Console.Write($"\nType amount in {client.Currency}: ");
                     transfer.Amount = Program.GetDecimal();
-                    if(transfer.Amount > client.Balance)
+                    if (transfer.Amount > client.Balance)
                     {
                         Console.Write($"\nThe amount should not be greater than {client.Balance} {client.Currency}!");
                     }
@@ -228,7 +228,6 @@ namespace LoopBreakers.ConsoleApp
                 }
             }
         }
-
 
         public static void SearchTransfersBySurname(UsersLocalFileRepository usersRepository)
         {
