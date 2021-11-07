@@ -134,7 +134,6 @@ namespace LoopBreakers.Logic.Data
                     PrintRecipient(listOfRecipientsForTransfer);
                     Console.Write("\nType number of recipient for transfer: ");
                     Program.GetChosenOption(out  choosenRecipient, 1, listOfRecipientsForTransfer.Count);
-                    //string guid = usersRepository.GetGuidOfRecipient(choosenRecipient);
                 }
 
                 transfer.FirstName = listOfRecipientsForTransfer[choosenRecipient-1].FirstName;
