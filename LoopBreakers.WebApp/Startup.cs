@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LoopBreakers.WebApp.Contracts;
-using LoopBreakers.WebApp.Services;
+using LoopBreakers.WebApp.Repositories;
 using LoopBreakers.WebApp.Data;
 
 namespace LoopBreakers.WebApp
@@ -34,19 +34,25 @@ namespace LoopBreakers.WebApp
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ITransfersRepository, TransfersRepository>();
 
-            services.AddAutoMapper(typeof(Mappings.Maps));
-
+            services.AddAutoMapper(typeof(Mappings.TransfersProfile));
 
             //services.AddDatabaseDeveloperPageExceptionFilter();
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddRoles<IdentityRole>()
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
         }
-
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, 
             IWebHostEnvironment env)
         {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>()?.CreateScope())
+            {
+                var context = serviceScope?.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                context?.Database.Migrate();
+                SeedData.Seed(context);
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -18,7 +18,7 @@ namespace LoopBreakers.WebApp.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-                modelBuilder.Entity<Transfer>().Property(x => x.Amount).HasPrecision(19, 4);
+            modelBuilder.Entity<Transfer>().Property(x => x.Amount).HasPrecision(19, 4);
 
             base.OnModelCreating(modelBuilder);
         }
