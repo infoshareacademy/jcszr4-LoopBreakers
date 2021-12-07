@@ -40,12 +40,12 @@ namespace LoopBreakers.WebApp.Repositories
             return transfer;
         }
 
-        //public async Task<IList<Transfer>> FindByDates(DateTime dateFrom, DateTime dateTo)
-        //{
-        //    var transfers = await _db.Transfers
-        //        .Where(q=>q.Created >= dateFrom && q.Created <= dateTo).ToListAsync();
-        //    return transfers;
-        //}
+        public async Task<IList<Transfer>> FindByDates(DateTime dateFrom, DateTime dateTo)
+        {
+            var transfers = await _db.Transfers
+                .Where(q => q.Created >= dateFrom && q.Created <= dateTo).ToListAsync();
+            return transfers;
+        }
 
         public async Task<bool> isExists(int id)
         {

@@ -61,9 +61,7 @@ namespace LoopBreakers.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult FilteredByDate(DateTime dateFrom, DateTime dateTo)
         {
-            //var test = _transfersRepository.FindByDates(dateFrom, dateTo).Result;
-            var allTransfer = _transfersRepository.FindAll().Result;
-            var model = allTransfer.Where(d=>d.Created>= dateFrom && d.Created <= dateTo).ToList();
+            var model = _transfersRepository.FindByDates(dateFrom, dateTo).Result;
             return View("TransfersFilteresByDate", model);
         }
 
