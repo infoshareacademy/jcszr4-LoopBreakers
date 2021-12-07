@@ -1,0 +1,99 @@
+﻿@model IEnumerable<LoopBreakers.WebApp.Data.Transfer>
+@inject ITransfersRepository _transfersRepository
+ 
+@{
+    ViewData["Title"] = "Index";
+    var dateFrom = DateTime.Today.AddDays(-30);
+    var dateTo = DateTime.Today;
+}
+
+<h3>Transfers</h3>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Add New Transfer</a>
+</p>
+
+
+<form method="post">
+    <div class="d-inline-flex">
+        <input type="date" value="@(dateFrom.ToString("yyyy-MM-dd"))" onchange="" name="dateFrom"> <p> - </p>
+        <input type="date" value="@(dateTo.ToString("yyyy-MM-dd"))" name="dateTo">
+        <button type="submit" class="btn btn-primary" asp-route-dateFrom="@(dateFrom)" asp-route-dateTo="@(dateTo)">Search</button>
+    </div>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Iban)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FromId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reference)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Iban)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reference)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Currency)
+            </td>
+            <td>
+                <div class="btn-group-sm" role="group" aria-label="Basic example">
+                    <a class="btn btn-warning" asp-action="Edit"     asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-primary " asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-danger" asp-action="Delete"    asp-route-id="@item.Id">Delete</a>
+                </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
