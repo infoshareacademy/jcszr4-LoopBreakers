@@ -11,7 +11,6 @@ namespace LoopBreakers.WebApp.Controllers
 {
     public class TransferController : Controller
     {
-        // GET: TransferController
         private readonly ITransfersRepository _transfersRepository;
         public TransferController(ITransfersRepository transfersRepository)
         {
@@ -23,19 +22,16 @@ namespace LoopBreakers.WebApp.Controllers
             return View(model);
         }
 
-        // GET: TransferController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: TransferController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: TransferController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -50,29 +46,20 @@ namespace LoopBreakers.WebApp.Controllers
             }
         }
 
-        public ActionResult FilteredByDate()
-        {
-            
-            return View();
-        }
 
-        // POST: TransferController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult FilteredByDate(DateTime dateFrom, DateTime dateTo)
+        [Route("Transfer/{dateFrom}")]
+        public ActionResult Index(DateTime dateFrom, DateTime dateTo)
         {
             var model = _transfersRepository.FindByDates(dateFrom, dateTo).Result;
-            return View("TransfersFilteresByDate", model);
+            return View(model);
         }
 
-        // GET: TransferController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: TransferController/Edit/5
-        [HttpPost]
+        [HttpPost] 
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
@@ -86,13 +73,11 @@ namespace LoopBreakers.WebApp.Controllers
             }
         }
 
-        // GET: TransferController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: TransferController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

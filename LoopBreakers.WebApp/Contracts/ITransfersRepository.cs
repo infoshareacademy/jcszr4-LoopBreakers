@@ -8,6 +8,6 @@ namespace LoopBreakers.WebApp.Contracts
 {
     public interface ITransfersRepository : IBaseRepository<Transfer>
     {
-
+        Task<IList<Transfer>> FindByDates(DateTime dateFrom, DateTime dateTo);
     }
 }
