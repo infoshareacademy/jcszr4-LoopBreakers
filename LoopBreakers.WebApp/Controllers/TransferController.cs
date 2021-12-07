@@ -59,19 +59,12 @@ namespace LoopBreakers.WebApp.Controllers
         // POST: TransferController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult FilteredByDate(DateTime dateValue)
+        public ActionResult FilteredByDate(DateTime dateFrom, DateTime dateTo)
         {
-            var x = dateValue;
-            var model = _transfersRepository.FindAll().Result;
-            var xx = model.Where(m => m.Created < dateValue);
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            //var test = _transfersRepository.FindByDates(dateFrom, dateTo).Result;
+            var allTransfer = _transfersRepository.FindAll().Result;
+            var model = allTransfer.Where(d=>d.Created>= dateFrom && d.Created <= dateTo).ToList();
+            return View("TransfersFilteresByDate", model);
         }
 
         // GET: TransferController/Edit/5
