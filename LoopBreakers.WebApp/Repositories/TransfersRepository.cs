@@ -47,6 +47,13 @@ namespace LoopBreakers.WebApp.Repositories
             return transfers;
         }
 
+        public async Task<IList<Transfer>> FindByName(string searchName)
+        {
+            var transfers = await _db.Transfers
+                .Where(n => n.LastName.ToLower() == searchName.ToLower()).ToListAsync();
+            return transfers;
+        }
+
         public async Task<bool> isExists(int id)
         {
             return await _db.Transfers.AnyAsync(c => c.Id == id);

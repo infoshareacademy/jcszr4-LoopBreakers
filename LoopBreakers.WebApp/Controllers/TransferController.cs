@@ -64,6 +64,22 @@ namespace LoopBreakers.WebApp.Controllers
             var model = _transfersRepository.FindByDates(dateFrom, dateTo).Result;
             return View("TransfersFilteresByDate", model);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FilteredByName(string userLastName)
+        {
+            IList<Transfer> model;           
+            if (userLastName != "clear")
+            {
+                 model = _transfersRepository.FindByName(userLastName).Result;
+
+            }
+            else
+            {
+                 model = _transfersRepository.FindAll().Result;
+            }
+            return View("Index", model);
+        }
 
         // GET: TransferController/Edit/5
         public ActionResult Edit(int id)

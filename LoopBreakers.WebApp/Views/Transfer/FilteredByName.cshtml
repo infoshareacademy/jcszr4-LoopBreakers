@@ -1,38 +1,21 @@
 ﻿@model IEnumerable<LoopBreakers.WebApp.Data.Transfer>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "FilteredByName";
 }
 
-<h1>Transfers</h1>
+<h1>Transfers filtered by name</h1>
+
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-
-<p>
-    <a asp-action="FilteredByDate">Filter By Date</a>
-</p>
-<h6>Filter transfers by name</h6>
-
-<form asp-action="FilteredByName" method="post">
-    <input type="text" name="userLastName"> 
-    <input type="submit" name="submit" value="Wyślij">
-</form>
-<form asp-action="FilteredByName" method="post">
-    <input type="hidden" name="userLastName" value="clear"> 
-    <input type="submit" name="submit" value="Clear">
-</form>
-
-
-
-
-
-
-
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Iban)
             </th>
@@ -67,6 +50,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Iban)
             </td>
             <td>
@@ -94,9 +80,9 @@
                 @Html.DisplayFor(modelItem => item.Currency)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
 }

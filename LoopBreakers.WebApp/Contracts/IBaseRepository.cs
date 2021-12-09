@@ -10,6 +10,8 @@ namespace LoopBreakers.WebApp.Contracts
         Task<IList<T>> FindAll();
         Task<T> FindById(int id);
         Task<IList<T>> FindByDates(DateTime dateFrom, DateTime dateTo);
+        Task<IList<T>> FindByName(string name);
+
         Task<bool> isExists(int id);
         Task<bool> Create(T entity);
         Task<bool> Update(T entity);
