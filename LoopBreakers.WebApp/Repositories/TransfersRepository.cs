@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LoopBreakers.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace LoopBreakers.WebApp.Repositories
@@ -40,11 +41,24 @@ namespace LoopBreakers.WebApp.Repositories
             return transfer;
         }
 
-        public async Task<IList<Transfer>> FindByDates(DateTime dateFrom, DateTime dateTo)
+        public class SerchTransferDTO
         {
-            var transfers = await _db.Transfers
-                .Where(q => q.Created >= dateFrom && q.Created <= dateTo).ToListAsync();
-            return transfers;
+            public DateTime? DateFrom { get; set; }
+            public DateTime? DateTo { get; set; }
+        }
+
+        public async Task<IList<Transfer>> FindByDates(SerchTransferDTO filter)
+        {
+            var transfersQuery = _db.Transfers.AsQueryable();
+            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
+            {
+                transfersQuery = transfersQuery.Where(q =>
+                    q.Created >= filter.DateFrom.Value && q.Created <= filter.DateTo.Value);
+
+            }
+
+           
+            return await transfersQuery.ToListAsync();
         }
 
         public async Task<bool> isExists(int id)

@@ -5,6 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\**" />
+    <Compile Remove="Static\**" />
+    <Content Remove="Services\**" />
+    <Content Remove="Static\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <EmbeddedResource Remove="Static\**" />
+    <None Remove="Services\**" />
+    <None Remove="Static\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
@@ -24,12 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LoopBreakers.DAL\LoopBreakers.DAL.csproj" />
     <ProjectReference Include="..\LoopBreakers.Logic\LoopBreakers.Logic.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="Static\" />
   </ItemGroup>
 
 </Project>

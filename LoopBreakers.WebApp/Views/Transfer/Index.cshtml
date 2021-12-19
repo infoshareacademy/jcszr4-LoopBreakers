@@ -16,9 +16,9 @@
 
 <form method="post">
     <div class="d-inline-flex">
-        <input type="date" value="@(dateFrom.ToString("yyyy-MM-dd"))" onchange="" name="dateFrom"> <p> - </p>
-        <input type="date" value="@(dateTo.ToString("yyyy-MM-dd"))" name="dateTo">
-        <button type="submit" class="btn btn-primary" asp-route-dateFrom="@(dateFrom)" asp-route-dateTo="@(dateTo)">Search</button>
+        <input type="date" value="@dateFrom.ToString("yyyy-MM-dd")" onchange="" name="dateFrom"> <p> - </p>
+        <input type="date" value="@dateTo.ToString("yyyy-MM-dd")" name="dateTo">
+        <button type="submit" class="btn btn-primary">Search</button>
     </div>
 </form>
 

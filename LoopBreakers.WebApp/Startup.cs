@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LoopBreakers.DAL.Context;
 using LoopBreakers.WebApp.Contracts;
 using LoopBreakers.WebApp.Repositories;
 using LoopBreakers.WebApp.Data;
@@ -77,9 +78,9 @@ namespace LoopBreakers.WebApp
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapControllerRoute(
-                    name: "transfers",
-                    pattern: "{controller=Transfer}/{action=Index}/{dateFrom?}");
+                //endpoints.MapControllerRoute(
+                //    name: "transfers",
+                //    pattern: "{controller=Transfer}/{action=Index}/{dateFrom?}");
 
             });
         }

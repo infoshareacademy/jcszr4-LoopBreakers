@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LoopBreakers.WebApp.Contracts;
 using LoopBreakers.WebApp.Data;
+using LoopBreakers.WebApp.Repositories;
 
 namespace LoopBreakers.WebApp.Controllers
 {
@@ -16,11 +17,7 @@ namespace LoopBreakers.WebApp.Controllers
         {
             _transfersRepository = transfersRepository;
         }
-        public ActionResult Index()
-        {
-            var model = _transfersRepository.FindAll().Result;
-            return View(model);
-        }
+     
 
         public ActionResult Details(int id)
         {
@@ -47,11 +44,23 @@ namespace LoopBreakers.WebApp.Controllers
         }
 
 
-        [Route("Transfer/{dateFrom}")]
-        public ActionResult Index(DateTime dateFrom, DateTime dateTo)
+        public class SerchTransferViewModel
         {
-            var model = _transfersRepository.FindByDates(dateFrom, dateTo).Result;
+            public DateTime? DateFrom { get; set; }
+            public DateTime? DateTo { get; set; }
+        }
+
+        public async Task<ActionResult>  Index(SerchTransferViewModel filter)
+        {
+            var filtersDTO = new TransfersRepository.SerchTransferDTO()
+            {
+                DateFrom = filter.DateFrom, DateTo = filter.DateTo
+            };
+            var model = await _transfersRepository.FindByDates(filtersDTO);
             return View(model);
+
+            
+            
         }
 
         public ActionResult Edit(int id)
