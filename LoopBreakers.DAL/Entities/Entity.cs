@@ -6,7 +6,7 @@ namespace LoopBreakers.DAL.Entities
 {
     public class Entity
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public DateTime Created { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using LoopBreakers.WebApp.Contracts;
-using LoopBreakers.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,13 +12,10 @@ namespace LoopBreakers.WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ITransfersRepository _transfersRepository;
-        public HomeController(ILogger<HomeController> logger,
-            ITransfersRepository transfersRepository
+        public HomeController(ILogger<HomeController> logger
             )
         {
             _logger = logger;
-            _transfersRepository = transfersRepository;
         }
 
         public IActionResult Index()
@@ -33,10 +29,5 @@ namespace LoopBreakers.WebApp.Controllers
         }
 
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

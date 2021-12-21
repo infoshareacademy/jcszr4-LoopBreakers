@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using LoopBreakers.WebApp.Data;
+using LoopBreakers.DAL.Entities;
 using LoopBreakers.WebApp.DTOs;
 
 namespace LoopBreakers.WebApp.Mappings
@@ -12,9 +12,7 @@ namespace LoopBreakers.WebApp.Mappings
     {
         public TransfersProfile()
         {
-            CreateMap<Transfer, TransferDTO>()
-                .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.FirstName + " " + src.LastName))
-                .ReverseMap();
+            CreateMap<TransferDTO, Transfer>().ReverseMap();
         }
     }
 }

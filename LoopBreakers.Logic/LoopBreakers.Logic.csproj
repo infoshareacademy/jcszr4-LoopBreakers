@@ -9,6 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LoopBreakers.DAL\LoopBreakers.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="DataSource\users.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

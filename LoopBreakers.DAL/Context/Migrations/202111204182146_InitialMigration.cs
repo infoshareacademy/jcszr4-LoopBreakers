@@ -1,7 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace LoopBreakers.WebApp.Data.Migrations
+namespace LoopBreakers.DAL.Context.Migrations
 {
     public partial class InitialMigration : Migration
     {

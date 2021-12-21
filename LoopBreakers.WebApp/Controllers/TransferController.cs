@@ -1,21 +1,24 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using LoopBreakers.WebApp.Contracts;
+using LoopBreakers.WebApp.DTOs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LoopBreakers.WebApp.Contracts;
-using LoopBreakers.WebApp.Data;
-using LoopBreakers.WebApp.Repositories;
 
 namespace LoopBreakers.WebApp.Controllers
 {
     public class TransferController : Controller
     {
-        private readonly ITransfersRepository _transfersRepository;
-        public TransferController(ITransfersRepository transfersRepository)
+        private readonly ITransferService _transferService;
+        private readonly IMapper _mapper;
+        public TransferController(ITransferService transferService, 
+            IMapper mapper)
         {
-            _transfersRepository = transfersRepository;
+            _transferService = transferService;
+            _mapper = mapper;
         }
      
 
@@ -43,24 +46,11 @@ namespace LoopBreakers.WebApp.Controllers
             }
         }
 
-
-        public class SerchTransferViewModel
+        public async Task<ActionResult>  Index(SearchTransferViewModel filter)
         {
-            public DateTime? DateFrom { get; set; }
-            public DateTime? DateTo { get; set; }
-        }
-
-        public async Task<ActionResult>  Index(SerchTransferViewModel filter)
-        {
-            var filtersDTO = new TransfersRepository.SerchTransferDTO()
-            {
-                DateFrom = filter.DateFrom, DateTo = filter.DateTo
-            };
-            var model = await _transfersRepository.FindByDates(filtersDTO);
+            var transfers = await _transferService.FilterBy(filter);
+            var model = _mapper.Map<IEnumerable<TransferDTO>>(transfers);
             return View(model);
-
-            
-            
         }
 
         public ActionResult Edit(int id)

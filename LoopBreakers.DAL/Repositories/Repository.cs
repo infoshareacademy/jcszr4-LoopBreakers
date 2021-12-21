@@ -1,27 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using LoopBreakers.DAL.Context;
 using LoopBreakers.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace LoopBreakers.DAL.Repositories
 {
     public class Repository<T> : IBaseRepository<T> where T : Entity
     {
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
         private DbSet<T> entities;
-        string errorMessage = string.Empty;
-        private readonly Repository<Entity> _rep;
 
         public Repository(ApplicationDbContext context)
         {
-            // Przyklad uzycia w serwisie
-            //_rep = rep;
-            //_rep.GetAllQueryable().Where(x => x.Created < DateTime.Now).ToListAsync();
-            this.context = context;
+            _context = context;
             entities = context.Set<T>();
         }
 
@@ -30,38 +25,42 @@ namespace LoopBreakers.DAL.Repositories
             return entities.AsQueryable();
         }
 
-        public IEnumerable<T> FindAll()
+        public async Task<IEnumerable<T>> FindAll()
         {
-            return entities.AsEnumerable();
+           return await entities.ToListAsync();
         }
-        public T FindById(int id)
+        public async Task<T> FindById(int id)
         {
-            return entities.SingleOrDefault(s => s.Id == id.ToString());
+            return await entities.SingleOrDefaultAsync(s => s.Id == id);
         }
 
         public Task<bool> isExists(int id)
         {
-            return entities.AnyAsync(x => x.Id == id.ToString());
+            return entities.AnyAsync(x => x.Id == id);
         }
 
-        public Task<bool> Create(T entity)
+        public async Task<bool> Create(T entity)
         {
-            throw new NotImplementedException();
+            await entities.AddAsync(entity);
+            return await Save();
         }
 
-        public Task<bool> Update(T entity)
+        public async Task<bool> Update(T entity)
         {
-            throw new NotImplementedException();
+            entities.Update(entity);
+            return await Save();
         }
 
-        public Task<bool> Delete(T entity)
+        public async Task<bool> Delete(T entity)
         {
-            throw new NotImplementedException();
+            entities.Remove(entity);
+            return await Save();
         }
 
-        public Task<bool> Save()
+        public async Task<bool> Save()
         {
-            throw new NotImplementedException();
+            var changes = await _context.SaveChangesAsync();
+            return changes > 0;
         }
     }
 }

@@ -12,8 +12,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using LoopBreakers.DAL.Context;
 using LoopBreakers.WebApp.Contracts;
-using LoopBreakers.WebApp.Repositories;
-using LoopBreakers.WebApp.Data;
+using LoopBreakers.WebApp.Services;
+using LoopBreakers.DAL.Repositories;
 
 namespace LoopBreakers.WebApp
 {
@@ -33,15 +33,12 @@ namespace LoopBreakers.WebApp
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<ITransfersRepository, TransfersRepository>();
+
+            services.AddScoped(typeof(IBaseRepository<>), typeof(Repository<>));
+            services.AddScoped<ITransferService, TransferService>();
 
             services.AddAutoMapper(typeof(Mappings.TransfersProfile));
             
-
-            //services.AddDatabaseDeveloperPageExceptionFilter();
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddRoles<IdentityRole>()
-            //    .AddEntityFrameworkStores<ApplicationDbContext>();
         }
         
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,11 +74,6 @@ namespace LoopBreakers.WebApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-                //endpoints.MapControllerRoute(
-                //    name: "transfers",
-                //    pattern: "{controller=Transfer}/{action=Index}/{dateFrom?}");
-
             });
         }
     }
