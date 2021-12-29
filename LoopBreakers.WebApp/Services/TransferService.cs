@@ -31,7 +31,23 @@ namespace LoopBreakers.WebApp.Services
             }
             else if (filter.Name!=null)
             {
-                transfersQuery=transfersQuery.Where(n=>n.LastName==filter.Name);
+                if (filter.Name.Length > 2) 
+                {
+                    if (transfersQuery.All(n => n.LastName.Length > filter.Name.Length))
+                    {
+
+                        transfersQuery = transfersQuery.Where(n => n.LastName.Substring(0, filter.Name.Length).ToLower() == filter.Name.ToLower());                    }
+                    else
+                    {
+                        transfersQuery = transfersQuery.Where(n => n.LastName.ToLower()==filter.Name.ToLower());
+
+                    }
+                }
+                else
+                {
+                    transfersQuery = transfersQuery.Where(n => n.LastName.ToLower() == filter.Name.ToLower());
+
+                }
             }
             else if (filter.Clear != null)
             {

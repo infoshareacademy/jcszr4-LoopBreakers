@@ -9,7 +9,7 @@ namespace LoopBreakers.WebApp.DTOs
     {
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
-        public string? Name { get; set; }
-        public bool? Clear { get; set; }
+        public string Name { get; set; }
+        public bool Clear { get; set; }
     }
 }
