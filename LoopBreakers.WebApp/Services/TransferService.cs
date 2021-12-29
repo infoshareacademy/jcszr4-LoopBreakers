@@ -29,6 +29,15 @@ namespace LoopBreakers.WebApp.Services
                 transfersQuery = transfersQuery.Where(q =>
                     q.Created >= filter.DateFrom.Value && q.Created <= filter.DateTo.Value);
             }
+            else if (filter.Name!=null)
+            {
+                transfersQuery=transfersQuery.Where(n=>n.LastName==filter.Name);
+            }
+            else if (filter.Clear != null)
+            {
+                 transfersQuery = _db.Transfers.AsQueryable();
+            }
+
 
             return await transfersQuery.ToListAsync();
         }
