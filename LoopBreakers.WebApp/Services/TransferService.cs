@@ -49,7 +49,7 @@ namespace LoopBreakers.WebApp.Services
 
                 }
             }
-            else if (filter.Clear != null)
+            else if (filter.Clear)
             {
                  transfersQuery = _db.Transfers.AsQueryable();
             }
