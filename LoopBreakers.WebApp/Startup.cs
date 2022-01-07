@@ -33,12 +33,16 @@ namespace LoopBreakers.WebApp
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<RecipientDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped(typeof(IBaseRepository<>), typeof(Repository<>));
             services.AddScoped<ITransferService, TransferService>();
 
             services.AddAutoMapper(typeof(Mappings.TransfersProfile));
-            
+            services.AddAutoMapper(typeof(Mappings.RecipientProfile));
+
         }
         
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
