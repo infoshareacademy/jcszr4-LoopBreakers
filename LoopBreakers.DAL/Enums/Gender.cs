@@ -1,4 +1,4 @@
-﻿namespace LoopBreakers.Logic.Enums
+﻿namespace LoopBreakers.DAL.Enums
 {
     public enum Gender
     {

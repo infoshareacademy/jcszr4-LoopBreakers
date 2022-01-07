@@ -1,11 +1,14 @@
-﻿using System;
-using LoopBreakers.DAL.Enums;
+﻿using LoopBreakers.DAL.Enums;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
-namespace LoopBreakers.Logic.Data
+namespace LoopBreakers.DAL.Entities
 {
-    public class User
+    [Table("Users")]
+    public class ApplicationUser : Entity
     {
-        public string Id { get; set; }
         public bool IsActive { get; set; }
         public decimal Balance { get; set; }
         public string Currency { get; set; }
@@ -18,15 +21,6 @@ namespace LoopBreakers.Logic.Data
         public string Phone { get; set; }
         public string Address { get; set; }
         public DateTime Registered { get; set; }
-        public string Iban { get; } = GenerateIban();
-
-        public void AddUserToFovouriteUsersList()
-        {
-        }
-        private static string GenerateIban()
-        {
-            var random = new Random();
-            return $"PL{random.Next(1000000, 9999999)}{random.Next(1000000, 9999999)}{random.Next(1000000, 9999999)}{random.Next(10000, 99999)}";
-        }
+        public string Iban { get; set; }
     }
 }

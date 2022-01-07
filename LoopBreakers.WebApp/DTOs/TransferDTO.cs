@@ -1,4 +1,4 @@
-﻿using LoopBreakers.Logic.Enums;
+﻿using LoopBreakers.DAL.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +10,8 @@ namespace LoopBreakers.WebApp.DTOs
     {
         public int Id { get; set; }
         public string Iban { get; set; }
-        //public string FirstName { get; set; }
-        //public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string DisplayName { get; set; }
         public string FromId { get; set; }
         public TransferType Type { get; set; }

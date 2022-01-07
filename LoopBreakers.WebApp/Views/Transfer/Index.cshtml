@@ -1,5 +1,4 @@
-﻿@model IEnumerable<LoopBreakers.WebApp.Data.Transfer>
-@inject ITransfersRepository _transfersRepository
+﻿@model IEnumerable<TransferDTO>
  
 @{
     ViewData["Title"] = "Index";
@@ -16,12 +15,23 @@
 
 <form method="post">
     <div class="d-inline-flex">
-        <input type="date" value="@(dateFrom.ToString("yyyy-MM-dd"))" onchange="" name="dateFrom"> <p> - </p>
-        <input type="date" value="@(dateTo.ToString("yyyy-MM-dd"))" name="dateTo">
-        <button type="submit" class="btn btn-primary" asp-route-dateFrom="@(dateFrom)" asp-route-dateTo="@(dateTo)">Search</button>
+        <input type="date" value="@dateFrom.ToString("yyyy-MM-dd")" onchange="" name="dateFrom"> <p> - </p>
+        <input type="date" value="@dateTo.ToString("yyyy-MM-dd")" name="dateTo">
+        <button type="submit" class="btn btn-primary">Search</button>
     </div>
 </form>
-
+<form method="post">
+    <div class="d-inline-flex">
+        <input type="text" value="" name="Name"> <p> 
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+<form method="post">
+    <div class="d-inline-flex">
+        <input type="hidden" value="true" name="Clear"> <p> 
+        <button type="submit" class="btn btn-primary">Clear</button>
+    </div>
+</form>
 
 <table class="table">
     <thead>

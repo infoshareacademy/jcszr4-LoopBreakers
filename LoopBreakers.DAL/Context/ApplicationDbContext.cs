@@ -1,14 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using LoopBreakers.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace LoopBreakers.WebApp.Data
+
+namespace LoopBreakers.DAL.Context
 {
     public class ApplicationDbContext : DbContext
     {
-
         public DbSet<Transfer> Transfers { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
