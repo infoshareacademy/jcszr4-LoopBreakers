@@ -24,37 +24,15 @@ namespace LoopBreakers.WebApp.Services
         public async Task<IEnumerable<Transfer>> FilterBy(SearchTransferViewModel filter)
         {
             var transfersQuery = _db.Transfers.AsQueryable();
+
             if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
             {
-                transfersQuery = transfersQuery.Where(q =>
-                    q.Created >= filter.DateFrom.Value && q.Created <= filter.DateTo.Value);
+                transfersQuery = transfersQuery.Where(q => q.Created >= filter.DateFrom.Value && q.Created <= filter.DateTo.Value);
             }
-            else if (filter.Name!=null)
+            if (filter.Name != null && filter.Name.Length >2)
             {
-                if (filter.Name.Length > 2) 
-                {
-                    if (transfersQuery.All(n => n.LastName.Length > filter.Name.Length))
-                    {
-
-                        transfersQuery = transfersQuery.Where(n => n.LastName.Substring(0, filter.Name.Length).ToLower() == filter.Name.ToLower());                    }
-                    else
-                    {
-                        transfersQuery = transfersQuery.Where(n => n.LastName.ToLower()==filter.Name.ToLower());
-
-                    }
-                }
-                else
-                {
-                    transfersQuery = transfersQuery.Where(n => n.LastName.ToLower() == filter.Name.ToLower());
-
-                }
+                transfersQuery = transfersQuery.Where(n => n.LastName.StartsWith(filter.Name));
             }
-            else if (filter.Clear)
-            {
-                 transfersQuery = _db.Transfers.AsQueryable();
-            }
-
-
             return await transfersQuery.ToListAsync();
         }
     }

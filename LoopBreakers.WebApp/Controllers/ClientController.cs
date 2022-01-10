@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using LoopBreakers.WebApp.Contracts;
-using LoopBreakers.WebApp.DTOs;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,27 +7,27 @@ using System.Threading.Tasks;
 
 namespace LoopBreakers.WebApp.Controllers
 {
-    public class TransferController : Controller
+    public class ClientController : Controller
     {
-        private readonly ITransferService _transferService;
-        private readonly IMapper _mapper;
-        public TransferController(ITransferService transferService, IMapper mapper)
+        // GET: ClientController
+        public ActionResult Index()
         {
-            _transferService = transferService;
-            _mapper = mapper;
+            return View();
         }
-     
 
+        // GET: ClientController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
+        // GET: ClientController/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        // POST: ClientController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -45,19 +42,14 @@ namespace LoopBreakers.WebApp.Controllers
             }
         }
 
-        public async Task<ActionResult>  Index(SearchTransferViewModel filter)
-        {
-            var transfers = await _transferService.FilterBy(filter);
-            var model = _mapper.Map<IEnumerable<TransferDTO>>(transfers);
-            return View(model);
-        }
-
+        // GET: ClientController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        [HttpPost] 
+        // POST: ClientController/Edit/5
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
@@ -71,11 +63,13 @@ namespace LoopBreakers.WebApp.Controllers
             }
         }
 
+        // GET: ClientController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
+        // POST: ClientController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
