@@ -35,8 +35,10 @@ namespace LoopBreakers.WebApp
 
             services.AddScoped(typeof(IBaseRepository<>), typeof(Repository<>));
             services.AddScoped<ITransferService, TransferService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddAutoMapper(typeof(Mappings.TransfersProfile));
+            services.AddAutoMapper(typeof(Mappings.UsersProfile));
 
             services.AddHttpContextAccessor();
         }

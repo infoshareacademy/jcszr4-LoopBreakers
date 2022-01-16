@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using LoopBreakers.WebApp.Contracts;
+using LoopBreakers.WebApp.DTOs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,25 +12,25 @@ namespace LoopBreakers.WebApp.Controllers
 {
     public class ClientController : Controller
     {
-        // GET: ClientController
-        public ActionResult Index()
+        private readonly IUserService _usersService;
+        private readonly IMapper _mapper;
+
+        public ClientController(IUserService usersService, IMapper mapper)
         {
-            return View();
+            _usersService = usersService;
+            _mapper = mapper;
         }
 
-        // GET: ClientController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: ClientController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ClientController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -41,14 +44,18 @@ namespace LoopBreakers.WebApp.Controllers
                 return View();
             }
         }
+        public async Task<ActionResult> Index(SearchUserViewModel filter)
+        {
+            var users = await _usersService.FilterBy(filter);
+            var model = _mapper.Map<IEnumerable<UserDTO>>(users);
+            return View(model);
+        }
 
-        // GET: ClientController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: ClientController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -63,13 +70,11 @@ namespace LoopBreakers.WebApp.Controllers
             }
         }
 
-        // GET: ClientController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: ClientController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

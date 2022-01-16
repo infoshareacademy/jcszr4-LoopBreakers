@@ -1,6 +1,95 @@
-﻿@{
-    ViewData["Title"] = "Clients";
+﻿@model IEnumerable<UserDTO>
+
+@{
+    ViewData["Title"] = "Index";
+    var dateFrom = DateTime.Today.AddDays(-30).ToString("yyyy-MM-dd");
+    var dateTo = DateTime.Today.ToString("yyyy-MM-dd");
 }
 
-<h3>Clients</h3>
+<h3>Client</h3>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Add New Client</a>
+</p>
+<hr />
+<form class="row" method="post">
+    <div class="col-auto">
+        <label class="col-form-label">Search date from: </label>
+    </div>
+    <div class="col-auto">
+        <input type="date" value="@dateFrom" onchange="" name="dateFrom" class="form-control">
+    </div>
+    <div class="col-auto">
+        <label class="col-form-label">to: </label>
+    </div>
+    <div class="col-auto">
+        <input type="date" value="@dateTo" name="dateTo" class="form-control">
+    </div>
+    <div class="col-auto">
+        <input type="text" value="" name="Name" class="form-control" placeholder="Last name">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary"><svg class="bi me-2" width="16" height="16"><use xlink:href="#search" /></svg>Search</button>
+    </div>
+</form>
+<hr />
+<div class="row">
+    <div class="col">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsActive)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Balance)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Currency)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Iban)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsActive)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Balance)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Currency)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Iban)
+                        </td>
+                        <td>
+                            <div class="btn-group-sm" role="group" aria-label="Basic example">
+                                <a class="btn btn-primary " asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 

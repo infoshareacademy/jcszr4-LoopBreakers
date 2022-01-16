@@ -7,6 +7,7 @@ namespace LoopBreakers.DAL.Context
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Transfer> Transfers { get; set; }
+        public DbSet<ApplicationUser> Users { get; set;}
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -19,5 +20,7 @@ namespace LoopBreakers.DAL.Context
 
             base.OnModelCreating(modelBuilder);
         }
+
     }
+        
 }

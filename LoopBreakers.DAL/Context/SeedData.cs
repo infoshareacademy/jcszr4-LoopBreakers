@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using LoopBreakers.DAL.Enums;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace LoopBreakers.DAL.Context
 {
@@ -27,6 +29,19 @@ namespace LoopBreakers.DAL.Context
                 context.SaveChanges();
             }
 
+        }
+        private readonly List<ApplicationUser> _users = new List<ApplicationUser>();
+
+        private const string UsersJsonFilePath = "DataSource/users.json";
+
+        public void UsersLocalFileRepository()
+        {
+            List<ApplicationUser> _users;
+            if (File.Exists(UsersJsonFilePath))
+            {
+                string json = File.ReadAllText(UsersJsonFilePath);
+                _users = JsonConvert.DeserializeObject<List<ApplicationUser>>(json);
+            }
         }
     }
 
