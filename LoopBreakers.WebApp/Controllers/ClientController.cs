@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LoopBreakers.DAL.Entities;
+using LoopBreakers.DAL.Repositories;
+using LoopBreakers.WebApp.Contracts;
+using LoopBreakers.WebApp.DTOs;
+using LoopBreakers.WebApp.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,11 +13,22 @@ using System.Threading.Tasks;
 namespace LoopBreakers.WebApp.Controllers
 {
     public class ClientController : Controller
+
     {
-        // GET: ClientController
-        public ActionResult Index()
+        private readonly IBaseRepository<ApplicationUser> _clientRepository;
+
+        private IClientService _clientService;
+
+        public ClientController(IClientService clientrService)
         {
-            return View();
+            _clientService = clientrService;
+
+        }
+        // GET: ClientController
+        public async Task<ActionResult> Index(SearchClientViewModel user)
+        {
+            var model = await _clientService.FilterBy(user);
+            return View(model);
         }
 
         // GET: ClientController/Details/5
