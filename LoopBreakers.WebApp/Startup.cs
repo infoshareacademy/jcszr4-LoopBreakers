@@ -50,8 +50,10 @@ namespace LoopBreakers.WebApp
             {
                 var context = serviceScope?.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 context?.Database.Migrate();
-                SeedData.Seed(context);
+                SeedData.SeedTransfer(context);
+                SeedData.SeedClient(context);
             }
+
 
             if (env.IsDevelopment())
             {
