@@ -35,7 +35,7 @@ namespace LoopBreakers.DAL.Context
         }
         public static void SeedClient(ApplicationDbContext context) 
         {
-            if (!context.Users.Any())
+            if (context.Users.Any())
             {
                 return;
             }
