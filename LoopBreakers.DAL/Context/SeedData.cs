@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using LoopBreakers.DAL.Enums;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace LoopBreakers.DAL.Context
 {
     public class SeedData
     {
-        public static void Seed(ApplicationDbContext context)
+        private static  List<ApplicationUser> _users = new List<ApplicationUser>();
+        private const string UsersJsonFilePath = "DataSource/users.json";
+
+        public static void SeedTransfer(ApplicationDbContext context)
         {
             var transfersDataNotExists = !context.Transfers.Any();
             if (transfersDataNotExists)
@@ -28,6 +33,26 @@ namespace LoopBreakers.DAL.Context
             }
 
         }
+        public static void SeedClient(ApplicationDbContext context) 
+        {
+            if (context.Users.Any())
+            {
+                return;
+            }
+
+            if (File.Exists(UsersJsonFilePath))
+            {
+                string json = File.ReadAllText(UsersJsonFilePath).Replace("Id","IdentityNumber");
+                _users = JsonConvert.DeserializeObject<List<ApplicationUser>>(json);
+                context.Users.AddRange(_users);
+                context.SaveChanges();
+            }
+        }
     }
 
 }
+
+
+
+
+

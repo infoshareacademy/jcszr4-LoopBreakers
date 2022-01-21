@@ -11,4 +11,8 @@ namespace LoopBreakers.WebApp.DTOs
         public DateTime? DateTo { get; set; }
         public string Name { get; set; }
     }
+    public class SearchClientViewModel
+    {
+        public string LastName { get; set; }
+    }
 }

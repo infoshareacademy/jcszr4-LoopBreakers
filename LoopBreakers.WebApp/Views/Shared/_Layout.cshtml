@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - LoopBreakers.WebApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/sidebars.css" />
@@ -16,31 +17,29 @@
     <script src="~/js/sidebars.js"></script>
 </head>
 <body>
-    @Html.Partial("_SvgIcons")
-
     <main role="main">
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap" /></svg>
-                <span class="fs-4">LoopBreakers</span>
+                <i class="bi bi-bank me-2 fs-4"></i>
+                <span class="fs-4">Bank LoopBreakers</span>
             </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li>
                     <a class="nav-link @(Accessor.HttpContext.Request.Path.Value == "/" ? "active" : "text-white" )" asp-area="" asp-controller="Home" asp-action="Index">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#home" /></svg>
+                        <i class="bi bi-house-door me-2"></i>
                         Home
                     </a>
                 </li>
                 <li>
                     <a class="nav-link @(Accessor.HttpContext.Request.Path.Value == "/Client" ? "active" : "text-white" )" asp-area="" asp-controller="Client" asp-action="Index">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle" /></svg>
+                        <i class="bi bi-person-circle me-2"></i>
                         Clients
                     </a>
                 </li>
                 <li>
                     <a class="nav-link @(Accessor.HttpContext.Request.Path.Value == "/Transfer" ? "active" : "text-white" )" asp-area="" asp-controller="Transfer" asp-action="Index">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#cash-coin" /></svg>
+                        <i class="bi bi-cash-coin me-2"></i>
                         Transfers
                     </a>
                 </li>
@@ -48,7 +47,7 @@
         </div>
         <div class="menu-divider"></div>
 
-        <div class="container">
+        <div class="container overflow-auto">
             @RenderBody()
         </div>
     </main>

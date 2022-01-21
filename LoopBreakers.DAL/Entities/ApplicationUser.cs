@@ -9,6 +9,7 @@ namespace LoopBreakers.DAL.Entities
     [Table("Users")]
     public class ApplicationUser : Entity
     {
+        public string IdentityNumber { get; set; }
         public bool IsActive { get; set; }
         public decimal Balance { get; set; }
         public string Currency { get; set; }

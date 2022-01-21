@@ -35,6 +35,8 @@ namespace LoopBreakers.WebApp
 
             services.AddScoped(typeof(IBaseRepository<>), typeof(Repository<>));
             services.AddScoped<ITransferService, TransferService>();
+            services.AddScoped<IClientService, ClientService>();
+
 
             services.AddAutoMapper(typeof(Mappings.TransfersProfile));
 
@@ -48,8 +50,10 @@ namespace LoopBreakers.WebApp
             {
                 var context = serviceScope?.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 context?.Database.Migrate();
-                SeedData.Seed(context);
+                SeedData.SeedTransfer(context);
+                SeedData.SeedClient(context);
             }
+
 
             if (env.IsDevelopment())
             {

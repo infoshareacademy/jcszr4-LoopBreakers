@@ -7,6 +7,8 @@ namespace LoopBreakers.DAL.Context
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Transfer> Transfers { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -15,8 +17,8 @@ namespace LoopBreakers.DAL.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Transfer>().Property(x => x.Amount).HasPrecision(19, 4);
 
+            modelBuilder.Entity<Transfer>().Property(x => x.Amount).HasPrecision(19, 4);
             base.OnModelCreating(modelBuilder);
         }
     }
