@@ -1,4 +1,5 @@
-﻿using LoopBreakers.DAL.Entities;
+﻿using AutoMapper;
+using LoopBreakers.DAL.Entities;
 using LoopBreakers.DAL.Repositories;
 using LoopBreakers.WebApp.Contracts;
 using LoopBreakers.WebApp.DTOs;
@@ -13,21 +14,22 @@ using System.Threading.Tasks;
 namespace LoopBreakers.WebApp.Controllers
 {
     public class ClientController : Controller
-
     {
         private readonly IBaseRepository<ApplicationUser> _clientRepository;
 
         private IClientService _clientService;
+        private readonly IMapper _mapper;
 
-        public ClientController(IClientService clientrService)
+        public ClientController(IClientService clientrService, IMapper mapper)
         {
             _clientService = clientrService;
-
+            _mapper = mapper;
         }
         // GET: ClientController
         public async Task<ActionResult> Index(SearchClientViewModel user)
         {
-            var model = await _clientService.FilterBy(user);
+            var users = await _clientService.FilterBy(user);
+            var model = _mapper.Map<IEnumerable<UserDTO>>(users);
             return View(model);
         }
 
