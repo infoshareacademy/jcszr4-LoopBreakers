@@ -19,7 +19,6 @@ namespace LoopBreakers.WebApp.Controllers
             _transferService = transferService;
             _mapper = mapper;
         }
-     
 
         public ActionResult Details(int id)
         {

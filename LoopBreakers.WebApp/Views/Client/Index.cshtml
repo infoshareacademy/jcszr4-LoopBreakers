@@ -10,8 +10,20 @@
     <a class="btn btn-primary" asp-action="Create"><i class="bi bi-person-plus me-2"></i>Add New Client</a>
 </p>
 <hr />
+<form class="row" method="post">
+    <div class="col-auto">
+        <label class="col-form-label">Search: </label>
+    </div>
+    <div class="col-auto">
+        <input type="text" value="" name="SearchText" class="form-control" placeholder="">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Search</button>
+    </div>
+</form>
+<hr />
 <div class="row">
-    <div class="col">
+    <div class="col" id="myGroup">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -78,7 +90,7 @@
 
                     <tr>
                         <td colspan="12" class="hiddenRow">
-                            <div class="accordian-body collapse" id="hiddenRow@(Html.DisplayFor(modelItem => item.Id))">
+                            <div class="accordian-body collapse" id="hiddenRow@(Html.DisplayFor(modelItem => item.Id))" data-bs-parent="#myGroup">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr class="info">

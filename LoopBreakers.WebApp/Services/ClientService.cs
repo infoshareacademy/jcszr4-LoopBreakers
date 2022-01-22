@@ -23,10 +23,20 @@ namespace LoopBreakers.WebApp.Services
         public async Task<IEnumerable<ApplicationUser>> FilterBy(SearchClientViewModel filter)
         {  
             var clientQuery = _db.Users.AsQueryable();
-           
-            if (filter.LastName != null && filter.LastName.Length > 2)
+
+            //if (filter.LastName != null && filter.LastName.Length > 2)
+            //{
+            //    clientQuery = clientQuery.Where(n => n.LastName.StartsWith(filter.LastName));
+            //}
+            if (filter.SearchText != null && filter.SearchText.Length > 2)
             {
-                clientQuery = clientQuery.Where(n => n.LastName.StartsWith(filter.LastName));
+                clientQuery = clientQuery.Where(n => n.LastName.Contains(filter.SearchText) || 
+                                                    n.FirstName.Contains(filter.SearchText) ||
+                                                    n.Email.Contains(filter.SearchText) ||
+                                                    n.Address.Contains(filter.SearchText) ||
+                                                    n.Phone.Contains(filter.SearchText)||
+                                                    n.Company.Contains(filter.SearchText) ||
+                                                    n.Iban.Contains(filter.SearchText));
             }
             return await clientQuery.ToListAsync();
         }
