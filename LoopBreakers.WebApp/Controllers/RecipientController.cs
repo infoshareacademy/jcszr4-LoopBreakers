@@ -3,21 +3,26 @@ using LoopBreakers.WebApp.Contracts;
 using LoopBreakers.WebApp.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace LoopBreakers.WebApp.Controllers
 {
-    public class TransferController : Controller
+    public class RecipientController : Controller
     {
-        private readonly ITransferService _transferService;
+        private readonly IRecipientService _recipientService;
         private readonly IMapper _mapper;
-        public TransferController(ITransferService transferService, IMapper mapper)
+        public RecipientController(IRecipientService recipientService, IMapper mapper)
         {
-            _transferService = transferService;
+            _recipientService = recipientService;
             _mapper = mapper;
+        }
+
+        public async Task<ActionResult> Index(SearchRecipientViewModel filter)
+        {
+            var recipients = await _recipientService.FilterBy(filter);
+            var model = _mapper.Map<IEnumerable<RecipientDTO>>(recipients);
+            return View(model);
         }
 
         public ActionResult Details(int id)
@@ -44,19 +49,12 @@ namespace LoopBreakers.WebApp.Controllers
             }
         }
 
-        public async Task<ActionResult>  Index(SearchTransferViewModel filter)
-        {
-            var transfers = await _transferService.FilterBy(filter);
-            var model = _mapper.Map<IEnumerable<TransferDTO>>(transfers);
-            return View(model);
-        }
-
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        [HttpPost] 
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {

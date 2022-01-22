@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace LoopBreakers.WebApp.Contracts
 {
-    public interface IClientService
+    public interface IRecipientService
     {
-        Task<IEnumerable<ApplicationUser>> FilterBy(SearchClientViewModel filter);
+        Task<IEnumerable<Recipient>> FilterBy(SearchRecipientViewModel filter);
     }
 }
