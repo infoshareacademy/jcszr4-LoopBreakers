@@ -21,7 +21,7 @@ namespace LoopBreakers.WebApp.Services
             _clientRepository = applicationUserRepository;
         }
         public async Task<IEnumerable<ApplicationUser>> FilterBy(SearchClientViewModel filter)
-        {  
+        {
             var clientQuery = _db.Users.AsQueryable();
 
             //if (filter.LastName != null && filter.LastName.Length > 2)
