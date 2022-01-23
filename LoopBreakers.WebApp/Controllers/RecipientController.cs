@@ -62,17 +62,26 @@ namespace LoopBreakers.WebApp.Controllers
             }
         }
 
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var recipient = await _recipientRepository.FindById(id);
+            var model = _mapper.Map<RecipientDTO>(recipient);
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> EditAsync(int id, RecipientDTO model)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+                var recipient = _mapper.Map<Recipient>(model);
+                await _recipientRepository.Update(recipient);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -81,17 +90,21 @@ namespace LoopBreakers.WebApp.Controllers
             }
         }
 
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            return View();
+            var recipient = await _recipientRepository.FindById(id);
+            var model = _mapper.Map<RecipientDTO>(recipient);
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteAsync(int id, RecipientDTO model)
         {
             try
             {
+                var recipient = _mapper.Map<Recipient>(model);
+                await _recipientRepository.Delete(recipient);
                 return RedirectToAction(nameof(Index));
             }
             catch
