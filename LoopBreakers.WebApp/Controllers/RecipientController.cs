@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using LoopBreakers.DAL.Entities;
 using LoopBreakers.WebApp.Contracts;
 using LoopBreakers.WebApp.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -37,10 +39,18 @@ namespace LoopBreakers.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(RecipientDTO model)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+                var recipient = _mapper.Map<Recipient>(model);
+                recipient.Created = DateTime.Now;
+                //await _recipientService. tu nie dzidzi ??
+
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -36,5 +36,12 @@ namespace LoopBreakers.WebApp.Services
             }
             return await recipientQuery.ToListAsync();
         }
+
+        public async Task Create(Recipient recipient)
+        {
+            await _recipientRepository.Create(recipient);
+            //_db.Recipients.Add(recipient);
+            //_db.SaveChanges();
+        }
     }
 }
