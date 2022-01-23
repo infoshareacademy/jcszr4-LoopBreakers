@@ -16,8 +16,7 @@ namespace LoopBreakers.WebApp.Services
         private readonly IBaseRepository<Recipient> _recipientRepository;
         private readonly ApplicationDbContext _db;
 
-        public RecipientService(ApplicationDbContext db,
-            IBaseRepository<Recipient> recipientRepository)
+        public RecipientService(ApplicationDbContext db, IBaseRepository<Recipient> recipientRepository)
         {
             _db = db;
             _recipientRepository = recipientRepository;
@@ -35,13 +34,6 @@ namespace LoopBreakers.WebApp.Services
                                                     n.Iban.Contains(filter.SearchText));
             }
             return await recipientQuery.ToListAsync();
-        }
-
-        public async Task Create(Recipient recipient)
-        {
-            await _recipientRepository.Create(recipient);
-            //_db.Recipients.Add(recipient);
-            //_db.SaveChanges();
         }
     }
 }

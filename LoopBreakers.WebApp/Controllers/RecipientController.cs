@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LoopBreakers.DAL.Entities;
+using LoopBreakers.DAL.Repositories;
 using LoopBreakers.WebApp.Contracts;
 using LoopBreakers.WebApp.DTOs;
 using Microsoft.AspNetCore.Http;
@@ -12,10 +13,12 @@ namespace LoopBreakers.WebApp.Controllers
 {
     public class RecipientController : Controller
     {
+        private readonly IBaseRepository<Recipient> _recipientRepository;
         private readonly IRecipientService _recipientService;
         private readonly IMapper _mapper;
-        public RecipientController(IRecipientService recipientService, IMapper mapper)
+        public RecipientController(IBaseRepository<Recipient> recipientRepository, IRecipientService recipientService, IMapper mapper)
         {
+            _recipientRepository = recipientRepository;
             _recipientService = recipientService;
             _mapper = mapper;
         }
@@ -49,7 +52,7 @@ namespace LoopBreakers.WebApp.Controllers
                 }
                 var recipient = _mapper.Map<Recipient>(model);
                 recipient.Created = DateTime.Now;
-                //await _recipientService. tu nie dzidzi ??
+                await _recipientRepository.Create(recipient);
 
                 return RedirectToAction(nameof(Index));
             }
