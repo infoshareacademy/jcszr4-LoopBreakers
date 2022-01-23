@@ -93,19 +93,23 @@ namespace LoopBreakers.WebApp.Controllers
         }
 
         // GET: ClientController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            return View();
+            var client = await _clientRepository.FindById(id);
+            var model = _mapper.Map<UserDTO>(client);
+            return View(model);
         }
 
         // POST: ClientController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteAsync(int id, UserDTO model)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var client = _mapper.Map<ApplicationUser>(model);
+                await _clientRepository.Delete(client);
+                return RedirectToAction(nameof(Index)); 
             }
             catch
             {
