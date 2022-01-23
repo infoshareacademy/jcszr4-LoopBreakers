@@ -42,6 +42,7 @@ namespace LoopBreakers.WebApp.Controllers
         // GET: ClientController/Create
         public ActionResult Create()
         {
+            
             return View();
         }
 
@@ -50,6 +51,7 @@ namespace LoopBreakers.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
+
             try
             {
                 return RedirectToAction(nameof(Index));

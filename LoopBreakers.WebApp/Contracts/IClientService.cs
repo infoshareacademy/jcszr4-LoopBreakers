@@ -11,5 +11,7 @@ namespace LoopBreakers.WebApp.Contracts
         ApplicationUser FindTransferPerformer(TransferPerformDTO transfer);
 
         void BalanceUpadateAfterTransfer (ApplicationUser user);
-    }    
+        IEnumerable<ApplicationUser> GetAll();
+
+    }
 }

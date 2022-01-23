@@ -10,7 +10,7 @@ using LoopBreakers.WebApp.Contracts;
 
 namespace LoopBreakers.WebApp.Services
 {
-    public class ClientService: IClientService
+    public class ClientService : IClientService 
     {
         private readonly IBaseRepository<ApplicationUser> _clientRepository;
         private readonly ApplicationDbContext _db;
@@ -21,7 +21,7 @@ namespace LoopBreakers.WebApp.Services
             _clientRepository = applicationUserRepository;
         }
         public async Task<IEnumerable<ApplicationUser>> FilterBy(SearchClientViewModel filter)
-        {  
+        {
             var clientQuery = _db.Users.AsQueryable();
 
             //if (filter.LastName != null && filter.LastName.Length > 2)
@@ -30,15 +30,19 @@ namespace LoopBreakers.WebApp.Services
             //}
             if (filter.SearchText != null && filter.SearchText.Length > 2)
             {
-                clientQuery = clientQuery.Where(n => n.LastName.Contains(filter.SearchText) || 
+                clientQuery = clientQuery.Where(n => n.LastName.Contains(filter.SearchText) ||
                                                     n.FirstName.Contains(filter.SearchText) ||
                                                     n.Email.Contains(filter.SearchText) ||
                                                     n.Address.Contains(filter.SearchText) ||
-                                                    n.Phone.Contains(filter.SearchText)||
+                                                    n.Phone.Contains(filter.SearchText) ||
                                                     n.Company.Contains(filter.SearchText) ||
                                                     n.Iban.Contains(filter.SearchText));
             }
             return await clientQuery.ToListAsync();
+        }
+        public IEnumerable<ApplicationUser> GetAll()
+        {
+            return  _db.Users.ToList();
         }
         public ApplicationUser FindTransferPerformer(TransferPerformDTO transfer)
         {
@@ -49,6 +53,7 @@ namespace LoopBreakers.WebApp.Services
             _db.Users.Update(user);
             _db.SaveChanges();
         }
+       
 
     }
 }
