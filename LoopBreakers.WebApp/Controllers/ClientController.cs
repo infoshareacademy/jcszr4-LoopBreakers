@@ -20,8 +20,9 @@ namespace LoopBreakers.WebApp.Controllers
         private IClientService _clientService;
         private readonly IMapper _mapper;
 
-        public ClientController(IClientService clientrService, IMapper mapper)
+        public ClientController(IBaseRepository<ApplicationUser> clientRepository, IClientService clientrService, IMapper mapper)
         {
+            _clientRepository = clientRepository;
             _clientService = clientrService;
             _mapper = mapper;
         }
@@ -42,18 +43,26 @@ namespace LoopBreakers.WebApp.Controllers
         // GET: ClientController/Create
         public ActionResult Create()
         {
-            
             return View();
         }
 
         // POST: ClientController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> CreateAsync(UserDTO model)
         {
-
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+                var user = _mapper.Map<ApplicationUser>(model);
+                user.Created = DateTime.Now;
+                user.Registered = DateTime.Now;
+                user.IdentityNumber = Guid.NewGuid().ToString();
+                await _clientRepository.Create(user);
+
                 return RedirectToAction(nameof(Index));
             }
             catch

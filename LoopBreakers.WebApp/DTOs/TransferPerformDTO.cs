@@ -26,7 +26,7 @@ namespace LoopBreakers.WebApp.DTOs
         public TransferType Type { get; set; }
 
         [Required]
-        [Range(0.01, 20000, ErrorMessage = "The amount must be betwen 0.01 and 20000")]
+        [Range(0.01, 20000, ErrorMessage = "The amount must be between 0.01 and 20000")]
         public decimal Amount { get; set; }
 
         public DateTime Created { get; set; }
