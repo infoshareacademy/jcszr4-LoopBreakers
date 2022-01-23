@@ -1,0 +1,71 @@
+﻿@model LoopBreakers.WebApp.DTOs.TransferPerformDTO
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Nowy przelew</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+       <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserSurname" class="control-label"></label>
+               <input asp-for="UserSurname" class="form-control" />
+                <span asp-validation-for="UserSurname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Iban" class="control-label"></label>
+                <input asp-for="Iban" class="form-control" />
+                <span asp-validation-for="Iban" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>    
+      
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>         
+            <div class="form-group">
+                <label asp-for="Reference" class="control-label"></label>
+                <input asp-for="Reference" class="form-control" />
+                <span asp-validation-for="Reference" class="text-danger"></span>
+            </div>          
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Analuj transfer</a>
+</div>
+@{
+    if (ViewBag.NotEnoughMoney)
+    {
+        <script>
+            alert("Zbyt malo srodkow na koncie");
+        </script>
+    }
+    if(ViewBag.WrongUser)
+     {
+        <script>
+            alert("Uzytkownik z takim nazwiskiem nie zostal znaleziony");
+        </script>
+    }
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

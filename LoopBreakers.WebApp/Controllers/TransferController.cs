@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using LoopBreakers.DAL.Entities;
+using LoopBreakers.DAL.Enums;
 using LoopBreakers.WebApp.Contracts;
 using LoopBreakers.WebApp.DTOs;
 using Microsoft.AspNetCore.Http;
@@ -13,10 +15,14 @@ namespace LoopBreakers.WebApp.Controllers
     public class TransferController : Controller
     {
         private readonly ITransferService _transferService;
+
+        private readonly IClientService _clientService;
+
         private readonly IMapper _mapper;
-        public TransferController(ITransferService transferService, IMapper mapper)
+        public TransferController(ITransferService transferService, IMapper mapper, IClientService clientService)
         {
             _transferService = transferService;
+            _clientService = clientService;
             _mapper = mapper;
         }
 
@@ -27,16 +33,53 @@ namespace LoopBreakers.WebApp.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.WrongUser = false;
+            ViewBag.NotEnoughMoney = false;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public  IActionResult Create(TransferPerformDTO transfer)
         {
+            ViewBag.WrongUser = false;
+            ViewBag.NotEnoughMoney = false;
+
+
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             try
             {
-                return RedirectToAction(nameof(Index));
+                var currentUser = _clientService.FindTransferPerformer(transfer);               
+                var transferOut = _mapper.Map<Transfer>(transfer);               
+                if(currentUser != null)
+                {
+                    if (transfer.Amount > currentUser.Balance)
+                    {
+                        transfer.FromId = currentUser.IdentityNumber;
+                        transfer.Currency = (Currency)Enum.Parse(typeof(Currency), currentUser.Currency);
+                        transfer.Created = DateTime.Now;
+                        ViewBag.NotEnoughMoney = true;
+
+                    }
+                    else
+                    {
+                        _transferService.CreateNew(transferOut);
+                        currentUser.Balance = currentUser.Balance - transferOut.Amount;
+                        _clientService.BalanceUpadateAfterTransfer(currentUser);
+                        return RedirectToAction(nameof(Index));
+
+                    }
+                }
+                else
+                {
+                    ViewBag.WrongUser = true;
+                }
+                return View();
+
             }
             catch
             {
