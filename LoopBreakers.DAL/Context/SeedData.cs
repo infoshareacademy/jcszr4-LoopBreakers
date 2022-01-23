@@ -31,7 +31,6 @@ namespace LoopBreakers.DAL.Context
                 context.Transfers.AddRange(transfers);
                 context.SaveChanges();
             }
-
         }
         public static void SeedClient(ApplicationDbContext context) 
         {
@@ -49,7 +48,6 @@ namespace LoopBreakers.DAL.Context
             }
         }
     }
-
 }
 
 

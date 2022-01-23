@@ -12,6 +12,5 @@ namespace LoopBreakers.WebApp.Contracts
 
         void BalanceUpadateAfterTransfer (ApplicationUser user);
         IEnumerable<ApplicationUser> GetAll();
-
     }
 }

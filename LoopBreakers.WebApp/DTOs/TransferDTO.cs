@@ -23,6 +23,5 @@ namespace LoopBreakers.WebApp.DTOs
         public DateTime Created { get; set; }
         public string Reference { get; set; }
         public Currency Currency { get; set; }
-
     }
 }

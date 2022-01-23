@@ -5,11 +5,8 @@ using System.Threading.Tasks;
 
 namespace LoopBreakers.WebApp.Contracts
 {
-    public interface ITransferService
+    public interface IRecipientService
     {
-        Task<IEnumerable<Transfer>> FilterBy(SearchTransferViewModel filter);
-        void CreateNew(Transfer transfer);
-     
-
+        Task<IEnumerable<Recipient>> FilterBy(SearchRecipientViewModel filter);
     }
 }
