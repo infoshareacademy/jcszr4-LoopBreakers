@@ -46,7 +46,6 @@ namespace LoopBreakers.WebApp.Controllers
             ViewBag.NotEnoughMoney = false;
 
 
-
             if (!ModelState.IsValid)
             {
                 return View();
@@ -63,7 +62,6 @@ namespace LoopBreakers.WebApp.Controllers
                         transfer.Currency = (Currency)Enum.Parse(typeof(Currency), currentUser.Currency);
                         transfer.Created = DateTime.Now;
                         ViewBag.NotEnoughMoney = true;
-
                     }
                     else
                     {
@@ -71,7 +69,6 @@ namespace LoopBreakers.WebApp.Controllers
                         currentUser.Balance = currentUser.Balance - transferOut.Amount;
                         _clientService.BalanceUpadateAfterTransfer(currentUser);
                         return RedirectToAction(nameof(Index));
-
                     }
                 }
                 else

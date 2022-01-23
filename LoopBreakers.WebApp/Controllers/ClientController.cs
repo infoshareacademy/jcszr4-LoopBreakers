@@ -72,18 +72,26 @@ namespace LoopBreakers.WebApp.Controllers
         }
 
         // GET: ClientController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> EditAsync(int id)
         {
-            return View();
+            var client = await _clientRepository.FindById(id);
+            var model = _mapper.Map<UserDTO>(client);
+            return View(model);
         }
 
         // POST: ClientController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> EditAsync(int id, UserDTO model)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+                var client = _mapper.Map<ApplicationUser>(model);
+                await _clientRepository.Update(client);
                 return RedirectToAction(nameof(Index));
             }
             catch
