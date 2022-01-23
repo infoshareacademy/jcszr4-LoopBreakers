@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LoopBreakers.DAL.Entities;
 using LoopBreakers.WebApp.Contracts;
 using LoopBreakers.WebApp.DTOs;
 using Microsoft.AspNetCore.Http;
@@ -13,10 +14,14 @@ namespace LoopBreakers.WebApp.Controllers
     public class TransferController : Controller
     {
         private readonly ITransferService _transferService;
+
+        private readonly IClientService _clientService;
+
         private readonly IMapper _mapper;
-        public TransferController(ITransferService transferService, IMapper mapper)
+        public TransferController(ITransferService transferService, IMapper mapper, IClientService clientService)
         {
             _transferService = transferService;
+            _clientService = clientService;
             _mapper = mapper;
         }
 
@@ -27,16 +32,52 @@ namespace LoopBreakers.WebApp.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.WrongUser = false;
+            ViewBag.NotEnoughMoney = false;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public  IActionResult Create(TransferPerformDTO transfer)
         {
-            try
+            ViewBag.WrongUser = false;
+            ViewBag.NotEnoughMoney = false;
+
+
+
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return View();
+            }
+            try
+            {   
+                
+                var transferOut = _mapper.Map<Transfer>(transfer);
+               
+                var currentUser = _clientService.FindTransferPerformer(transfer);
+                if(currentUser != null)
+                {
+                    if (transfer.Amount > currentUser.Balance)
+                    {
+                        ViewBag.NotEnoughMoney = true;
+
+                    }
+                    else
+                    {
+                        _transferService.CreateNew(transferOut);
+                        currentUser.Balance = currentUser.Balance - transferOut.Amount;
+                        _clientService.BalanceUpadateAfterTransfer(currentUser);
+                        return RedirectToAction(nameof(Index));
+
+                    }
+                }
+                else
+                {
+                    ViewBag.WrongUser = true;
+                }
+                return View();
+
             }
             catch
             {

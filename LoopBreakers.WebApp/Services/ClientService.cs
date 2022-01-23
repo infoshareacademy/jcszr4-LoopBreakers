@@ -40,5 +40,15 @@ namespace LoopBreakers.WebApp.Services
             }
             return await clientQuery.ToListAsync();
         }
+        public ApplicationUser FindTransferPerformer(TransferPerformDTO transfer)
+        {
+            return _db.Users.Where(n => n.LastName == transfer.UserSurname).FirstOrDefault();
+        }
+        public void BalanceUpadateAfterTransfer(ApplicationUser user)
+        {
+            _db.Users.Update(user);
+            _db.SaveChanges();
+        }
+
     }
 }

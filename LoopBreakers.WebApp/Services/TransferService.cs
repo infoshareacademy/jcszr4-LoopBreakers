@@ -29,11 +29,18 @@ namespace LoopBreakers.WebApp.Services
             {
                 transfersQuery = transfersQuery.Where(q => q.Created >= filter.DateFrom.Value && q.Created <= filter.DateTo.Value);
             }
-            if (filter.Name != null && filter.Name.Length >2)
+            if (filter.Name != null && filter.Name.Length > 2)
             {
                 transfersQuery = transfersQuery.Where(n => n.LastName.StartsWith(filter.Name));
             }
             return await transfersQuery.ToListAsync();
         }
+        public void CreateNew(Transfer transfer)
+        {
+             _db.Transfers.Add(transfer);
+             _db.SaveChanges();
+
+        }
+       
     }
 }
