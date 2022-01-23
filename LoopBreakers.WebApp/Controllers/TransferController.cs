@@ -53,16 +53,15 @@ namespace LoopBreakers.WebApp.Controllers
             }
             try
             {
-                var currentUser = _clientService.FindTransferPerformer(transfer);
-                transfer.FromId = currentUser.IdentityNumber;
-                transfer.Currency = (Currency)Enum.Parse(typeof(Currency), currentUser.Currency);
-                transfer.Created= DateTime.Now;
-                var transferOut = _mapper.Map<Transfer>(transfer);
-               
+                var currentUser = _clientService.FindTransferPerformer(transfer);               
+                var transferOut = _mapper.Map<Transfer>(transfer);               
                 if(currentUser != null)
                 {
                     if (transfer.Amount > currentUser.Balance)
                     {
+                        transfer.FromId = currentUser.IdentityNumber;
+                        transfer.Currency = (Currency)Enum.Parse(typeof(Currency), currentUser.Currency);
+                        transfer.Created = DateTime.Now;
                         ViewBag.NotEnoughMoney = true;
 
                     }
