@@ -1,10 +1,10 @@
 ﻿@model LoopBreakers.WebApp.DTOs.TransferPerformDTO
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create New Transfer";
 }
 
-<h1>Nowy przelew</h1>
+<h3>Create New Transfer</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -41,27 +41,24 @@
                 <input asp-for="Reference" class="form-control" />
                 <span asp-validation-for="Reference" class="text-danger"></span>
             </div>          
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group mt-2">
+                <input type="submit" value="Create" class="btn btn-primary" /> <a class="btn btn-danger" asp-action="Index">Cancel</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Analuj transfer</a>
-</div>
 @{
     if (ViewBag.NotEnoughMoney)
     {
         <script>
-            alert("Zbyt malo srodkow na koncie");
+            alert("Transfer amount is higher than Client balance!");
         </script>
     }
     if(ViewBag.WrongUser)
      {
         <script>
-            alert("Uzytkownik z takim nazwiskiem nie zostal znaleziony");
+            alert("The Client with this surname was not found!");
         </script>
     }
 }
