@@ -16,11 +16,11 @@ namespace LoopBreakers.WebApp.DTOs
         public string Iban { get; set; }
 
         [Required]
-        [Display(Name = "Reciever First Name")]
+        [Display(Name = "Receiver First Name")]
         public string FirstName { get; set; }
 
         [Required]
-        [Display(Name = "Reciever Last Name")]
+        [Display(Name = "Receiver Last Name")]
         public string LastName { get; set; }
         public string FromId { get; set; }
         public TransferType Type { get; set; }
