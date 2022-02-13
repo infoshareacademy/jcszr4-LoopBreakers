@@ -5,7 +5,7 @@ using LoopBreakers.DAL.Entities;
 
 namespace LoopBreakers.DAL.Repositories
 {
-    public interface IBaseRepository<T> where T : Entity
+    public interface IBaseRepository<T> where T : IEntity
     {
         IQueryable<T> GetAllQueryable();
         Task<IEnumerable<T>> FindAll();

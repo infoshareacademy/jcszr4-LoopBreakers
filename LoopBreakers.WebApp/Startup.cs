@@ -14,6 +14,7 @@ using LoopBreakers.DAL.Context;
 using LoopBreakers.WebApp.Contracts;
 using LoopBreakers.WebApp.Services;
 using LoopBreakers.DAL.Repositories;
+using LoopBreakers.DAL.Entities;
 
 namespace LoopBreakers.WebApp
 {
@@ -32,6 +33,8 @@ namespace LoopBreakers.WebApp
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDefaultIdentity<ApplicationUser>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped(typeof(IBaseRepository<>), typeof(Repository<>));
             services.AddScoped<ITransferService, TransferService>();
@@ -69,6 +72,7 @@ namespace LoopBreakers.WebApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
             
             app.UseEndpoints(endpoints =>
@@ -76,6 +80,8 @@ namespace LoopBreakers.WebApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapRazorPages();
             });
         }
     }
