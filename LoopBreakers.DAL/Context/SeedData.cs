@@ -41,7 +41,7 @@ namespace LoopBreakers.DAL.Context
 
             if (File.Exists(UsersJsonFilePath))
             {
-                string json = File.ReadAllText(UsersJsonFilePath).Replace("Id","IdentityNumber");
+                string json = File.ReadAllText(UsersJsonFilePath).Replace("Id", "IdentityNumber");
                 _users = JsonConvert.DeserializeObject<List<ApplicationUser>>(json);
                 context.Users.AddRange(_users);
                 context.SaveChanges();

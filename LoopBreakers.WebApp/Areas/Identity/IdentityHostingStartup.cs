@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: HostingStartup(typeof(WebApplication1.Areas.Identity.IdentityHostingStartup))]
-namespace WebApplication1.Areas.Identity
+[assembly: HostingStartup(typeof(LoopBreakers.WebApp.Areas.Identity.IdentityHostingStartup))]
+namespace LoopBreakers.WebApp.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {

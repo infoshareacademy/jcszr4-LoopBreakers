@@ -1,13 +1,14 @@
 ﻿using LoopBreakers.DAL.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace LoopBreakers.DAL.Context
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, UserRole, int>
     {
         public DbSet<Transfer> Transfers { get; set; }
-        public DbSet<ApplicationUser> Users { get; set; }
+        public override DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Recipient> Recipients { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
