@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LoopBreakers.DAL.Context
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, UserRole, int>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, UserRole,int>
     {
         public DbSet<Transfer> Transfers { get; set; }
         public override DbSet<ApplicationUser> Users { get; set; }

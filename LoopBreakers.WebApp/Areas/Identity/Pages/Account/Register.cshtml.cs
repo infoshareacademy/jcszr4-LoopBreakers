@@ -87,7 +87,7 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
             [Required, Display(Name = "Adress")]
             public string Address { get; set; }
             public DateTime Registered { get; set; }=DateTime.Now;
-            //[Required, Display(Name = "Numer Konta [PL...]"), MinLength(28), MaxLength(28)]
+            [Required, Display(Name = "Numer Konta [PL...]"), MinLength(28), MaxLength(28)]
             public string Iban { get; set; }
         }
 

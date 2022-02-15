@@ -32,13 +32,10 @@ namespace LoopBreakers.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            //services.TryAddScoped<SignInManager<ApplicationUser>>();
-
-
-            services.AddDefaultIdentity<ApplicationUser>()
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
-
+=
+            services.AddDefaultIdentity<ApplicationUser>().AddRoles<UserRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+            
             services.AddScoped(typeof(IBaseRepository<>), typeof(Repository<>));
             services.AddScoped<ITransferService, TransferService>();
             services.AddScoped<IClientService, ClientService>();
@@ -91,5 +88,6 @@ namespace LoopBreakers.WebApp
                 endpoints.MapRazorPages();
             });
         }
+
     }
 }

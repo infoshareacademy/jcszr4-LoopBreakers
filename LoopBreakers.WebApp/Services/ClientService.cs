@@ -65,7 +65,9 @@ namespace LoopBreakers.WebApp.Services
             _db.SaveChanges();
         }
 
-
-
+        public ApplicationUser FindLoggedUser(string email)
+        {
+            return _db.Users.Where(n => n.Email == email).FirstOrDefault();
+        }
     }
 }

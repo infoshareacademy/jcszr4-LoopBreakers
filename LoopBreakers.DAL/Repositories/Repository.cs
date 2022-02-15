@@ -53,8 +53,8 @@ namespace LoopBreakers.DAL.Repositories
 
         public async Task<bool> Delete(T entity)
         {
-            
-            entities.Remove(entity);
+            var entityToDelete = entities.FirstOrDefault(x => x.Id == entity.Id);
+            entities.Remove(entityToDelete);
             return await Save();
         }
 

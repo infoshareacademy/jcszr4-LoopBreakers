@@ -32,12 +32,12 @@ namespace LoopBreakers.WebApp.Controllers
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
+        
 
         }
-    // GET: ClientController
-    public async Task<ActionResult> Index(SearchClientViewModel user)
+        // GET: ClientController
+        public async Task<ActionResult> Index(SearchClientViewModel user)
         {
-            var loggedInUser = this.HttpContext.User.Identity.Name;
             var users = await _clientService.FilterBy(user);
             var model = _mapper.Map<IEnumerable<UserDTO>>(users);
             return View(model);

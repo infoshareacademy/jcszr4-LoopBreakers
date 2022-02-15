@@ -10,6 +10,7 @@ namespace LoopBreakers.WebApp.Contracts
         Task<IEnumerable<ApplicationUser>> FilterBy(SearchClientViewModel filter);
         ApplicationUser FindTransferPerformer(string userEmail);
         ApplicationUser FindRecipent (string iban);
+        ApplicationUser FindLoggedUser(string email);
 
         void PerformerBalanceUpadateAfterTransfer (ApplicationUser user);
         void RecipentBalanceUpadateAfterTransfer(ApplicationUser user);
