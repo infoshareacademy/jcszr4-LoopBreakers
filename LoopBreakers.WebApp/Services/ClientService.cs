@@ -44,16 +44,28 @@ namespace LoopBreakers.WebApp.Services
         {
             return  _db.Users.ToList();
         }
-        public ApplicationUser FindTransferPerformer(TransferPerformDTO transfer)
+        public ApplicationUser FindTransferPerformer(string userEmail)
         {
-            return _db.Users.Where(n => n.LastName == transfer.UserSurname).FirstOrDefault();
+            return _db.Users.Where(n => n.Email == userEmail).FirstOrDefault();
         }
-        public void BalanceUpadateAfterTransfer(ApplicationUser user)
+        public ApplicationUser FindRecipent(string iban)
+        {
+            return _db.Users.Where(n => n.Iban == iban).FirstOrDefault();
+
+        }
+        public void PerformerBalanceUpadateAfterTransfer(ApplicationUser user)
         {
             _db.Users.Update(user);
             _db.SaveChanges();
         }
-       
+        public void RecipentBalanceUpadateAfterTransfer(ApplicationUser user)
+        {
+            if(user != null)
+            _db.Users.Update(user);
+            _db.SaveChanges();
+        }
+
+
 
     }
 }
