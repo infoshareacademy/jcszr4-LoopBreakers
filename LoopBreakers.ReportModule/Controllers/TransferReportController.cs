@@ -28,8 +28,9 @@ namespace LoopBreakers.ReportModule.Controllers
 
         // POST api/<TransferReportController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> AddTransferReport([FromBody] string value)
         {
+            return Ok();
         }
 
         // PUT api/<TransferReportController>/5
