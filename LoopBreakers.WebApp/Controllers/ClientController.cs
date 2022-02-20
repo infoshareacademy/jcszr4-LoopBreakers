@@ -38,6 +38,7 @@ namespace LoopBreakers.WebApp.Controllers
         // GET: ClientController
         public async Task<ActionResult> Index(SearchClientViewModel user)
         {
+            var isAdmin = this.HttpContext.User.IsInRole("Admin");
             var users = await _clientService.FilterBy(user);
             var model = _mapper.Map<IEnumerable<UserDTO>>(users);
             return View(model);

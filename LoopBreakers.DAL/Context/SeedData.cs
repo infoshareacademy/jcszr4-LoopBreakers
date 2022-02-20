@@ -6,6 +6,7 @@ using System.Text;
 using LoopBreakers.DAL.Enums;
 using System.IO;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity;
 
 namespace LoopBreakers.DAL.Context
 {
@@ -32,20 +33,35 @@ namespace LoopBreakers.DAL.Context
                 context.SaveChanges();
             }
         }
-        public static void SeedClient(ApplicationDbContext context) 
+        public static async void SeedClient(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<MyRole> roleManager) 
         {
             if (context.Users.Any())
             {
                 return;
             }
 
-            if (File.Exists(UsersJsonFilePath))
+            var admin = new ApplicationUser()
             {
-                string json = File.ReadAllText(UsersJsonFilePath).Replace("Id", "IdentityNumber");
-                _users = JsonConvert.DeserializeObject<List<ApplicationUser>>(json);
-                context.Users.AddRange(_users);
-                context.SaveChanges();
+                UserName = "admin@admin.eu",
+                Email = "admin@admin.eu",
+
+            };
+
+            var result = await userManager.CreateAsync(admin, "superSecretAdminPassword123@");
+            if (result.Succeeded)
+            {
+                await roleManager.CreateAsync(new MyRole() { Name = "Admin" });
+                await roleManager.CreateAsync(new MyRole() { Name = "User" });
+                await userManager.AddToRoleAsync(admin, "Admin");
             }
+
+            //if (File.Exists(UsersJsonFilePath))
+            //{
+            //    string json = File.ReadAllText(UsersJsonFilePath).Replace("Id", "IdentityNumber");
+            //    _users = JsonConvert.DeserializeObject<List<ApplicationUser>>(json);
+            //    context.Users.AddRange(_users);
+            //    context.SaveChanges();
+            //}
         }
     }
 }
