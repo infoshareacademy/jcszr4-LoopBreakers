@@ -6,9 +6,7 @@ namespace LoopBreakers.WebApp.DTOs
 {
     public class TransferPerformDTO
     {
-        [Display(Name = "Client Surname")]
-        [Required]
-        public string UserSurname { get; set; }
+    
 
         [Required]
         [MinLength(28)]

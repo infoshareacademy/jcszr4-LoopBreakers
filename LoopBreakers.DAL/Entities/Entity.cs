@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LoopBreakers.DAL.Entities
 {
-    public class Entity
+    public class Entity : IEntity
     {
         public int Id { get; set; }
         public DateTime Created { get; set; }

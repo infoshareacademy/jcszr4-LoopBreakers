@@ -4,6 +4,7 @@ using LoopBreakers.DAL.Enums;
 using LoopBreakers.WebApp.Contracts;
 using LoopBreakers.WebApp.DTOs;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,11 +20,18 @@ namespace LoopBreakers.WebApp.Controllers
         private readonly IClientService _clientService;
 
         private readonly IMapper _mapper;
-        public TransferController(ITransferService transferService, IMapper mapper, IClientService clientService)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+
+        public TransferController(ITransferService transferService, IMapper mapper, IClientService clientService,
+             UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             _transferService = transferService;
             _clientService = clientService;
             _mapper = mapper;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public ActionResult Details(int id)
@@ -44,15 +52,16 @@ namespace LoopBreakers.WebApp.Controllers
         {
             ViewBag.WrongUser = false;
             ViewBag.NotEnoughMoney = false;
-
-
             if (!ModelState.IsValid)
             {
                 return View();
             }
             try
             {
-                var currentUser = _clientService.FindTransferPerformer(transfer);               
+                var userLogon = HttpContext.User.Identity.Name;
+                var currentUser = _clientService.FindTransferPerformer(userLogon);
+                var transferRecipent = _clientService.FindRecipent(transfer.Iban);
+                transfer.Created= DateTime.Now;
                 var transferOut = _mapper.Map<Transfer>(transfer);               
                 if(currentUser != null)
                 {
@@ -62,12 +71,18 @@ namespace LoopBreakers.WebApp.Controllers
                         transfer.Currency = (Currency)Enum.Parse(typeof(Currency), currentUser.Currency);
                         transfer.Created = DateTime.Now;
                         ViewBag.NotEnoughMoney = true;
-                    }
+                    }                    
                     else
                     {
                         _transferService.CreateNew(transferOut);
                         currentUser.Balance = currentUser.Balance - transferOut.Amount;
-                        _clientService.BalanceUpadateAfterTransfer(currentUser);
+                        _clientService.PerformerBalanceUpadateAfterTransfer(currentUser);
+                        if(transferRecipent != null)
+                        {
+                            transferRecipent.Balance = transferRecipent.Balance + transferOut.Amount;
+                            _clientService.RecipentBalanceUpadateAfterTransfer(transferRecipent);
+
+                        }
                         return RedirectToAction(nameof(Index));
                     }
                 }
