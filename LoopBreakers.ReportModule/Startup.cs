@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using LoopBreakers.ReportModule.Services;
 
 namespace LoopBreakers.ReportModule
 {
@@ -33,8 +34,10 @@ namespace LoopBreakers.ReportModule
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LoopBreakers.ReportModule", Version = "v1" });
             });
+            services.AddScoped<IReportService, ReportService>();
             var profileAssembly = typeof(Startup).Assembly;
             services.AddAutoMapper(profileAssembly);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

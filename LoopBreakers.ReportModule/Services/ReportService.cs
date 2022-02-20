@@ -13,9 +13,8 @@ namespace LoopBreakers.ReportModule.Services
         private readonly IBaseRepository<TransferReport> _transferRepository;
         private readonly IBaseRepository<ActivityReport> _activityRepository;
 
-
         public ReportService(IBaseRepository<TransferReport> transferRepository,
-            IBaseRepository<ActivityReport> activityRepository)
+                             IBaseRepository<ActivityReport> activityRepository)
         {
             _transferRepository = transferRepository;
             _activityRepository = activityRepository;

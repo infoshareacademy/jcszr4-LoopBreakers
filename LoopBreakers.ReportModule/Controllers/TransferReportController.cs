@@ -3,8 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using LoopBreakers.DAL.Entities;
+using LoopBreakers.ReportModule.Models;
+using LoopBreakers.ReportModule.Services;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 
 namespace LoopBreakers.ReportModule.Controllers
 {
@@ -12,6 +16,14 @@ namespace LoopBreakers.ReportModule.Controllers
     [ApiController]
     public class TransferReportController : ControllerBase
     {
+        private readonly IMapper _mapper;
+        private readonly IReportService _reportService;
+        public TransferReportController(IMapper mapper, IReportService reportService)
+        {
+            _mapper = mapper;
+            _reportService = reportService;
+        }
+
         // GET: api/<TransferReportController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -28,8 +40,10 @@ namespace LoopBreakers.ReportModule.Controllers
 
         // POST api/<TransferReportController>
         [HttpPost]
-        public async Task<IActionResult> AddTransferReport([FromBody] string value)
+        public async Task<IActionResult> AddTransferReport([FromBody] TransferReportDTO transfer)
         {
+            var transferToCreate = _mapper.Map<TransferReport>(transfer);
+            await _reportService.AddTransferReport(transferToCreate);
             return Ok();
         }
 

@@ -23,18 +23,17 @@ namespace LoopBreakers.WebApp.Controllers
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
 
-        public ClientController(IBaseRepository<ApplicationUser> clientRepository, IClientService clientrService, 
+        public ClientController(IBaseRepository<ApplicationUser> clientRepository, IClientService clientService, 
             IMapper mapper, UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
             _clientRepository = clientRepository;
-            _clientService = clientrService;
+            _clientService = clientService;
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
-        
-
         }
+
         // GET: ClientController
         public async Task<ActionResult> Index(SearchClientViewModel user)
         {
