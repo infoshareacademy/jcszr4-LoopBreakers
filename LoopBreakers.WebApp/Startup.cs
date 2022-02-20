@@ -33,7 +33,7 @@ namespace LoopBreakers.WebApp
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ApplicationUser>().AddRoles<MyRole>()
+            services.AddDefaultIdentity<ApplicationUser>().AddRoles<ApplicationRoles>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
             
             services.AddScoped(typeof(IBaseRepository<>), typeof(Repository<>));
@@ -51,7 +51,7 @@ namespace LoopBreakers.WebApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<ApplicationUser> userManager, RoleManager<MyRole> roleManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRoles> roleManager)
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>()?.CreateScope())
             {

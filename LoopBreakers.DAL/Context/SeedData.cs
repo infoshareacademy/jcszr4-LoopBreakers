@@ -33,7 +33,7 @@ namespace LoopBreakers.DAL.Context
                 context.SaveChanges();
             }
         }
-        public static async void SeedClient(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<MyRole> roleManager) 
+        public static async void SeedClient(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRoles> roleManager) 
         {
             if (context.Users.Any())
             {
@@ -50,8 +50,8 @@ namespace LoopBreakers.DAL.Context
             var result = await userManager.CreateAsync(admin, "superSecretAdminPassword123@");
             if (result.Succeeded)
             {
-                await roleManager.CreateAsync(new MyRole() { Name = "Admin" });
-                await roleManager.CreateAsync(new MyRole() { Name = "User" });
+                await roleManager.CreateAsync(new ApplicationRoles() { Name = "Admin" });
+                await roleManager.CreateAsync(new ApplicationRoles() { Name = "User" });
                 await userManager.AddToRoleAsync(admin, "Admin");
             }
 
