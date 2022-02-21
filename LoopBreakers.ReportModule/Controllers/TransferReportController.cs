@@ -33,7 +33,7 @@ namespace LoopBreakers.ReportModule.Controllers
 
         // GET api/<TransferReportController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string GetReportById(int id)
         {
             return "value";
         }
@@ -44,7 +44,7 @@ namespace LoopBreakers.ReportModule.Controllers
         {
             var transferToCreate = _mapper.Map<TransferReport>(transfer);
             await _reportService.AddTransferReport(transferToCreate);
-            return Ok();
+            return CreatedAtAction(nameof(GetReportById), new { id = transferToCreate.Id }, transferToCreate);
         }
 
         // PUT api/<TransferReportController>/5
