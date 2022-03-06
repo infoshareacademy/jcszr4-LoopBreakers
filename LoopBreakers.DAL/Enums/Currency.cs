@@ -1,5 +1,9 @@
-﻿namespace LoopBreakers.DAL.Enums
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace LoopBreakers.DAL.Enums
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum Currency
     {
         PLN = 0,

@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LoopBreakers.ReportModule.Models;
+using LoopBreakers.WebApp.Services;
 
 namespace LoopBreakers.WebApp.Controllers
 {
@@ -19,19 +21,22 @@ namespace LoopBreakers.WebApp.Controllers
 
         private readonly IClientService _clientService;
 
+        private readonly TransferReportService _reportService;
+
         private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
         public TransferController(ITransferService transferService, IMapper mapper, IClientService clientService,
              UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager, TransferReportService reportService)
         {
             _transferService = transferService;
             _clientService = clientService;
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
+            _reportService = reportService;
         }
 
         public ActionResult Details(int id)
@@ -48,7 +53,7 @@ namespace LoopBreakers.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  IActionResult Create(TransferPerformDTO transfer)
+        public  async Task<IActionResult> Create(TransferPerformDTO transfer)
         {
             ViewBag.WrongUser = false;
             ViewBag.NotEnoughMoney = false;
@@ -62,7 +67,9 @@ namespace LoopBreakers.WebApp.Controllers
                 var currentUser = _clientService.FindTransferPerformer(userLogon);
                 var transferRecipent = _clientService.FindRecipent(transfer.Iban);
                 transfer.Created= DateTime.Now;
-                var transferOut = _mapper.Map<Transfer>(transfer);               
+                var transferOut = _mapper.Map<Transfer>(transfer);
+                var transferReportOut = _mapper.Map<TransferReportDTO>(transfer);
+
                 if(currentUser != null)
                 {
                     if (transfer.Amount > currentUser.Balance)
@@ -81,7 +88,7 @@ namespace LoopBreakers.WebApp.Controllers
                         {
                             transferRecipent.Balance = transferRecipent.Balance + transferOut.Amount;
                             _clientService.RecipentBalanceUpadateAfterTransfer(transferRecipent);
-
+                            await _reportService.SendReport(transferReportOut);
                         }
                         return RedirectToAction(nameof(Index));
                     }

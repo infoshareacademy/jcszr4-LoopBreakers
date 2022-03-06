@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -18,6 +19,8 @@ namespace LoopBreakers.ReportModule.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IReportService _reportService;
+        private readonly IUrlHelper _urlHelper;
+
         public TransferReportController(IMapper mapper, IReportService reportService)
         {
             _mapper = mapper;
@@ -31,10 +34,15 @@ namespace LoopBreakers.ReportModule.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<TransferReportController>/5
+        // GET
         [HttpGet("{id}")]
-        public string GetReportById(int id)
+        public string GetReportById([FromQuery]string dateFrom, [FromQuery]string dateTo)
         {
+            var webDateFrom = DateTime.Now.ToUniversalTime();
+
+            var urlToSend = $"/cosTam?dateFrom={webDateFrom:dd-MM-yyyyZ}";
+            var b = DateTime.Parse(dateFrom).ToUniversalTime();
+            webDateFrom.ToUniversalTime().ToString("dd-MM-yyyyZ");
             return "value";
         }
 

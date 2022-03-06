@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Converters;
 
 namespace LoopBreakers.ReportModule
 {
@@ -25,11 +26,12 @@ namespace LoopBreakers.ReportModule
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson( options => options.SerializerSettings.Converters.Add(new StringEnumConverter()));
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "LoopBreakers.ReportModule", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "LoopBreakers.ReportModule", Version = "v1"});
             });
+            services.AddSwaggerGenNewtonsoftSupport();
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped(typeof(IBaseRepository<>), typeof(Repository<>));
 
