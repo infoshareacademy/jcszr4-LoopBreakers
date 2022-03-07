@@ -1,0 +1,76 @@
+﻿@model IEnumerable<LoopBreakers.ReportModule.Models.TransferReportDTO>
+
+@{
+    ViewData["Title"] = "Index";
+    var dateFrom = DateTime.Today.AddDays(-30).ToString("yyyy-MM-dd");
+    var dateTo = DateTime.Today.ToString("yyyy-MM-dd");
+
+}
+
+<h3>Transfer Report</h3>
+
+<hr />
+<form class="row" method="post">
+    <div class="col-auto">
+        <label class="col-form-label">Search date from: </label>
+    </div>
+    <div class="col-auto">
+        <input type="date" value="@dateFrom" onchange="" name="dateFrom" class="form-control">
+    </div>
+    <div class="col-auto">
+        <label class="col-form-label">to: </label>
+    </div>
+    <div class="col-auto">
+        <input type="date" value="@dateTo" name="dateTo" class="form-control">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Search</button>
+    </div>
+</form>
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Currency)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
