@@ -27,14 +27,18 @@ namespace LoopBreakers.ReportModule.Services
                 .Where(s => s.Created >= dateFrom && s.Created <= dateTo.AddDays(1).AddSeconds(-1)).ToListAsync();
         }
 
-        public async Task AddActivityReport(ActivityReport activityReport)
-        {
-            await _activityRepository.Create(activityReport);
-        }
-
         public async Task AddTransferReport(TransferReport transferReport)
         {
             await _transferRepository.Create(transferReport);
+        }
+
+        public async Task<IEnumerable<TransferReport>> GetAllTransferReports()
+        {
+            return await _transferRepository.FindAll();
+        }
+        public async Task AddActivityReport(ActivityReport activityReport)
+        {
+            await _activityRepository.Create(activityReport);
         }
     }
 }

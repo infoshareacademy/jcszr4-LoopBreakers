@@ -16,11 +16,14 @@ namespace LoopBreakers.ReportModule.Models
         [Required]
         public Decimal Amount { get; set; }
         [Required]
+        [Display(Name = "First name")]
         public string FirstName { get; set; }
         [Required]
+        [Display(Name = "Last name")]
         public string LastName { get; set; }
         [Required]
         [StringLength(2)]
+        [Display(Name = "Country code")]
         public string CountryCode { get; set; }
     }
 }

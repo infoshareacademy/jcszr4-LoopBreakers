@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LoopBreakers.DAL.Enums;
 using LoopBreakers.WebApp.Services;
+using LoopBreakers.WebApp.DTOs;
 
 namespace LoopBreakers.WebApp.Controllers
 {
@@ -21,11 +22,10 @@ namespace LoopBreakers.WebApp.Controllers
 
 
         // GET: ReportController
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(SearchTransferViewModel filter)
         {
-            
             //var model = new List<TransferReportDTO>();
-            var model = await _reportService.GetTransferReportByDate(DateTime.Now.AddDays(-30), DateTime.Now);
+            var model = await _reportService.GetTransferReportByDate(filter);
             /*
             var model1 = new TransferReportDTO();
             model1.Amount = 10;

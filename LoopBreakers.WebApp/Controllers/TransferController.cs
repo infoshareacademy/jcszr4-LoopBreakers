@@ -91,7 +91,6 @@ namespace LoopBreakers.WebApp.Controllers
                             transferRecipient.Balance = transferRecipient.Balance + transferOut.Amount;
                             _clientService.RecipentBalanceUpadateAfterTransfer(transferRecipient);
                             await _reportService.SendTransferReport(transferReportOut);
-                            var result = await _reportService.GetTransferReportByDate(DateTime.Now.AddDays(-90), DateTime.Now);
                         }
                         return RedirectToAction(nameof(Index));
                     }

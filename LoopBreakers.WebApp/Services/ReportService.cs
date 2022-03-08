@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using LoopBreakers.WebApp.DTOs;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
 
@@ -26,9 +27,13 @@ namespace LoopBreakers.WebApp.Services
             return await SendResource<TransferReportDTO, TransferReportDTO>(transfer, $"{_apiUrl}/TransferReport");
         }
 
-        public async Task<List<TransferReportDTO>> GetTransferReportByDate(DateTime dateFrom, DateTime dateTo)
+        public async Task<List<TransferReportDTO>> GetTransferReportByDate(SearchTransferViewModel filter)
         {
-            return await GetResource<List<TransferReportDTO>>($"{_apiUrl}/TransferReport?dateFrom={dateFrom:dd-MM-yyyy}&dateTo={dateTo:dd-MM-yyyy}");
+            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
+            {
+                return await GetResource<List<TransferReportDTO>>($"{_apiUrl}/TransferReport/ByDate?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
+            }
+            return await GetResource<List<TransferReportDTO>>($"{_apiUrl}/TransferReport");
         }
 
 

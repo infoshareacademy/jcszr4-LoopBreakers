@@ -33,21 +33,26 @@ namespace LoopBreakers.ReportModule.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET
         [HttpGet]
+        public async Task<IActionResult> GetAllReports()
+        {
+            return Ok(await _reportService.GetAllTransferReports());
+        }
+
+        // GET
+        [HttpGet("ByDate")]
         public async Task<IActionResult> GetReportByDate([FromQuery]string dateFrom, [FromQuery]string dateTo)
         {
             DateTime apiDateFrom;
-            DateTime.TryParse(dateFrom, out apiDateFrom);
+            if (!DateTime.TryParse(dateFrom, out apiDateFrom))
+            {
+                return BadRequest();
+            };
             DateTime apiDateTo;
-            DateTime.TryParse(dateTo, out apiDateTo);
-
-
-            //var webDateFrom = DateTime.Now.ToUniversalTime();
-
-            //var urlToSend = $"/cosTam?dateFrom={webDateFrom:dd-MM-yyyyZ}";
-            //var b = DateTime.Parse(dateFrom).ToUniversalTime();
-            //webDateFrom.ToUniversalTime().ToString("dd-MM-yyyyZ");
+            if (!DateTime.TryParse(dateTo, out apiDateTo))
+            {
+                return BadRequest();
+            };
             return Ok(await _reportService.GetTransferReportByDate(apiDateFrom, apiDateTo));
         }
 
