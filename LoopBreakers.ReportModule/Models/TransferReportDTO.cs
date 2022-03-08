@@ -19,5 +19,8 @@ namespace LoopBreakers.ReportModule.Models
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
+        [Required]
+        [StringLength(2)]
+        public string CountryCode { get; set; }
     }
 }

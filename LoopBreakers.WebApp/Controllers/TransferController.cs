@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using LoopBreakers.ReportModule.Models;
@@ -18,25 +19,25 @@ namespace LoopBreakers.WebApp.Controllers
     public class TransferController : Controller
     {
         private readonly ITransferService _transferService;
-
         private readonly IClientService _clientService;
-
-        private readonly TransferReportService _reportService;
-
         private readonly IMapper _mapper;
+        private readonly ReportService _reportService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public TransferController(ITransferService transferService, IMapper mapper, IClientService clientService,
-             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager, TransferReportService reportService)
+        public TransferController(ITransferService transferService, 
+                                    IClientService clientService, 
+                                    IMapper mapper, 
+                                    ReportService reportService,
+                                    UserManager<ApplicationUser> userManager,
+                                    SignInManager<ApplicationUser> signInManager)
         {
             _transferService = transferService;
             _clientService = clientService;
             _mapper = mapper;
+            _reportService = reportService;
             _userManager = userManager;
             _signInManager = signInManager;
-            _reportService = reportService;
         }
 
         public ActionResult Details(int id)
@@ -65,7 +66,7 @@ namespace LoopBreakers.WebApp.Controllers
             {
                 var userLogon = HttpContext.User.Identity.Name;
                 var currentUser = _clientService.FindTransferPerformer(userLogon);
-                var transferRecipent = _clientService.FindRecipent(transfer.Iban);
+                var transferRecipient = _clientService.FindRecipent(transfer.Iban);
                 transfer.Created= DateTime.Now;
                 var transferOut = _mapper.Map<Transfer>(transfer);
                 var transferReportOut = _mapper.Map<TransferReportDTO>(transfer);
@@ -84,11 +85,12 @@ namespace LoopBreakers.WebApp.Controllers
                         _transferService.CreateNew(transferOut);
                         currentUser.Balance = currentUser.Balance - transferOut.Amount;
                         _clientService.PerformerBalanceUpadateAfterTransfer(currentUser);
-                        if(transferRecipent != null)
+                        if(transferRecipient != null)
                         {
-                            transferRecipent.Balance = transferRecipent.Balance + transferOut.Amount;
-                            _clientService.RecipentBalanceUpadateAfterTransfer(transferRecipent);
-                            await _reportService.SendReport(transferReportOut);
+                            transferRecipient.Balance = transferRecipient.Balance + transferOut.Amount;
+                            _clientService.RecipentBalanceUpadateAfterTransfer(transferRecipient);
+                            await _reportService.SendTransferReport(transferReportOut);
+                            var result = await _reportService.GetTransferReportByDate(DateTime.Now, DateTime.Now.AddDays(-30));
                         }
                         return RedirectToAction(nameof(Index));
                     }

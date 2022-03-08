@@ -40,7 +40,7 @@ namespace LoopBreakers.WebApp
             services.AddScoped<ITransferService, TransferService>();
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IRecipientService, RecipientService>();
-            services.AddScoped<TransferReportService>();
+            services.AddScoped<ReportService>();
 
             services.AddHttpClient();
 
