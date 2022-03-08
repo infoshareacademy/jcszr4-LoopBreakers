@@ -9,6 +9,7 @@ namespace LoopBreakers.ReportModule.Services
     public interface IReportService
     {
         public Task AddTransferReport (TransferReport transferReport);
+        public Task<List<TransferReport>> GetTransferReportByDate(DateTime dateFrom, DateTime dateTo);
         public Task AddActivityReport (ActivityReport activityReport);
     }
 }

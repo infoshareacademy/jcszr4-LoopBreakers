@@ -3,6 +3,7 @@ using LoopBreakers.DAL.Entities;
 using LoopBreakers.DAL.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +20,13 @@ namespace LoopBreakers.ReportModule.Services
             _transferRepository = transferRepository;
             _activityRepository = activityRepository;
         }
+
+        public async Task<List<TransferReport>> GetTransferReportByDate(DateTime dateFrom, DateTime dateTo)
+        {
+            return await _transferRepository.GetAllQueryable()
+                .Where(s => s.Created >= dateFrom && s.Created <= dateTo).ToListAsync();
+        }
+
         public async Task AddActivityReport(ActivityReport activityReport)
         {
             await _activityRepository.Create(activityReport);

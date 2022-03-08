@@ -19,7 +19,6 @@ namespace LoopBreakers.ReportModule.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IReportService _reportService;
-        private readonly IUrlHelper _urlHelper;
 
         public TransferReportController(IMapper mapper, IReportService reportService)
         {
@@ -28,22 +27,28 @@ namespace LoopBreakers.ReportModule.Controllers
         }
 
         // GET: api/<TransferReportController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("{id}")]
+        public IEnumerable<string> GetReportById()
         {
             return new string[] { "value1", "value2" };
         }
 
         // GET
-        [HttpGet("{id}")]
-        public string GetReportById([FromQuery]string dateFrom, [FromQuery]string dateTo)
+        [HttpGet]
+        public async Task<IActionResult> GetReportByDate([FromQuery]string dateFrom, [FromQuery]string dateTo)
         {
-            var webDateFrom = DateTime.Now.ToUniversalTime();
+            DateTime apiDateFrom;
+            DateTime.TryParse(dateFrom, out apiDateFrom);
+            DateTime apiDateTo;
+            DateTime.TryParse(dateTo, out apiDateTo);
 
-            var urlToSend = $"/cosTam?dateFrom={webDateFrom:dd-MM-yyyyZ}";
-            var b = DateTime.Parse(dateFrom).ToUniversalTime();
-            webDateFrom.ToUniversalTime().ToString("dd-MM-yyyyZ");
-            return "value";
+
+            //var webDateFrom = DateTime.Now.ToUniversalTime();
+
+            //var urlToSend = $"/cosTam?dateFrom={webDateFrom:dd-MM-yyyyZ}";
+            //var b = DateTime.Parse(dateFrom).ToUniversalTime();
+            //webDateFrom.ToUniversalTime().ToString("dd-MM-yyyyZ");
+            return Ok(await _reportService.GetTransferReportByDate(apiDateFrom, apiDateTo));
         }
 
         // POST api/<TransferReportController>
