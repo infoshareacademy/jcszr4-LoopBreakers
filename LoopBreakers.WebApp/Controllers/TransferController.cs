@@ -70,6 +70,7 @@ namespace LoopBreakers.WebApp.Controllers
                 transfer.Created= DateTime.Now;
                 var transferOut = _mapper.Map<Transfer>(transfer);
                 var transferReportOut = _mapper.Map<TransferReportDTO>(transfer);
+                transferReportOut.CountryCode = transfer.Iban.Substring(0, 2);
 
                 if(currentUser != null)
                 {
@@ -90,7 +91,7 @@ namespace LoopBreakers.WebApp.Controllers
                             transferRecipient.Balance = transferRecipient.Balance + transferOut.Amount;
                             _clientService.RecipentBalanceUpadateAfterTransfer(transferRecipient);
                             await _reportService.SendTransferReport(transferReportOut);
-                            var result = await _reportService.GetTransferReportByDate(DateTime.Now, DateTime.Now.AddDays(-30));
+                            var result = await _reportService.GetTransferReportByDate(DateTime.Now.AddDays(-90), DateTime.Now);
                         }
                         return RedirectToAction(nameof(Index));
                     }

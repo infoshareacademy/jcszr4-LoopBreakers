@@ -37,12 +37,18 @@ namespace LoopBreakers.ReportModule.Controllers
         [HttpGet]
         public async Task<IActionResult> GetReportByDate([FromQuery]string dateFrom, [FromQuery]string dateTo)
         {
-            var webDateFrom = DateTime.Now.ToUniversalTime();
+            DateTime apiDateFrom;
+            DateTime.TryParse(dateFrom, out apiDateFrom);
+            DateTime apiDateTo;
+            DateTime.TryParse(dateTo, out apiDateTo);
 
-            var urlToSend = $"/cosTam?dateFrom={webDateFrom:dd-MM-yyyyZ}";
-            var b = DateTime.Parse(dateFrom).ToUniversalTime();
-            webDateFrom.ToUniversalTime().ToString("dd-MM-yyyyZ");
-            return Ok("value");
+
+            //var webDateFrom = DateTime.Now.ToUniversalTime();
+
+            //var urlToSend = $"/cosTam?dateFrom={webDateFrom:dd-MM-yyyyZ}";
+            //var b = DateTime.Parse(dateFrom).ToUniversalTime();
+            //webDateFrom.ToUniversalTime().ToString("dd-MM-yyyyZ");
+            return Ok(await _reportService.GetTransferReportByDate(apiDateFrom, apiDateTo));
         }
 
         // POST api/<TransferReportController>

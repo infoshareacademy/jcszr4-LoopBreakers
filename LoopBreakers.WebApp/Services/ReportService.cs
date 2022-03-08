@@ -28,7 +28,7 @@ namespace LoopBreakers.WebApp.Services
 
         public async Task<List<TransferReportDTO>> GetTransferReportByDate(DateTime dateFrom, DateTime dateTo)
         {
-            return await GetResource<List<TransferReportDTO>>($"{_apiUrl}/TransferReport?dateFrom={dateFrom:dd-MM-yyyyZ}&dateTo={dateTo:dd-MM-yyyyZ}");
+            return await GetResource<List<TransferReportDTO>>($"{_apiUrl}/TransferReport?dateFrom={dateFrom:dd-MM-yyyy}&dateTo={dateTo:dd-MM-yyyy}");
         }
 
 
