@@ -5,16 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LoopBreakers.DAL.Enums;
-using LoopBreakers.ReportModule.Models;
-using LoopBreakers.ReportModule.Services;
+using LoopBreakers.WebApp.Services;
 
 namespace LoopBreakers.WebApp.Controllers
 {
     public class ReportController : Controller
     {
-        private readonly IReportService _reportService;
+        private readonly ReportService _reportService;
 
-        public ReportController(IReportService reportService)
+        public ReportController(ReportService reportService)
         {
             _reportService = reportService;
             
@@ -22,9 +21,12 @@ namespace LoopBreakers.WebApp.Controllers
 
 
         // GET: ReportController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var model = new List<TransferReportDTO>();
+            
+            //var model = new List<TransferReportDTO>();
+            var model = await _reportService.GetTransferReportByDate(DateTime.Now.AddDays(-30), DateTime.Now);
+            /*
             var model1 = new TransferReportDTO();
             model1.Amount = 10;
             model1.Created = DateTime.Now;
@@ -32,7 +34,9 @@ namespace LoopBreakers.WebApp.Controllers
             model1.FirstName = "Jan";
             model1.LastName = "Kowalski";
             model.Add(model1);
+            */
             return View(model);
+            
         }
 
         // GET: ReportController/Details/5
