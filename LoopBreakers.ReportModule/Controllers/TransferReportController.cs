@@ -52,6 +52,22 @@ namespace LoopBreakers.ReportModule.Controllers
             return Ok(await _reportService.GetTransferReportByDate(apiDateFrom, apiDateTo));
         }
 
+        [HttpGet("CurrencyStatistics")]
+        public async Task<IActionResult> GetCurrencyStatisticsByDate([FromQuery] string dateFrom,
+            [FromQuery] string dateTo)
+        {
+            if (!DateTime.TryParse(dateFrom, out var apiDateFrom))
+            {
+                return BadRequest();
+            };
+
+            if (!DateTime.TryParse(dateTo, out var apiDateTo))
+            {
+                return BadRequest();
+            };
+            return Ok(await _reportService.GetCurrencyStatisticsByDate(apiDateFrom, apiDateTo));
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddTransferReport([FromBody] TransferReportDTO transfer)
         {
