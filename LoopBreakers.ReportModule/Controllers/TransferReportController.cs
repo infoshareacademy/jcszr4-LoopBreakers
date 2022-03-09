@@ -10,7 +10,6 @@ using LoopBreakers.ReportModule.Models;
 using LoopBreakers.ReportModule.Services;
 
 
-
 namespace LoopBreakers.ReportModule.Controllers
 {
     [Route("api/[controller]")]
@@ -26,55 +25,43 @@ namespace LoopBreakers.ReportModule.Controllers
             _reportService = reportService;
         }
 
-        // GET: api/<TransferReportController>
-        [HttpGet("{id}")]
-        public IEnumerable<string> GetReportById()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetAllReports()
         {
             return Ok(await _reportService.GetAllTransferReports());
         }
 
-        // GET
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetReportById(int id)
+        {
+            return Ok(await _reportService.GetTransferReportById(id));
+        }
+
         [HttpGet("ByDate")]
         public async Task<IActionResult> GetReportByDate([FromQuery]string dateFrom, [FromQuery]string dateTo)
         {
-            DateTime apiDateFrom;
-            if (!DateTime.TryParse(dateFrom, out apiDateFrom))
+            if (!DateTime.TryParse(dateFrom, out var apiDateFrom))
             {
                 return BadRequest();
             };
-            DateTime apiDateTo;
-            if (!DateTime.TryParse(dateTo, out apiDateTo))
+
+            if (!DateTime.TryParse(dateTo, out var apiDateTo))
             {
                 return BadRequest();
             };
             return Ok(await _reportService.GetTransferReportByDate(apiDateFrom, apiDateTo));
         }
 
-        // POST api/<TransferReportController>
         [HttpPost]
         public async Task<IActionResult> AddTransferReport([FromBody] TransferReportDTO transfer)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             var transferToCreate = _mapper.Map<TransferReport>(transfer);
             await _reportService.AddTransferReport(transferToCreate);
             return CreatedAtAction(nameof(GetReportById), new { id = transferToCreate.Id }, transferToCreate);
-        }
-
-        // PUT api/<TransferReportController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<TransferReportController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

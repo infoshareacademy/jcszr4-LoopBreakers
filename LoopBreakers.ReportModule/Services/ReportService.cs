@@ -21,12 +21,6 @@ namespace LoopBreakers.ReportModule.Services
             _activityRepository = activityRepository;
         }
 
-        public async Task<List<TransferReport>> GetTransferReportByDate(DateTime dateFrom, DateTime dateTo)
-        {
-            return await _transferRepository.GetAllQueryable()
-                .Where(s => s.Created >= dateFrom && s.Created <= dateTo.AddDays(1).AddSeconds(-1)).ToListAsync();
-        }
-
         public async Task AddTransferReport(TransferReport transferReport)
         {
             await _transferRepository.Create(transferReport);
@@ -36,9 +30,39 @@ namespace LoopBreakers.ReportModule.Services
         {
             return await _transferRepository.FindAll();
         }
+
+        public async Task<List<TransferReport>> GetTransferReportByDate(DateTime dateFrom, DateTime dateTo)
+        {
+            dateTo = dateTo.AddDays(1);
+            return await _transferRepository.GetAllQueryable()
+                .Where(s => s.Created >= dateFrom && s.Created < dateTo).ToListAsync();
+        }
+
+        public async Task<TransferReport> GetTransferReportById(int id)
+        {
+            return await _transferRepository.FindById(id);
+        }
+
         public async Task AddActivityReport(ActivityReport activityReport)
         {
             await _activityRepository.Create(activityReport);
+        }
+
+        public async Task<IEnumerable<ActivityReport>> GetAllActivityReports()
+        {
+            return await _activityRepository.FindAll();
+        }
+
+        public async Task<ActivityReport> GetActivityReportById(int id)
+        {
+            return await _activityRepository.FindById(id);
+        }
+
+        public async Task<List<ActivityReport>> GetActivityReportByDate(DateTime dateFrom, DateTime dateTo)
+        {
+            dateTo = dateTo.AddDays(1);
+            return await _activityRepository.GetAllQueryable()
+                .Where(s => s.Created >= dateFrom && s.Created < dateTo).ToListAsync();
         }
     }
 }

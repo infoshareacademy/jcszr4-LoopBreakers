@@ -66,7 +66,7 @@ namespace LoopBreakers.WebApp.Controllers
             {
                 var userLogon = HttpContext.User.Identity.Name;
                 var currentUser = _clientService.FindTransferPerformer(userLogon);
-                var transferRecipient = _clientService.FindRecipent(transfer.Iban);
+                var transferRecipient = _clientService.FindRecipient(transfer.Iban);
                 transfer.Created= DateTime.Now;
                 var transferOut = _mapper.Map<Transfer>(transfer);
                 var transferReportOut = _mapper.Map<TransferReportDTO>(transfer);
@@ -85,11 +85,11 @@ namespace LoopBreakers.WebApp.Controllers
                     {
                         _transferService.CreateNew(transferOut);
                         currentUser.Balance = currentUser.Balance - transferOut.Amount;
-                        _clientService.PerformerBalanceUpadateAfterTransfer(currentUser);
+                        _clientService.PerformerBalanceUpdateAfterTransfer(currentUser);
                         if(transferRecipient != null)
                         {
                             transferRecipient.Balance = transferRecipient.Balance + transferOut.Amount;
-                            _clientService.RecipentBalanceUpadateAfterTransfer(transferRecipient);
+                            _clientService.RecipientBalanceUpdateAfterTransfer(transferRecipient);
                             await _reportService.SendTransferReport(transferReportOut);
                         }
                         return RedirectToAction(nameof(Index));
