@@ -1,16 +1,11 @@
-﻿@*@model IEnumerable<LoopBreakers.ReportModule.Models.TransferReportDTO>*@
-@model ReportViewDTO
+﻿@model ReportViewDTO
 
 @{
     ViewData["Title"] = "Index";
     var dateFrom = DateTime.Today.AddDays(-30).ToString("yyyy-MM-dd");
     var dateTo = DateTime.Today.ToString("yyyy-MM-dd");
-
 }
 
-<h3>Transfer Report</h3>
-
-<hr />
 <form class="row" method="post">
     <div class="col-auto">
         <label class="col-form-label">Search date from: </label>
@@ -28,9 +23,40 @@
         <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Search</button>
     </div>
 </form>
-<hr/>
-<h3>Activity Report</h3>
+
+<h3>Currency Statistics</h3>
+
 <hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency.First().Currency)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency.First().Count)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Currency)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Currency)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<br/>
+
+<h3>Transfer Report</h3>
+
+<hr/>
 
 <table class="table">
     <thead>
@@ -50,7 +76,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Transfer.First().LastName)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -72,54 +97,53 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.LastName)
                 </td>
-
             </tr>
         }
     </tbody>
 </table>
-<hr/>
+<br/>
+<h3>Activity Report</h3>
+<hr />
 <table class="table">
     <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Activity.First().Created)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Activity.First().FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Activity.First().LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Activity.First().Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Activity.First().Description)
-        </th>
-        <th></th>
-    </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Activity.First().Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Activity.First().FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Activity.First().LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Activity.First().Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Activity.First().Description)
+            </th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.Activity)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-
-        </tr>
-    }
+        @foreach (var item in Model.Activity)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

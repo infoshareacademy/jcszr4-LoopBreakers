@@ -25,7 +25,7 @@ namespace LoopBreakers.WebApp.Controllers
             ReportViewDTO ReportModel = new ReportViewDTO();
             ReportModel.Transfer = await _reportService.GetTransferReportByDate(filter);
             ReportModel.Activity = await _reportService.GetActivityReportByDate(filter);
-            ReportModel.Currency = await _reportService.get
+            ReportModel.Currency = await _reportService.GetCurrencyStatistics(filter);
 
             return View(ReportModel);
         }
