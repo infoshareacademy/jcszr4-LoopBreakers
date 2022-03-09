@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using LoopBreakers.ReportModule.Models;
 
 namespace LoopBreakers.ReportModule.Services
 {
@@ -63,6 +64,19 @@ namespace LoopBreakers.ReportModule.Services
             dateTo = dateTo.AddDays(1);
             return await _activityRepository.GetAllQueryable()
                 .Where(s => s.Created >= dateFrom && s.Created < dateTo).ToListAsync();
+        }
+
+        public async Task<List<CurrencyStatisticsDTO>> GetCurrencyStatisticsByDate(DateTime dateFrom, DateTime dateTo)
+        {
+            dateTo = dateTo.AddDays(1);
+            return await _transferRepository.GetAllQueryable()
+                .Where(s => s.Created >= dateFrom && s.Created < dateTo)
+                .GroupBy(s => s.Currency)
+                .Select(o => new CurrencyStatisticsDTO()
+                {
+                    Currency = o.Key,
+                    Count = o.Count()
+                }).ToListAsync();
         }
     }
 }

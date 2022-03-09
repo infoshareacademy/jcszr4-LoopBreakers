@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LoopBreakers.DAL.Entities;
+using LoopBreakers.ReportModule.Models;
+using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 
 namespace LoopBreakers.ReportModule.Services
 {
@@ -16,5 +18,6 @@ namespace LoopBreakers.ReportModule.Services
         public Task<IEnumerable<ActivityReport>> GetAllActivityReports();
         public Task<ActivityReport> GetActivityReportById(int id);
         public Task<List<ActivityReport>> GetActivityReportByDate(DateTime dateFrom, DateTime dateTo);
+        public Task<List<CurrencyStatisticsDTO>> GetCurrencyStatisticsByDate(DateTime dateFrom, DateTime dateTo);
     }
 }
