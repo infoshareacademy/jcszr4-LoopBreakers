@@ -18,6 +18,7 @@ namespace LoopBreakers.ReportModule.Services
         public Task<IEnumerable<ActivityReport>> GetAllActivityReports();
         public Task<ActivityReport> GetActivityReportById(int id);
         public Task<List<ActivityReport>> GetActivityReportByDate(DateTime dateFrom, DateTime dateTo);
+        public Task<List<CurrencyStatisticsDTO>> GetCurrencyStatistics();
         public Task<List<CurrencyStatisticsDTO>> GetCurrencyStatisticsByDate(DateTime dateFrom, DateTime dateTo);
     }
 }

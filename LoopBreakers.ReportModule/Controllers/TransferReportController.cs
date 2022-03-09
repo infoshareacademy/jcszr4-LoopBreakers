@@ -53,6 +53,12 @@ namespace LoopBreakers.ReportModule.Controllers
         }
 
         [HttpGet("CurrencyStatistics")]
+        public async Task<IActionResult> GetCurrencyStatistics()
+        {
+            return Ok(await _reportService.GetCurrencyStatistics());
+        }
+
+        [HttpGet("CurrencyStatistics/ByDate")]
         public async Task<IActionResult> GetCurrencyStatisticsByDate([FromQuery] string dateFrom,
             [FromQuery] string dateTo)
         {

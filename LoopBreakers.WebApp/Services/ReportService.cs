@@ -50,6 +50,15 @@ namespace LoopBreakers.WebApp.Services
             return await GetResource<List<ActivityReportDTO>>($"{ApiUrl}/ActivityReport");
         }
 
+        public async Task<List<CurrencyStatisticsDTO>> GetCurrencyStatistics(SearchTransferViewModel filter)
+        {
+            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
+            {
+                return await GetResource<List<CurrencyStatisticsDTO>>($"{ApiUrl}/TransferReport/CurrencyStatistics/ByDate?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
+            }
+            return await GetResource<List<CurrencyStatisticsDTO>>($"{ApiUrl}/TransferReport/CurrencyStatistics");
+        }
+
         private async Task<TReturn> SendResource<TReturn, TInput>(TInput resource, string url)
         {
 

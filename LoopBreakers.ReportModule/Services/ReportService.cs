@@ -66,6 +66,17 @@ namespace LoopBreakers.ReportModule.Services
                 .Where(s => s.Created >= dateFrom && s.Created < dateTo).ToListAsync();
         }
 
+        public async Task<List<CurrencyStatisticsDTO>> GetCurrencyStatistics()
+        {
+           return await _transferRepository.GetAllQueryable()
+               .GroupBy(s => s.Currency)
+               .Select(o => new CurrencyStatisticsDTO()
+               {
+                   Currency = o.Key,
+                   Count = o.Count()
+               }).ToListAsync();
+        }
+
         public async Task<List<CurrencyStatisticsDTO>> GetCurrencyStatisticsByDate(DateTime dateFrom, DateTime dateTo)
         {
             dateTo = dateTo.AddDays(1);
