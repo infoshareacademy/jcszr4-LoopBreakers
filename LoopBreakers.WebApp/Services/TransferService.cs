@@ -39,8 +39,6 @@ namespace LoopBreakers.WebApp.Services
         {
              _db.Transfers.Add(transfer);
              _db.SaveChanges();
-
         }
-       
     }
 }

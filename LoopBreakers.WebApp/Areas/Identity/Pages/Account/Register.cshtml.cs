@@ -66,13 +66,13 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
             //[Required, Display(Name = "ID użytkownika")]
             //[MinLength(25)]
             //[MaxLength(25)]
-            public string IdentityNumber { get; set; }
-            public bool IsActive { get; set; } = true;
+            //public string IdentityNumber { get; set; }
+            //public bool IsActive { get; set; } = true;
             [Required, Display(Name = "Kwota wejściowa")]
             public decimal Balance { get; set; }
             [Required, Display(Name = "Waluta")]
             public Currency Currency { get; set; }
-            [Required, Display(Name = "Wiek"), Range(18,99)]
+            [Required, Display(Name = "Wiek"), Range(18,120)]
             public int Age { get; set; }
             [Required, Display(Name = "Imie")]
             public string FirstName { get; set; }
@@ -107,8 +107,8 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
                 {
                     UserName = Input.Email,//$"{Input.FirstName}.{Input.LastName}",
                     Email = Input.Email,
-                    IdentityNumber = Input.IdentityNumber,
-                    IsActive = Input.IsActive,
+                    IdentityNumber = Guid.NewGuid().ToString(),
+                    IsActive = true,
                     Balance = Input.Balance,
                     Currency = Input.Currency.ToString(),
                     Age = Input.Age,
@@ -122,7 +122,8 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
                     Iban = Input.Iban,
                     Address = Input.Address,
                 };
-            var result = await _userManager.CreateAsync(user, Input.Password);
+
+                var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                     await this._userManager.AddToRoleAsync(user, "User");

@@ -24,10 +24,6 @@ namespace LoopBreakers.WebApp.Services
         {
             var clientQuery = _db.Users.AsQueryable();
 
-            //if (filter.LastName != null && filter.LastName.Length > 2)
-            //{
-            //    clientQuery = clientQuery.Where(n => n.LastName.StartsWith(filter.LastName));
-            //}
             if (filter.SearchText != null && filter.SearchText.Length > 2)
             {
                 clientQuery = clientQuery.Where(n => n.LastName.Contains(filter.SearchText) ||
@@ -46,28 +42,27 @@ namespace LoopBreakers.WebApp.Services
         }
         public ApplicationUser FindTransferPerformer(string userEmail)
         {
-            return _db.Users.Where(n => n.Email == userEmail).FirstOrDefault();
+            return _db.Users.FirstOrDefault(n => n.Email == userEmail);
         }
-        public ApplicationUser FindRecipent(string iban)
+        public ApplicationUser FindRecipient(string iban)
         {
-            return _db.Users.Where(n => n.Iban == iban).FirstOrDefault();
-
+            return _db.Users.FirstOrDefault(n => n.Iban == iban);
         }
-        public void PerformerBalanceUpadateAfterTransfer(ApplicationUser user)
+        public void PerformerBalanceUpdateAfterTransfer(ApplicationUser user)
         {
             _db.Users.Update(user);
             _db.SaveChanges();
         }
-        public void RecipentBalanceUpadateAfterTransfer(ApplicationUser user)
+        public void RecipientBalanceUpdateAfterTransfer(ApplicationUser user)
         {
             if(user != null)
-            _db.Users.Update(user);
+                _db.Users.Update(user);
             _db.SaveChanges();
         }
 
         public ApplicationUser FindLoggedUser(string email)
         {
-            return _db.Users.Where(n => n.Email == email).FirstOrDefault();
+            return _db.Users.FirstOrDefault(n => n.Email == email);
         }
     }
 }

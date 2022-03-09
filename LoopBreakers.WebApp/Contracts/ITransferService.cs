@@ -9,7 +9,5 @@ namespace LoopBreakers.WebApp.Contracts
     {
         Task<IEnumerable<Transfer>> FilterBy(SearchTransferViewModel filter);
         void CreateNew(Transfer transfer);
-     
-
     }
 }

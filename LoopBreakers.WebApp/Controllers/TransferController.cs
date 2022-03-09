@@ -8,28 +8,34 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using LoopBreakers.ReportModule.Models;
+using LoopBreakers.WebApp.Services;
 
 namespace LoopBreakers.WebApp.Controllers
 {
     public class TransferController : Controller
     {
         private readonly ITransferService _transferService;
-
         private readonly IClientService _clientService;
-
         private readonly IMapper _mapper;
+        private readonly ReportService _reportService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public TransferController(ITransferService transferService, IMapper mapper, IClientService clientService,
-             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+        public TransferController(ITransferService transferService, 
+                                    IClientService clientService, 
+                                    IMapper mapper, 
+                                    ReportService reportService,
+                                    UserManager<ApplicationUser> userManager,
+                                    SignInManager<ApplicationUser> signInManager)
         {
             _transferService = transferService;
             _clientService = clientService;
             _mapper = mapper;
+            _reportService = reportService;
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -48,7 +54,7 @@ namespace LoopBreakers.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  IActionResult Create(TransferPerformDTO transfer)
+        public  async Task<IActionResult> Create(TransferPerformDTO transfer)
         {
             ViewBag.WrongUser = false;
             ViewBag.NotEnoughMoney = false;
@@ -60,9 +66,12 @@ namespace LoopBreakers.WebApp.Controllers
             {
                 var userLogon = HttpContext.User.Identity.Name;
                 var currentUser = _clientService.FindTransferPerformer(userLogon);
-                var transferRecipent = _clientService.FindRecipent(transfer.Iban);
+                var transferRecipient = _clientService.FindRecipient(transfer.Iban);
                 transfer.Created= DateTime.Now;
-                var transferOut = _mapper.Map<Transfer>(transfer);               
+                var transferOut = _mapper.Map<Transfer>(transfer);
+                var transferReportOut = _mapper.Map<TransferReportDTO>(transfer);
+                transferReportOut.CountryCode = transfer.Iban.Substring(0, 2);
+
                 if(currentUser != null)
                 {
                     if (transfer.Amount > currentUser.Balance)
@@ -71,17 +80,17 @@ namespace LoopBreakers.WebApp.Controllers
                         transfer.Currency = (Currency)Enum.Parse(typeof(Currency), currentUser.Currency);
                         transfer.Created = DateTime.Now;
                         ViewBag.NotEnoughMoney = true;
-                    }                    
+                    }
                     else
                     {
                         _transferService.CreateNew(transferOut);
                         currentUser.Balance = currentUser.Balance - transferOut.Amount;
-                        _clientService.PerformerBalanceUpadateAfterTransfer(currentUser);
-                        if(transferRecipent != null)
+                        _clientService.PerformerBalanceUpdateAfterTransfer(currentUser);
+                        await _reportService.SendTransferReport(transferReportOut);
+                        if (transferRecipient != null)
                         {
-                            transferRecipent.Balance = transferRecipent.Balance + transferOut.Amount;
-                            _clientService.RecipentBalanceUpadateAfterTransfer(transferRecipent);
-
+                            transferRecipient.Balance = transferRecipient.Balance + transferOut.Amount;
+                            _clientService.RecipientBalanceUpdateAfterTransfer(transferRecipient);
                         }
                         return RedirectToAction(nameof(Index));
                     }

@@ -11,6 +11,8 @@ namespace LoopBreakers.DAL.Context
         public DbSet<Transfer> Transfers { get; set; }
         public override DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Recipient> Recipients { get; set; }
+        public DbSet<ActivityReport> ActivityReport { get; set; }
+        public DbSet<TransferReport> TransferReport { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

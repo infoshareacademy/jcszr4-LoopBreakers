@@ -9,11 +9,11 @@ namespace LoopBreakers.WebApp.Contracts
     {
         Task<IEnumerable<ApplicationUser>> FilterBy(SearchClientViewModel filter);
         ApplicationUser FindTransferPerformer(string userEmail);
-        ApplicationUser FindRecipent (string iban);
+        ApplicationUser FindRecipient (string iban);
         ApplicationUser FindLoggedUser(string email);
 
-        void PerformerBalanceUpadateAfterTransfer (ApplicationUser user);
-        void RecipentBalanceUpadateAfterTransfer(ApplicationUser user);
+        void PerformerBalanceUpdateAfterTransfer (ApplicationUser user);
+        void RecipientBalanceUpdateAfterTransfer(ApplicationUser user);
 
         IEnumerable<ApplicationUser> GetAll();
     }
