@@ -17,26 +17,16 @@ namespace LoopBreakers.WebApp.Controllers
         public ReportController(ReportService reportService)
         {
             _reportService = reportService;
-            
         }
-
 
         // GET: ReportController
         public async Task<ActionResult> Index(SearchTransferViewModel filter)
         {
-            //var model = new List<TransferReportDTO>();
-            var model = await _reportService.GetTransferReportByDate(filter);
-            /*
-            var model1 = new TransferReportDTO();
-            model1.Amount = 10;
-            model1.Created = DateTime.Now;
-            model1.Currency = Currency.PLN;
-            model1.FirstName = "Jan";
-            model1.LastName = "Kowalski";
-            model.Add(model1);
-            */
-            return View(model);
-            
+            ReportViewDTO ReportModel = new ReportViewDTO();
+            ReportModel.Transfer = await _reportService.GetTransferReportByDate(filter);
+            ReportModel.Activity = await _reportService.GetActivityReportByDate(filter);
+
+            return View(ReportModel);
         }
 
         // GET: ReportController/Details/5

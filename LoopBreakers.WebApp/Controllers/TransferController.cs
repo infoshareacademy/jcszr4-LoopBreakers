@@ -80,17 +80,17 @@ namespace LoopBreakers.WebApp.Controllers
                         transfer.Currency = (Currency)Enum.Parse(typeof(Currency), currentUser.Currency);
                         transfer.Created = DateTime.Now;
                         ViewBag.NotEnoughMoney = true;
-                    }                    
+                    }
                     else
                     {
                         _transferService.CreateNew(transferOut);
                         currentUser.Balance = currentUser.Balance - transferOut.Amount;
                         _clientService.PerformerBalanceUpdateAfterTransfer(currentUser);
-                        if(transferRecipient != null)
+                        await _reportService.SendTransferReport(transferReportOut);
+                        if (transferRecipient != null)
                         {
                             transferRecipient.Balance = transferRecipient.Balance + transferOut.Amount;
                             _clientService.RecipientBalanceUpdateAfterTransfer(transferRecipient);
-                            await _reportService.SendTransferReport(transferReportOut);
                         }
                         return RedirectToAction(nameof(Index));
                     }
