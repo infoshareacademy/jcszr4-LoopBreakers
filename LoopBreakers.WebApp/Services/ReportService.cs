@@ -15,7 +15,7 @@ namespace LoopBreakers.WebApp.Services
     public class ReportService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private string _apiUrl = "https://localhost:6001/api";
+        private const string ApiUrl = "https://localhost:6001/api";
 
         public ReportService(IHttpClientFactory httpClientFactory)
         {
@@ -24,18 +24,31 @@ namespace LoopBreakers.WebApp.Services
 
         public async Task<TransferReportDTO> SendTransferReport(TransferReportDTO transfer)
         {
-            return await SendResource<TransferReportDTO, TransferReportDTO>(transfer, $"{_apiUrl}/TransferReport");
+            return await SendResource<TransferReportDTO, TransferReportDTO>(transfer, $"{ApiUrl}/TransferReport");
         }
 
         public async Task<List<TransferReportDTO>> GetTransferReportByDate(SearchTransferViewModel filter)
         {
             if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
             {
-                return await GetResource<List<TransferReportDTO>>($"{_apiUrl}/TransferReport/ByDate?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
+                return await GetResource<List<TransferReportDTO>>($"{ApiUrl}/TransferReport/ByDate?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
             }
-            return await GetResource<List<TransferReportDTO>>($"{_apiUrl}/TransferReport");
+            return await GetResource<List<TransferReportDTO>>($"{ApiUrl}/TransferReport");
         }
 
+        public async Task<ActivityReportDTO> SendActivityReport(ActivityReportDTO activity)
+        {
+            return await SendResource<ActivityReportDTO, ActivityReportDTO>(activity, $"{ApiUrl}/ActivityReport");
+        }
+
+        public async Task<List<ActivityReportDTO>> GetActivityReportByDate(SearchTransferViewModel filter)
+        {
+            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
+            {
+                return await GetResource<List<ActivityReportDTO>>($"{ApiUrl}/ActivityReport/ByDate?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
+            }
+            return await GetResource<List<ActivityReportDTO>>($"{ApiUrl}/ActivityReport");
+        }
 
         private async Task<TReturn> SendResource<TReturn, TInput>(TInput resource, string url)
         {

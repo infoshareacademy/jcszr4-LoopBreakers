@@ -33,7 +33,7 @@ namespace LoopBreakers.ReportModule.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetReportById(int id)
         {
-            return Ok(await _reportService.GetTransferReportById(id));
+            return Ok(await _reportService.GetActivityReportById(id));
         }
 
         [HttpGet("ByDate")]

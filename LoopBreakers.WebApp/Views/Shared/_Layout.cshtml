@@ -1,5 +1,6 @@
 ﻿@using LoopBreakers.DAL.Entities
 @using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor Accessor
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -63,41 +64,47 @@
                             </a>
                         </li>
                     }
-
                 }
-
             </ul>
             
             <hr>
             @{
                 if (SignInManager.IsSignedIn(User))
                 {
-                    
-                
-                <div class="dropdown">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://cdn0.iconfinder.com/data/icons/occupation-001/64/banker-bank-occupation-avatar-512.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong style="font-size:10px">@Accessor.HttpContext.User.Identity.Name</strong>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                    
-                    <li><a class="dropdown-item" href="/Identity/Account/Logout">Sign out</a></li>
-                </ul>
-            </div>
-            }            
-            else
-            {
-            <div class="dropdown">
-                <ul>
-                <li class="nav-link">
-                    <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">Register</a>
-                </li>
-                <li class="nav-link">
-                    <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">Login</a>
-                </li>
-                </ul>
-            </div>
-            }
+                    <div class="dropdown">
+                                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="https://cdn0.iconfinder.com/data/icons/occupation-001/64/banker-bank-occupation-avatar-512.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                                        <strong>@Accessor.HttpContext.User.Identity.Name</strong>
+                                    </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                            <li>
+                                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="bi bi-box-arrow-right me-2"></i>
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                }            
+                else
+                {
+                    <ul class="nav nav-pills flex-column">
+                        <li>
+                            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">
+                                <i class="bi bi-plus-square me-2"></i>
+                                Register
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">
+                                <i class="bi bi-arrow-right-square me-2"></i>
+                                Login
+                            </a>
+                        </li>
+                    </ul>
+                }
             }
         </div>
         <div class="menu-divider"></div>
