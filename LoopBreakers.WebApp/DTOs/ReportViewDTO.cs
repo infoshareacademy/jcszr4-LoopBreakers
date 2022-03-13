@@ -11,5 +11,6 @@ namespace LoopBreakers.WebApp.DTOs
         public List<TransferReportDTO> Transfer { get; set; }
         public List<ActivityReportDTO> Activity { get; set; }
         public List<CurrencyStatisticsDTO> Currency { get; set; }
+        public SearchTransferViewModel SearchFilter { get; set; }
     }
 }

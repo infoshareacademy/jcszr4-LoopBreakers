@@ -1,9 +1,26 @@
-﻿@model ReportViewDTO
+﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
+@model ReportViewDTO
 
 @{
     ViewData["Title"] = "Index";
-    var dateFrom = DateTime.Today.AddDays(-30).ToString("yyyy-MM-dd");
-    var dateTo = DateTime.Today.ToString("yyyy-MM-dd");
+    string dateFrom;
+    string dateTo;
+    if (Model.SearchFilter.DateFrom != null)
+    {
+        dateFrom = ((DateTime)Model.SearchFilter.DateFrom).ToString("yyyy-MM-dd");
+    }
+    else
+    {
+        dateFrom = DateTime.Today.AddDays(-30).ToString("yyyy-MM-dd");
+    }
+    if (Model.SearchFilter.DateFrom != null)
+    {
+        dateTo = ((DateTime)Model.SearchFilter.DateTo).ToString("yyyy-MM-dd");
+    }
+    else
+    {
+        dateTo = DateTime.Today.ToString("yyyy-MM-dd");
+    }
 }
 <h3>Reports</h3>
 <hr/>

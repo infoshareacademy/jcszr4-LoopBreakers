@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LoopBreakers.WebApp.Controllers
 {
+    [Authorize(Roles = "User,Admin")]
     public class RecipientController : Controller
     {
         private readonly IBaseRepository<Recipient> _recipientRepository;

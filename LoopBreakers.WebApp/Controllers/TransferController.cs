@@ -13,9 +13,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using LoopBreakers.ReportModule.Models;
 using LoopBreakers.WebApp.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LoopBreakers.WebApp.Controllers
 {
+    [Authorize(Roles = "User,Admin")]
     public class TransferController : Controller
     {
         private readonly ITransferService _transferService;

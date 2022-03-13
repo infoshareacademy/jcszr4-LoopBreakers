@@ -25,51 +25,39 @@ namespace LoopBreakers.ReportModule.Controllers
             _reportService = reportService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllReports()
-        {
-            return Ok(await _reportService.GetAllTransferReports());
-        }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetReportById(int id)
         {
             return Ok(await _reportService.GetTransferReportById(id));
         }
 
-        [HttpGet("ByDate")]
-        public async Task<IActionResult> GetReportByDate([FromQuery]string dateFrom, [FromQuery]string dateTo)
+        [HttpGet()]
+        public async Task<IActionResult> GetReport([FromQuery]string dateFrom, [FromQuery]string dateTo)
         {
             if (!DateTime.TryParse(dateFrom, out var apiDateFrom))
             {
-                return BadRequest();
+                return Ok(await _reportService.GetAllTransferReports());
             };
 
             if (!DateTime.TryParse(dateTo, out var apiDateTo))
             {
-                return BadRequest();
+                return Ok(await _reportService.GetAllTransferReports());
             };
             return Ok(await _reportService.GetTransferReportByDate(apiDateFrom, apiDateTo));
         }
 
         [HttpGet("CurrencyStatistics")]
-        public async Task<IActionResult> GetCurrencyStatistics()
-        {
-            return Ok(await _reportService.GetCurrencyStatistics());
-        }
-
-        [HttpGet("CurrencyStatistics/ByDate")]
-        public async Task<IActionResult> GetCurrencyStatisticsByDate([FromQuery] string dateFrom,
+        public async Task<IActionResult> GetCurrencyStatistics([FromQuery] string dateFrom,
             [FromQuery] string dateTo)
         {
             if (!DateTime.TryParse(dateFrom, out var apiDateFrom))
             {
-                return BadRequest();
+                return Ok(await _reportService.GetCurrencyStatistics());
             };
 
             if (!DateTime.TryParse(dateTo, out var apiDateTo))
             {
-                return BadRequest();
+                return Ok(await _reportService.GetCurrencyStatistics());
             };
             return Ok(await _reportService.GetCurrencyStatisticsByDate(apiDateFrom, apiDateTo));
         }

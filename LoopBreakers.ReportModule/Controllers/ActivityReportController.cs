@@ -24,29 +24,23 @@ namespace LoopBreakers.ReportModule.Controllers
             _reportService = reportService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllReports()
-        {
-            return Ok(await _reportService.GetAllActivityReports());
-        }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetReportById(int id)
         {
             return Ok(await _reportService.GetActivityReportById(id));
         }
 
-        [HttpGet("ByDate")]
-        public async Task<IActionResult> GetReportByDate([FromQuery] string dateFrom, [FromQuery] string dateTo)
+        [HttpGet()]
+        public async Task<IActionResult> GetReport([FromQuery] string dateFrom, [FromQuery] string dateTo)
         {
             if (!DateTime.TryParse(dateFrom, out var apiDateFrom))
             {
-                return BadRequest();
+                return Ok(await _reportService.GetAllActivityReports());
             };
 
             if (!DateTime.TryParse(dateTo, out var apiDateTo))
             {
-                return BadRequest();
+                return Ok(await _reportService.GetAllActivityReports());
             };
             return Ok(await _reportService.GetActivityReportByDate(apiDateFrom, apiDateTo));
         }

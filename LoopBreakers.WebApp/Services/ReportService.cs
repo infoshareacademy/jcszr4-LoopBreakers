@@ -31,7 +31,7 @@ namespace LoopBreakers.WebApp.Services
         {
             if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
             {
-                return await GetResource<List<TransferReportDTO>>($"{ApiUrl}/TransferReport/ByDate?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
+                return await GetResource<List<TransferReportDTO>>($"{ApiUrl}/TransferReport?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
             }
             return await GetResource<List<TransferReportDTO>>($"{ApiUrl}/TransferReport");
         }
@@ -45,7 +45,7 @@ namespace LoopBreakers.WebApp.Services
         {
             if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
             {
-                return await GetResource<List<ActivityReportDTO>>($"{ApiUrl}/ActivityReport/ByDate?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
+                return await GetResource<List<ActivityReportDTO>>($"{ApiUrl}/ActivityReport?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
             }
             return await GetResource<List<ActivityReportDTO>>($"{ApiUrl}/ActivityReport");
         }
@@ -54,7 +54,7 @@ namespace LoopBreakers.WebApp.Services
         {
             if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
             {
-                return await GetResource<List<CurrencyStatisticsDTO>>($"{ApiUrl}/TransferReport/CurrencyStatistics/ByDate?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
+                return await GetResource<List<CurrencyStatisticsDTO>>($"{ApiUrl}/TransferReport/CurrencyStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
             }
             return await GetResource<List<CurrencyStatisticsDTO>>($"{ApiUrl}/TransferReport/CurrencyStatistics");
         }

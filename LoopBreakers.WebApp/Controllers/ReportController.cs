@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using LoopBreakers.DAL.Enums;
 using LoopBreakers.WebApp.Services;
 using LoopBreakers.WebApp.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LoopBreakers.WebApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ReportController : Controller
     {
         private readonly ReportService _reportService;
@@ -26,6 +28,7 @@ namespace LoopBreakers.WebApp.Controllers
             ReportModel.Transfer = await _reportService.GetTransferReportByDate(filter);
             ReportModel.Activity = await _reportService.GetActivityReportByDate(filter);
             ReportModel.Currency = await _reportService.GetCurrencyStatistics(filter);
+            ReportModel.SearchFilter = filter;
 
             return View(ReportModel);
         }

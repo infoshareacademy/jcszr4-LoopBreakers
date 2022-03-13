@@ -43,8 +43,7 @@ namespace LoopBreakers.DAL.Context
             var admin = new ApplicationUser()
             {
                 UserName = "admin@admin.eu",
-                Email = "admin@admin.eu",
-
+                Email = "admin@admin.eu"
             };
 
             var result = await userManager.CreateAsync(admin, "superSecretAdminPassword123@");

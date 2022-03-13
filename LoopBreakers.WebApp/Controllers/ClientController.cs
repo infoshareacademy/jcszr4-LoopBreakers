@@ -11,9 +11,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LoopBreakers.WebApp.Controllers
 {
+    [Authorize(Roles = "User,Admin")]
     public class ClientController : Controller
     {
         private readonly IBaseRepository<ApplicationUser> _clientRepository;
