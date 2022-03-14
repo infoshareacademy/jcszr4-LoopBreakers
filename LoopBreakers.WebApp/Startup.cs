@@ -91,6 +91,5 @@ namespace LoopBreakers.WebApp
                 endpoints.MapRazorPages();
             });
         }
-
     }
 }

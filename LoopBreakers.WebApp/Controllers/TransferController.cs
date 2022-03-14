@@ -110,7 +110,7 @@ namespace LoopBreakers.WebApp.Controllers
             }
         }
 
-        public async Task<ActionResult> Index(SearchTransferViewModel filter)
+        public async Task<ActionResult> Index(SearchViewModel filter)
         {
             var transfers = await _transferService.FilterBy(filter);
             var model = _mapper.Map<IEnumerable<TransferDTO>>(transfers);

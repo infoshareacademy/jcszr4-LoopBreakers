@@ -1,4 +1,4 @@
-﻿@model IEnumerable<UserDTO>
+﻿@model ClientViewDTO
 
 @{
     ViewData["Title"] = "Clients";
@@ -10,17 +10,28 @@
     <a class="btn btn-primary" asp-action="Create"><i class="bi bi-person-plus me-2"></i>Add New Client</a>
 </p>
 <hr />
-<form class="row" method="post">
+<div class="row">
     <div class="col-auto">
-        <label class="col-form-label">Search: </label>
+        <form class="row" method="post">
+            <div class="col-auto">
+                <label class="col-form-label">Search:</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" value="@Model.SearchFilter.SearchText" name="SearchText" class="form-control" placeholder="">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Search</button>
+            </div>
+        </form>
     </div>
     <div class="col-auto">
-        <input type="text" value="" name="SearchText" class="form-control" placeholder="">
+        <form class="row" method="post">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-danger"><i class="bi bi-x-circle me-2"></i>Clear</button>
+            </div>
+        </form>
     </div>
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Search</button>
-    </div>
-</form>
+</div>
 <hr />
 <div class="row">
     <div class="col" id="myGroup">
@@ -29,31 +40,31 @@
                 <tr>
                     <th></th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Id)
+                        @Html.DisplayNameFor(model => model.Client.First().Id)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FirstName)
+                        @Html.DisplayNameFor(model => model.Client.First().FirstName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.LastName)
+                        @Html.DisplayNameFor(model => model.Client.First().LastName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Company)
+                        @Html.DisplayNameFor(model => model.Client.First().Company)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Email)
+                        @Html.DisplayNameFor(model => model.Client.First().Email)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Balance)
+                        @Html.DisplayNameFor(model => model.Client.First().Balance)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Iban)
+                        @Html.DisplayNameFor(model => model.Client.First().Iban)
                     </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Client)
                 {
                     <tr>
                         <td data-bs-toggle="collapse" data-bs-target="#hiddenRow@(Html.DisplayFor(modelItem => item.Id))" class="accordion-toggle">
@@ -61,7 +72,7 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Id)
-                         
+
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.FirstName)
@@ -96,16 +107,16 @@
                                     <thead>
                                         <tr class="info">
                                             <th>
-                                                @Html.DisplayNameFor(model => model.Address)
+                                                @Html.DisplayNameFor(model => model.Client.First().Address)
                                             </th>
                                             <th>
-                                                @Html.DisplayNameFor(model => model.Phone)
+                                                @Html.DisplayNameFor(model => model.Client.First().Phone)
                                             </th>
                                             <th>
-                                                @Html.DisplayNameFor(model => model.Age)
+                                                @Html.DisplayNameFor(model => model.Client.First().Age)
                                             </th>
                                             <th>
-                                                @Html.DisplayNameFor(model => model.Gender)
+                                                @Html.DisplayNameFor(model => model.Client.First().Gender)
                                             </th>
                                         </tr>
                                     </thead>
@@ -130,16 +141,16 @@
                                     <thead>
                                         <tr class="info">
                                             <th>
-                                                @Html.DisplayNameFor(model => model.IdentityNumber)
+                                                @Html.DisplayNameFor(model => model.Client.First().IdentityNumber)
                                             </th>
                                             <th>
-                                                @Html.DisplayNameFor(model => model.Registered)
+                                                @Html.DisplayNameFor(model => model.Client.First().Registered)
                                             </th>
                                             <th>
-                                                @Html.DisplayNameFor(model => model.Created)
+                                                @Html.DisplayNameFor(model => model.Client.First().Created)
                                             </th>
                                             <th>
-                                                @Html.DisplayNameFor(model => model.IsActive)
+                                                @Html.DisplayNameFor(model => model.Client.First().IsActive)
                                             </th>
                                         </tr>
                                     </thead>

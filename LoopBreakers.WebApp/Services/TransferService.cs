@@ -21,7 +21,7 @@ namespace LoopBreakers.WebApp.Services
             _db = db;
             _transfersRepository = transfersRepository;
         }
-        public async Task<IEnumerable<Transfer>> FilterBy(SearchTransferViewModel filter)
+        public async Task<IEnumerable<Transfer>> FilterBy(SearchViewModel filter)
         {
             var transfersQuery = _db.Transfers.AsQueryable();
 
@@ -29,9 +29,9 @@ namespace LoopBreakers.WebApp.Services
             {
                 transfersQuery = transfersQuery.Where(q => q.Created >= filter.DateFrom.Value && q.Created <= filter.DateTo.Value);
             }
-            if (filter.Name != null && filter.Name.Length > 2)
+            if (filter.SearchText != null && filter.SearchText.Length > 2)
             {
-                transfersQuery = transfersQuery.Where(n => n.LastName.StartsWith(filter.Name));
+                transfersQuery = transfersQuery.Where(n => n.LastName.StartsWith(filter.SearchText));
             }
             return await transfersQuery.ToListAsync();
         }

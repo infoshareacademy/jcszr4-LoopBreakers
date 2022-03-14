@@ -1,46 +1,40 @@
-﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
-@model ReportViewDTO
+﻿@model ReportViewDTO
 
 @{
     ViewData["Title"] = "Index";
-    string dateFrom;
-    string dateTo;
-    if (Model.SearchFilter.DateFrom != null)
-    {
-        dateFrom = ((DateTime)Model.SearchFilter.DateFrom).ToString("yyyy-MM-dd");
-    }
-    else
-    {
-        dateFrom = DateTime.Today.AddDays(-30).ToString("yyyy-MM-dd");
-    }
-    if (Model.SearchFilter.DateFrom != null)
-    {
-        dateTo = ((DateTime)Model.SearchFilter.DateTo).ToString("yyyy-MM-dd");
-    }
-    else
-    {
-        dateTo = DateTime.Today.ToString("yyyy-MM-dd");
-    }
+    string dateFrom = Model.SearchFilter.DateFrom == null ? "" : ((DateTime)Model.SearchFilter.DateFrom).ToString("yyyy-MM-dd");
+    string dateTo = Model.SearchFilter.DateTo == null ? "" : ((DateTime)Model.SearchFilter.DateTo).ToString("yyyy-MM-dd");
 }
 <h3>Reports</h3>
 <hr/>
-<form class="row" method="post">
+<div class="row">
     <div class="col-auto">
-        <label class="col-form-label">Search date from: </label>
+        <form class="row" method="post">
+            <div class="col-auto">
+                <label class="col-form-label">Search date from:</label>
+            </div>
+            <div class="col-auto">
+                <input type="date" value="@dateFrom" onchange="" name="dateFrom" class="form-control">
+            </div>
+            <div class="col-auto">
+                <label class="col-form-label">to:</label>
+            </div>
+            <div class="col-auto">
+                <input type="date" value="@dateTo" name="dateTo" class="form-control">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Search</button>
+            </div>
+        </form>
     </div>
     <div class="col-auto">
-        <input type="date" value="@dateFrom" onchange="" name="dateFrom" class="form-control">
+        <form class="row" method="post">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-danger"><i class="bi bi-x-circle me-2"></i>Clear</button>
+            </div>
+        </form>
     </div>
-    <div class="col-auto">
-        <label class="col-form-label">to: </label>
-    </div>
-    <div class="col-auto">
-        <input type="date" value="@dateTo" name="dateTo" class="form-control">
-    </div>
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Search</button>
-    </div>
-</form>
+</div>
 <hr/>
 <br/>
 
