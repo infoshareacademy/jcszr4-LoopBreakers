@@ -1,5 +1,4 @@
 ﻿using LoopBreakers.DAL.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +24,4 @@ namespace LoopBreakers.DAL.Context
             base.OnModelCreating(modelBuilder);
         }
     }
-
-   
 }

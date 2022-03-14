@@ -7,7 +7,7 @@ namespace LoopBreakers.WebApp.Contracts
 {
     public interface IClientService
     {
-        Task<IEnumerable<ApplicationUser>> FilterBy(SearchClientViewModel filter);
+        Task<IEnumerable<ApplicationUser>> FilterBy(SearchViewModel filter);
         ApplicationUser FindTransferPerformer(string userEmail);
         ApplicationUser FindRecipient (string iban);
         ApplicationUser FindLoggedUser(string email);

@@ -27,7 +27,7 @@ namespace LoopBreakers.WebApp.Services
             return await SendResource<TransferReportDTO, TransferReportDTO>(transfer, $"{ApiUrl}/TransferReport");
         }
 
-        public async Task<List<TransferReportDTO>> GetTransferReportByDate(SearchTransferViewModel filter)
+        public async Task<List<TransferReportDTO>> GetTransferReportByDate(SearchViewModel filter)
         {
             if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
             {
@@ -41,7 +41,7 @@ namespace LoopBreakers.WebApp.Services
             return await SendResource<ActivityReportDTO, ActivityReportDTO>(activity, $"{ApiUrl}/ActivityReport");
         }
 
-        public async Task<List<ActivityReportDTO>> GetActivityReportByDate(SearchTransferViewModel filter)
+        public async Task<List<ActivityReportDTO>> GetActivityReportByDate(SearchViewModel filter)
         {
             if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
             {
@@ -50,7 +50,7 @@ namespace LoopBreakers.WebApp.Services
             return await GetResource<List<ActivityReportDTO>>($"{ApiUrl}/ActivityReport");
         }
 
-        public async Task<List<CurrencyStatisticsDTO>> GetCurrencyStatistics(SearchTransferViewModel filter)
+        public async Task<List<CurrencyStatisticsDTO>> GetCurrencyStatistics(SearchViewModel filter)
         {
             if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
             {

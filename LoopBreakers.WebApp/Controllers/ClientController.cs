@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +21,7 @@ namespace LoopBreakers.WebApp.Controllers
     {
         private readonly IBaseRepository<ApplicationUser> _clientRepository;
 
-        private IClientService _clientService;
+        private readonly IClientService _clientService;
         private readonly IMapper _mapper;
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
@@ -37,11 +38,14 @@ namespace LoopBreakers.WebApp.Controllers
         }
 
         // GET: ClientController
-        public async Task<ActionResult> Index(SearchClientViewModel user)
+        public async Task<ActionResult> Index(SearchViewModel filter)
         {
-            var isAdmin = this.HttpContext.User.IsInRole("Admin");
-            var users = await _clientService.FilterBy(user);
-            var model = _mapper.Map<IEnumerable<UserDTO>>(users);
+            var users = await _clientService.FilterBy(filter); 
+            var model = new ClientViewDTO()
+            {
+                Client = _mapper.Map<IEnumerable<UserDTO>>(users),
+                SearchFilter = filter
+            };
             return View(model);
         }
 

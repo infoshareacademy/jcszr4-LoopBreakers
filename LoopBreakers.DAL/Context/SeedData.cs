@@ -27,7 +27,7 @@ namespace LoopBreakers.DAL.Context
                     new Transfer() { Amount = 15.99m,   Iban = "PL98109024021184712588824539", Created = DateTime.Now.AddDays(-15),  FirstName ="Adam",     LastName = "Powarski",   Currency = Currency.PLN, Reference = "SAMOCHOD",        Type = TransferType.Payment},
                     new Transfer() { Amount = 266.22m,  Iban = "PL44109024026974239459632788", Created = DateTime.Now.AddDays(-88),  FirstName ="Dariusz",  LastName = "Nawojski",   Currency = Currency.PLN, Reference = "Przelew środków", Type = TransferType.Payment},
                     new Transfer() { Amount = 717.94m,  Iban = "PL03109024029617359544162388", Created = DateTime.Now.AddDays(-120), FirstName ="Damian",   LastName = "Wieniawski", Currency = Currency.PLN, Reference = "czynsz",          Type = TransferType.Payment},
-                    new Transfer() { Amount = 2182.40m, Iban = "PL37109024021659358699489856", Created = DateTime.Now.AddDays(-150), FirstName ="Rafał" ,   LastName = "Szczerba",   Currency = Currency.PLN, Reference = "zakupy",          Type = TransferType.Payment},
+                    new Transfer() { Amount = 2182.40m, Iban = "PL37109024021659358699489856", Created = DateTime.Now.AddDays(-150), FirstName ="Rafał" ,   LastName = "Szczerba",   Currency = Currency.PLN, Reference = "zakupy",          Type = TransferType.Payment}
                 };
                 context.Transfers.AddRange(transfers);
                 context.SaveChanges();
@@ -43,7 +43,11 @@ namespace LoopBreakers.DAL.Context
             var admin = new ApplicationUser()
             {
                 UserName = "admin@admin.eu",
-                Email = "admin@admin.eu"
+                Email = "admin@admin.eu",
+                FirstName = "Admin",
+                IsActive = true,
+                Company = "LoopBreakers",
+                Iban = "PL00000000000000000000000000"
             };
 
             var result = await userManager.CreateAsync(admin, "superSecretAdminPassword123@");

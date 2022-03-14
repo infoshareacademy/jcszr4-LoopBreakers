@@ -20,7 +20,7 @@ namespace LoopBreakers.WebApp.Services
             _db = db;
             _clientRepository = applicationUserRepository;
         }
-        public async Task<IEnumerable<ApplicationUser>> FilterBy(SearchClientViewModel filter)
+        public async Task<IEnumerable<ApplicationUser>> FilterBy(SearchViewModel filter)
         {
             var clientQuery = _db.Users.AsQueryable();
 

@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace LoopBreakers.WebApp.DTOs
 {
-    public class SearchClientViewModel
+    public class ClientViewDTO
     {
-        public string SearchText { get; set; }
+        public IEnumerable<UserDTO> Client { get; set; }
+        public SearchViewModel SearchFilter { get; set; }
     }
 }

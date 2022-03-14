@@ -22,12 +22,18 @@ namespace LoopBreakers.WebApp.Controllers
         }
 
         // GET: ReportController
-        public async Task<ActionResult> Index(SearchTransferViewModel filter)
+        public async Task<ActionResult> Index(SearchViewModel filter)
         {
             ReportViewDTO ReportModel = new ReportViewDTO();
             ReportModel.Transfer = await _reportService.GetTransferReportByDate(filter);
             ReportModel.Activity = await _reportService.GetActivityReportByDate(filter);
             ReportModel.Currency = await _reportService.GetCurrencyStatistics(filter);
+
+            
+            if (filter.DateTo == null)
+            {
+                filter.DateTo = DateTime.Now;
+            }
             ReportModel.SearchFilter = filter;
 
             return View(ReportModel);
