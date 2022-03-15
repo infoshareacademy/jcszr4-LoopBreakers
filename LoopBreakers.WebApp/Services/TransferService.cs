@@ -14,16 +14,14 @@ namespace LoopBreakers.WebApp.Services
     public class TransferService : ITransferService
     {
         private readonly IBaseRepository<Transfer> _transfersRepository;
-        private readonly ApplicationDbContext _db;
-        public TransferService(ApplicationDbContext db,
-            IBaseRepository<Transfer> transfersRepository)
+        public TransferService(IBaseRepository<Transfer> transfersRepository)
         {
-            _db = db;
             _transfersRepository = transfersRepository;
         }
+
         public async Task<IEnumerable<Transfer>> FilterBy(SearchViewModel filter)
         {
-            var transfersQuery = _db.Transfers.AsQueryable();
+            var transfersQuery = _transfersRepository.GetAllQueryable();
 
             if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
             {
@@ -31,14 +29,16 @@ namespace LoopBreakers.WebApp.Services
             }
             if (filter.SearchText != null && filter.SearchText.Length > 2)
             {
-                transfersQuery = transfersQuery.Where(n => n.LastName.StartsWith(filter.SearchText));
+                transfersQuery = transfersQuery.Where(n => n.LastName.Contains(filter.SearchText) ||
+                                                           n.FirstName.Contains(filter.SearchText) ||
+                                                           n.Reference.Contains(filter.SearchText) ||
+                                                           n.Iban.Contains(filter.SearchText));
             }
             return await transfersQuery.ToListAsync();
         }
-        public void CreateNew(Transfer transfer)
+        public async Task<bool> CreateNew(Transfer transfer)
         {
-             _db.Transfers.Add(transfer);
-             _db.SaveChanges();
+            return await _transfersRepository.Create(transfer);
         }
     }
 }

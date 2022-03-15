@@ -8,6 +8,6 @@ namespace LoopBreakers.WebApp.Contracts
     public interface ITransferService
     {
         Task<IEnumerable<Transfer>> FilterBy(SearchViewModel filter);
-        void CreateNew(Transfer transfer);
+        Task<bool> CreateNew(Transfer transfer);
     }
 }

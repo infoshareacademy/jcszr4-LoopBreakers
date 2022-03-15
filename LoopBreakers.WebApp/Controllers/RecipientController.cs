@@ -28,8 +28,12 @@ namespace LoopBreakers.WebApp.Controllers
         public async Task<ActionResult> Index(SearchViewModel filter)
         {
             var recipients = await _recipientService.FilterBy(filter);
-            var model = _mapper.Map<IEnumerable<RecipientDTO>>(recipients);
-            return View(model);
+            var recipientsModel = new RecipientViewDTO()
+            {
+                Recipient = _mapper.Map<IEnumerable<RecipientDTO>>(recipients),
+                SearchFilter = filter
+            };
+            return View(recipientsModel);
         }
 
         public ActionResult Details(int id)

@@ -56,7 +56,7 @@ namespace LoopBreakers.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  async Task<IActionResult> Create(TransferPerformDTO transfer)
+        public async Task<IActionResult> Create(TransferPerformDTO transfer)
         {
             ViewBag.WrongUser = false;
             ViewBag.NotEnoughMoney = false;
@@ -67,8 +67,8 @@ namespace LoopBreakers.WebApp.Controllers
             try
             {
                 var userLogon = HttpContext.User.Identity.Name;
-                var currentUser = _clientService.FindTransferPerformer(userLogon);
-                var transferRecipient = _clientService.FindRecipient(transfer.Iban);
+                var currentUser = await _clientService.FindTransferPerformer(userLogon);
+                var transferRecipient = await _clientService.FindRecipient(transfer.Iban);
                 transfer.Created= DateTime.Now;
                 var transferOut = _mapper.Map<Transfer>(transfer);
                 var transferReportOut = _mapper.Map<TransferReportDTO>(transfer);
@@ -85,14 +85,14 @@ namespace LoopBreakers.WebApp.Controllers
                     }
                     else
                     {
-                        _transferService.CreateNew(transferOut);
-                        currentUser.Balance = currentUser.Balance - transferOut.Amount;
-                        _clientService.PerformerBalanceUpdateAfterTransfer(currentUser);
+                        await _transferService.CreateNew(transferOut);
+                        currentUser.Balance -= transferOut.Amount;
+                        await _clientService.PerformerBalanceUpdateAfterTransfer(currentUser);
                         await _reportService.SendTransferReport(transferReportOut);
                         if (transferRecipient != null)
                         {
-                            transferRecipient.Balance = transferRecipient.Balance + transferOut.Amount;
-                            _clientService.RecipientBalanceUpdateAfterTransfer(transferRecipient);
+                            transferRecipient.Balance += transferOut.Amount;
+                            await _clientService.RecipientBalanceUpdateAfterTransfer(transferRecipient);
                         }
                         return RedirectToAction(nameof(Index));
                     }
@@ -112,9 +112,19 @@ namespace LoopBreakers.WebApp.Controllers
 
         public async Task<ActionResult> Index(SearchViewModel filter)
         {
+            if (filter.DateTo == null)
+            {
+                filter.DateTo = DateTime.Now;
+            }
+            
             var transfers = await _transferService.FilterBy(filter);
-            var model = _mapper.Map<IEnumerable<TransferDTO>>(transfers);
-            return View(model);
+            var transferModel = new TransferViewDTO()
+            {
+                Transfer = _mapper.Map<IEnumerable<TransferDTO>>(transfers),
+                SearchFilter = filter
+            };
+
+            return View(transferModel);
         }
 
         public ActionResult Edit(int id)

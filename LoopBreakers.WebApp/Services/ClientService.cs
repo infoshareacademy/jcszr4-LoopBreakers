@@ -13,16 +13,13 @@ namespace LoopBreakers.WebApp.Services
     public class ClientService : IClientService 
     {
         private readonly IBaseRepository<ApplicationUser> _clientRepository;
-        private readonly ApplicationDbContext _db;
-        public ClientService(ApplicationDbContext db,
-            IBaseRepository<ApplicationUser> applicationUserRepository)
+        public ClientService(IBaseRepository<ApplicationUser> clientRepository)
         {
-            _db = db;
-            _clientRepository = applicationUserRepository;
+            _clientRepository = clientRepository;
         }
         public async Task<IEnumerable<ApplicationUser>> FilterBy(SearchViewModel filter)
         {
-            var clientQuery = _db.Users.AsQueryable();
+            var clientQuery = _clientRepository.GetAllQueryable();
 
             if (filter.SearchText != null && filter.SearchText.Length > 2)
             {
@@ -36,33 +33,35 @@ namespace LoopBreakers.WebApp.Services
             }
             return await clientQuery.ToListAsync();
         }
-        public IEnumerable<ApplicationUser> GetAll()
+
+        public async Task<IEnumerable<ApplicationUser>> GetAll()
         {
-            return  _db.Users.ToList();
-        }
-        public ApplicationUser FindTransferPerformer(string userEmail)
-        {
-            return _db.Users.FirstOrDefault(n => n.Email == userEmail);
-        }
-        public ApplicationUser FindRecipient(string iban)
-        {
-            return _db.Users.FirstOrDefault(n => n.Iban == iban);
-        }
-        public void PerformerBalanceUpdateAfterTransfer(ApplicationUser user)
-        {
-            _db.Users.Update(user);
-            _db.SaveChanges();
-        }
-        public void RecipientBalanceUpdateAfterTransfer(ApplicationUser user)
-        {
-            if(user != null)
-                _db.Users.Update(user);
-            _db.SaveChanges();
+            return await _clientRepository.FindAll();
         }
 
-        public ApplicationUser FindLoggedUser(string email)
+        public async Task<ApplicationUser> FindTransferPerformer(string userEmail)
         {
-            return _db.Users.FirstOrDefault(n => n.Email == email);
+            return await _clientRepository.GetAllQueryable().FirstOrDefaultAsync(n => n.Email == userEmail);
+        }
+
+        public async Task<ApplicationUser> FindRecipient(string iban)
+        {
+            return await _clientRepository.GetAllQueryable().FirstOrDefaultAsync(n => n.Iban == iban);
+        }
+
+        public async Task<bool> PerformerBalanceUpdateAfterTransfer(ApplicationUser user)
+        {
+            return await _clientRepository.Update(user);
+        }
+
+        public async Task<bool> RecipientBalanceUpdateAfterTransfer(ApplicationUser user)
+        {
+            return await _clientRepository.Update(user);
+        }
+
+        public async Task<ApplicationUser> FindLoggedUser(string email)
+        {
+            return await _clientRepository.GetAllQueryable().FirstOrDefaultAsync(n => n.Email == email);
         }
     }
 }

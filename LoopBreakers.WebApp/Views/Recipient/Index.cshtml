@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RecipientDTO>
+﻿@model RecipientViewDTO
 
 @{
     ViewData["Title"] = "Recipients";
@@ -10,44 +10,55 @@
     <a class="btn btn-primary" asp-action="Create"><i class="bi bi-person-plus me-2"></i>Add New Recipient</a>
 </p>
 <hr />
-<form class="row" method="post">
+<div class="row">
     <div class="col-auto">
-        <label class="col-form-label">Search: </label>
+        <form class="row" method="post">
+            <div class="col-auto">
+                <label class="col-form-label">Search:</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" value="@Model.SearchFilter.SearchText" name="SearchText" class="form-control" placeholder="">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Search</button>
+            </div>
+        </form>
     </div>
     <div class="col-auto">
-        <input type="text" value="" name="SearchText" class="form-control" placeholder="">
+        <form class="row" method="post">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-danger"><i class="bi bi-x-circle me-2"></i>Clear</button>
+            </div>
+        </form>
     </div>
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Search</button>
-    </div>
-</form>
+</div>
 <hr />
 <table class="table table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @Html.DisplayNameFor(model => model.Recipient.First().FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @Html.DisplayNameFor(model => model.Recipient.First().LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.Recipient.First().Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                @Html.DisplayNameFor(model => model.Recipient.First().Address)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Iban)
+                @Html.DisplayNameFor(model => model.Recipient.First().Iban)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Created)
+                @Html.DisplayNameFor(model => model.Recipient.First().Created)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Recipient)
         {
             <tr>
                 <td>

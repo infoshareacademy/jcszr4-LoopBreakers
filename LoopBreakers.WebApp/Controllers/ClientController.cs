@@ -21,15 +21,16 @@ namespace LoopBreakers.WebApp.Controllers
     public class ClientController : Controller
     {
         private readonly IBaseRepository<ApplicationUser> _clientRepository;
-
         private readonly IClientService _clientService;
         private readonly IMapper _mapper;
-        private UserManager<ApplicationUser> _userManager;
-        private SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public ClientController(IBaseRepository<ApplicationUser> clientRepository, IClientService clientService, 
-            IMapper mapper, UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+        public ClientController(IBaseRepository<ApplicationUser> clientRepository, 
+                                IClientService clientService, 
+                                IMapper mapper, 
+                                UserManager<ApplicationUser> userManager,
+                                SignInManager<ApplicationUser> signInManager)
         {
             _clientRepository = clientRepository;
             _clientService = clientService;

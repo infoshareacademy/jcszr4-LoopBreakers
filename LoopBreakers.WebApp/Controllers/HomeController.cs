@@ -17,13 +17,13 @@ namespace LoopBreakers.WebApp.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager
-            )
+        public HomeController(ILogger<HomeController> logger, 
+                                UserManager<ApplicationUser> userManager, 
+                                SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-
         }
 
         public IActionResult Index()

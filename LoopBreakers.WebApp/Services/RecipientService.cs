@@ -14,16 +14,14 @@ namespace LoopBreakers.WebApp.Services
     public class RecipientService : IRecipientService
     {
         private readonly IBaseRepository<Recipient> _recipientRepository;
-        private readonly ApplicationDbContext _db;
-
-        public RecipientService(ApplicationDbContext db, IBaseRepository<Recipient> recipientRepository)
+        public RecipientService(IBaseRepository<Recipient> recipientRepository)
         {
-            _db = db;
             _recipientRepository = recipientRepository;
         }
+
         public async Task<IEnumerable<Recipient>> FilterBy(SearchViewModel filter)
         {
-            var recipientQuery = _db.Recipients.AsQueryable();
+            var recipientQuery = _recipientRepository.GetAllQueryable();
 
             if (filter.SearchText != null && filter.SearchText.Length > 2)
             {
