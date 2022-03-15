@@ -1,4 +1,5 @@
 ﻿using LoopBreakers.WebApp.Contracts;
+using LoopBreakers.WebApp.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -20,6 +21,7 @@ namespace LoopBreakers.WebApp.Controllers
 
         public IActionResult Index()
         {
+            throw new AppException("ASFASFSAQWEQWE");
             return View();
         }
     }

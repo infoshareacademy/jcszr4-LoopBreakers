@@ -14,6 +14,10 @@ using LoopBreakers.DAL.Context;
 using LoopBreakers.WebApp.Contracts;
 using LoopBreakers.WebApp.Services;
 using LoopBreakers.DAL.Repositories;
+using System.Net;
+using System.Text.Json;
+using Microsoft.AspNetCore.Http;
+using LoopBreakers.WebApp.Helpers;
 
 namespace LoopBreakers.WebApp
 {
@@ -70,7 +74,9 @@ namespace LoopBreakers.WebApp
             app.UseRouting();
 
             app.UseAuthorization();
-            
+
+            app.UseMiddleware<ErrorHandlerMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
