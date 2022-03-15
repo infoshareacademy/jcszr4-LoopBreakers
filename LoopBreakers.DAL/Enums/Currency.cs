@@ -8,6 +8,11 @@ namespace LoopBreakers.DAL.Enums
     {
         PLN = 0,
         USD = 1,
-        EUR = 2
+        EUR = 2,
+        GBP = 3,
+        CHF = 4,
+        CHK = 5,
+        HUF = 6,
+        CZK = 7
     }
 }

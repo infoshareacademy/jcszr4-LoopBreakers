@@ -12,49 +12,49 @@ namespace LoopBreakers.DAL.Repositories
     public class Repository<T> : IBaseRepository<T> where T : class, IEntity
     {
         private readonly ApplicationDbContext _context;
-        private DbSet<T> entities;
+        private readonly DbSet<T> _entities;
 
         public Repository(ApplicationDbContext context)
         {
             _context = context;
-            entities = context.Set<T>();
+            _entities = context.Set<T>();
         }
 
         public IQueryable<T> GetAllQueryable()
         {
-            return entities.AsQueryable();
+            return _entities.AsQueryable();
         }
 
         public async Task<IEnumerable<T>> FindAll()
         {
-           return await entities.ToListAsync();
+           return await _entities.ToListAsync();
         }
         public async Task<T> FindById(int id)
         {
-            return await entities.SingleOrDefaultAsync(s => s.Id == id);
+            return await _entities.SingleOrDefaultAsync(s => s.Id == id);
         }
 
         public Task<bool> isExists(int id)
         {
-            return entities.AnyAsync(x => x.Id == id);
+            return _entities.AnyAsync(x => x.Id == id);
         }
 
         public async Task<bool> Create(T entity)
         {
-            await entities.AddAsync(entity);
+            await _entities.AddAsync(entity);
             return await Save();
         }
 
         public async Task<bool> Update(T entity)
         {
-            entities.Update(entity);
+            _entities.Update(entity);
             return await Save();
         }
 
         public async Task<bool> Delete(T entity)
         {
-            var entityToDelete = entities.FirstOrDefault(x => x.Id == entity.Id);
-            entities.Remove(entityToDelete);
+            var entityToDelete = _entities.FirstOrDefault(x => x.Id == entity.Id);
+            _entities.Remove(entityToDelete);
             return await Save();
         }
 
