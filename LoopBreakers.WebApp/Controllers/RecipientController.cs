@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LoopBreakers.WebApp.Controllers
 {
+    [Authorize(Roles = "User,Admin")]
     public class RecipientController : Controller
     {
         private readonly IBaseRepository<Recipient> _recipientRepository;
@@ -23,7 +25,7 @@ namespace LoopBreakers.WebApp.Controllers
             _mapper = mapper;
         }
 
-        public async Task<ActionResult> Index(SearchRecipientViewModel filter)
+        public async Task<ActionResult> Index(SearchViewModel filter)
         {
             var recipients = await _recipientService.FilterBy(filter);
             var model = _mapper.Map<IEnumerable<RecipientDTO>>(recipients);

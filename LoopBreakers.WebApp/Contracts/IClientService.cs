@@ -7,10 +7,14 @@ namespace LoopBreakers.WebApp.Contracts
 {
     public interface IClientService
     {
-        Task<IEnumerable<ApplicationUser>> FilterBy(SearchClientViewModel filter);
-        ApplicationUser FindTransferPerformer(TransferPerformDTO transfer);
+        Task<IEnumerable<ApplicationUser>> FilterBy(SearchViewModel filter);
+        ApplicationUser FindTransferPerformer(string userEmail);
+        ApplicationUser FindRecipient (string iban);
+        ApplicationUser FindLoggedUser(string email);
 
-        void BalanceUpadateAfterTransfer (ApplicationUser user);
+        void PerformerBalanceUpdateAfterTransfer (ApplicationUser user);
+        void RecipientBalanceUpdateAfterTransfer(ApplicationUser user);
+
         IEnumerable<ApplicationUser> GetAll();
     }
 }

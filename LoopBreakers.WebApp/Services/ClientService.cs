@@ -20,14 +20,10 @@ namespace LoopBreakers.WebApp.Services
             _db = db;
             _clientRepository = applicationUserRepository;
         }
-        public async Task<IEnumerable<ApplicationUser>> FilterBy(SearchClientViewModel filter)
+        public async Task<IEnumerable<ApplicationUser>> FilterBy(SearchViewModel filter)
         {
             var clientQuery = _db.Users.AsQueryable();
 
-            //if (filter.LastName != null && filter.LastName.Length > 2)
-            //{
-            //    clientQuery = clientQuery.Where(n => n.LastName.StartsWith(filter.LastName));
-            //}
             if (filter.SearchText != null && filter.SearchText.Length > 2)
             {
                 clientQuery = clientQuery.Where(n => n.LastName.Contains(filter.SearchText) ||
@@ -44,16 +40,29 @@ namespace LoopBreakers.WebApp.Services
         {
             return  _db.Users.ToList();
         }
-        public ApplicationUser FindTransferPerformer(TransferPerformDTO transfer)
+        public ApplicationUser FindTransferPerformer(string userEmail)
         {
-            return _db.Users.Where(n => n.LastName == transfer.UserSurname).FirstOrDefault();
+            return _db.Users.FirstOrDefault(n => n.Email == userEmail);
         }
-        public void BalanceUpadateAfterTransfer(ApplicationUser user)
+        public ApplicationUser FindRecipient(string iban)
+        {
+            return _db.Users.FirstOrDefault(n => n.Iban == iban);
+        }
+        public void PerformerBalanceUpdateAfterTransfer(ApplicationUser user)
         {
             _db.Users.Update(user);
             _db.SaveChanges();
         }
-       
+        public void RecipientBalanceUpdateAfterTransfer(ApplicationUser user)
+        {
+            if(user != null)
+                _db.Users.Update(user);
+            _db.SaveChanges();
+        }
 
+        public ApplicationUser FindLoggedUser(string email)
+        {
+            return _db.Users.FirstOrDefault(n => n.Email == email);
+        }
     }
 }

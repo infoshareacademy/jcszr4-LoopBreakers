@@ -6,6 +6,7 @@ using System.Text;
 using LoopBreakers.DAL.Enums;
 using System.IO;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity;
 
 namespace LoopBreakers.DAL.Context
 {
@@ -26,26 +27,44 @@ namespace LoopBreakers.DAL.Context
                     new Transfer() { Amount = 15.99m,   Iban = "PL98109024021184712588824539", Created = DateTime.Now.AddDays(-15),  FirstName ="Adam",     LastName = "Powarski",   Currency = Currency.PLN, Reference = "SAMOCHOD",        Type = TransferType.Payment},
                     new Transfer() { Amount = 266.22m,  Iban = "PL44109024026974239459632788", Created = DateTime.Now.AddDays(-88),  FirstName ="Dariusz",  LastName = "Nawojski",   Currency = Currency.PLN, Reference = "Przelew środków", Type = TransferType.Payment},
                     new Transfer() { Amount = 717.94m,  Iban = "PL03109024029617359544162388", Created = DateTime.Now.AddDays(-120), FirstName ="Damian",   LastName = "Wieniawski", Currency = Currency.PLN, Reference = "czynsz",          Type = TransferType.Payment},
-                    new Transfer() { Amount = 2182.40m, Iban = "PL37109024021659358699489856", Created = DateTime.Now.AddDays(-150), FirstName ="Rafał" ,   LastName = "Szczerba",   Currency = Currency.PLN, Reference = "zakupy",          Type = TransferType.Payment},
+                    new Transfer() { Amount = 2182.40m, Iban = "PL37109024021659358699489856", Created = DateTime.Now.AddDays(-150), FirstName ="Rafał" ,   LastName = "Szczerba",   Currency = Currency.PLN, Reference = "zakupy",          Type = TransferType.Payment}
                 };
                 context.Transfers.AddRange(transfers);
                 context.SaveChanges();
             }
         }
-        public static void SeedClient(ApplicationDbContext context) 
+        public static async void SeedClient(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRoles> roleManager) 
         {
             if (context.Users.Any())
             {
                 return;
             }
 
-            if (File.Exists(UsersJsonFilePath))
+            var admin = new ApplicationUser()
             {
-                string json = File.ReadAllText(UsersJsonFilePath).Replace("Id","IdentityNumber");
-                _users = JsonConvert.DeserializeObject<List<ApplicationUser>>(json);
-                context.Users.AddRange(_users);
-                context.SaveChanges();
+                UserName = "admin@admin.eu",
+                Email = "admin@admin.eu",
+                FirstName = "Admin",
+                IsActive = true,
+                Company = "LoopBreakers",
+                Iban = "PL00000000000000000000000000"
+            };
+
+            var result = await userManager.CreateAsync(admin, "superSecretAdminPassword123@");
+            if (result.Succeeded)
+            {
+                await roleManager.CreateAsync(new ApplicationRoles() { Name = "Admin" });
+                await roleManager.CreateAsync(new ApplicationRoles() { Name = "User" });
+                await userManager.AddToRoleAsync(admin, "Admin");
             }
+
+            //if (File.Exists(UsersJsonFilePath))
+            //{
+            //    string json = File.ReadAllText(UsersJsonFilePath).Replace("Id", "IdentityNumber");
+            //    _users = JsonConvert.DeserializeObject<List<ApplicationUser>>(json);
+            //    context.Users.AddRange(_users);
+            //    context.SaveChanges();
+            //}
         }
     }
 }

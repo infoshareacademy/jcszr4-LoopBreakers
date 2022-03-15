@@ -14,6 +14,8 @@ using LoopBreakers.DAL.Context;
 using LoopBreakers.WebApp.Contracts;
 using LoopBreakers.WebApp.Services;
 using LoopBreakers.DAL.Repositories;
+using LoopBreakers.DAL.Entities;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
@@ -33,29 +35,37 @@ namespace LoopBreakers.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
-
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDefaultIdentity<ApplicationUser>().AddRoles<ApplicationRoles>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+            
             services.AddScoped(typeof(IBaseRepository<>), typeof(Repository<>));
             services.AddScoped<ITransferService, TransferService>();
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IRecipientService, RecipientService>();
+            services.AddScoped<ReportService>();
+
+            services.AddHttpClient();
 
             services.AddAutoMapper(typeof(Mappings.TransfersProfile));
 
             services.AddHttpContextAccessor();
+            services.AddRazorPages();
+            // services.AddIdentity<ApplicationUser, IdentityRole>();
+
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRoles> roleManager)
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>()?.CreateScope())
             {
                 var context = serviceScope?.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 context?.Database.Migrate();
                 SeedData.SeedTransfer(context);
-                SeedData.SeedClient(context);
+                SeedData.SeedClient(context, userManager, roleManager);
             }
 
             if (env.IsDevelopment())
@@ -73,6 +83,7 @@ namespace LoopBreakers.WebApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseMiddleware<ErrorHandlerMiddleware>();
@@ -82,6 +93,8 @@ namespace LoopBreakers.WebApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapRazorPages();
             });
         }
     }

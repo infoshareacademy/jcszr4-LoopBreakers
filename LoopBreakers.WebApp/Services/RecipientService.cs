@@ -21,7 +21,7 @@ namespace LoopBreakers.WebApp.Services
             _db = db;
             _recipientRepository = recipientRepository;
         }
-        public async Task<IEnumerable<Recipient>> FilterBy(SearchRecipientViewModel filter)
+        public async Task<IEnumerable<Recipient>> FilterBy(SearchViewModel filter)
         {
             var recipientQuery = _db.Recipients.AsQueryable();
 

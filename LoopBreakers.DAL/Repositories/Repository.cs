@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LoopBreakers.DAL.Repositories
 {
-    public class Repository<T> : IBaseRepository<T> where T : Entity
+    public class Repository<T> : IBaseRepository<T> where T : class, IEntity
     {
         private readonly ApplicationDbContext _context;
         private DbSet<T> entities;
@@ -53,7 +53,8 @@ namespace LoopBreakers.DAL.Repositories
 
         public async Task<bool> Delete(T entity)
         {
-            entities.Remove(entity);
+            var entityToDelete = entities.FirstOrDefault(x => x.Id == entity.Id);
+            entities.Remove(entityToDelete);
             return await Save();
         }
 

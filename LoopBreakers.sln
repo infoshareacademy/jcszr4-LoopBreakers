@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoopBreakers.Logic", "LoopB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoopBreakers.WebApp", "LoopBreakers.WebApp\LoopBreakers.WebApp.csproj", "{F536B70D-756B-4232-BE61-3F5C9256FE97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoopBreakers.DAL", "LoopBreakers.DAL\LoopBreakers.DAL.csproj", "{0305C78C-D7C4-4AE4-A6F4-850524EED766}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoopBreakers.DAL", "LoopBreakers.DAL\LoopBreakers.DAL.csproj", "{0305C78C-D7C4-4AE4-A6F4-850524EED766}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoopBreakers.ReportModule", "LoopBreakers.ReportModule\LoopBreakers.ReportModule.csproj", "{311E2451-AC26-4DC8-8AAD-A3D7A08602FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{0305C78C-D7C4-4AE4-A6F4-850524EED766}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0305C78C-D7C4-4AE4-A6F4-850524EED766}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0305C78C-D7C4-4AE4-A6F4-850524EED766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{311E2451-AC26-4DC8-8AAD-A3D7A08602FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{311E2451-AC26-4DC8-8AAD-A3D7A08602FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{311E2451-AC26-4DC8-8AAD-A3D7A08602FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{311E2451-AC26-4DC8-8AAD-A3D7A08602FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
