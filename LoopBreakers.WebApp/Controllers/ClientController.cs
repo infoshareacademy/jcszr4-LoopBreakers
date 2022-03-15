@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -105,7 +106,9 @@ namespace LoopBreakers.WebApp.Controllers
                 {
                     return View(model);
                 }
-                var client = _mapper.Map<ApplicationUser>(model);
+
+                var clientFromDb = _userManager.Users.First(u => u.Id == model.Id);
+                var client = _mapper.Map(model, clientFromDb);
                 await _clientRepository.Update(client);
                 return RedirectToAction(nameof(Index));
             }
