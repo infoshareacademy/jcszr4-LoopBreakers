@@ -49,7 +49,7 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "E-mail")]
             public string Email { get; set; }
 
             [Required]
@@ -63,31 +63,27 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
             public DateTime Created { get; set; } = DateTime.Now;
-            //[Required, Display(Name = "ID użytkownika")]
-            //[MinLength(25)]
-            //[MaxLength(25)]
-            //public string IdentityNumber { get; set; }
-            //public bool IsActive { get; set; } = true;
-            [Required, Display(Name = "Kwota wejściowa")]
+
+            [Required, Display(Name = "Balance for start ;)"), Range(0, 999999999)]
             public decimal Balance { get; set; }
-            [Required, Display(Name = "Waluta")]
+            [Required, Display(Name = "Currency")]
             public Currency Currency { get; set; }
-            [Required, Display(Name = "Wiek"), Range(18,120)]
+            [Required, Display(Name = "Age"), Range(18,120)]
             public int Age { get; set; }
-            [Required, Display(Name = "Imie")]
+            [Required, Display(Name = "First name")]
             public string FirstName { get; set; }
-            [Required, Display(Name = "Nazwisko")]
+            [Required, Display(Name = "Last name")]
             public string LastName { get; set; }
-            [Required, Display(Name = "Płeć")]
+            [Required, Display(Name = "Sex")]
             public Gender Gender { get; set; }
-            [Display(Name = "Firma")]
+            [Display(Name = "Company")]
             public string Company { get; set; }
-            [Required, Display(Name = "Telefon [+48...]"), MinLength(12), MaxLength(13)]
+            [Required, Display(Name = "Phone [+48...]"), MinLength(12), MaxLength(13)]
             public string Phone { get; set; }
-            [Required, Display(Name = "Adress")]
+            [Required, Display(Name = "Address")]
             public string Address { get; set; }
             public DateTime Registered { get; set; }=DateTime.Now;
-            [Required, Display(Name = "Numer Konta [PL...]"), MinLength(28), MaxLength(28)]
+            [Required, Display(Name = "Account number - IBAN [PL...]"), MinLength(28), MaxLength(28)]
             public string Iban { get; set; }
         }
 
