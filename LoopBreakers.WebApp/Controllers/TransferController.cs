@@ -82,6 +82,7 @@ namespace LoopBreakers.WebApp.Controllers
                         transfer.Currency = (Currency)Enum.Parse(typeof(Currency), currentUser.Currency);
                         transfer.Created = DateTime.Now;
                         ViewBag.NotEnoughMoney = true;
+                       
                     }
                     else
                     {
@@ -89,6 +90,14 @@ namespace LoopBreakers.WebApp.Controllers
                         currentUser.Balance -= transferOut.Amount;
                         await _clientService.PerformerBalanceUpdateAfterTransfer(currentUser);
                         await _reportService.SendTransferReport(transferReportOut);
+                        await _reportService.SendActivityReport(new ActivityReportDTO
+                        {
+                            Description = $"Użytkownik {currentUser.Email} wykonał przelew",
+                            Created = DateTime.Now,
+                            Email = currentUser.Email,
+                            FirstName = currentUser.FirstName,
+                            LastName = currentUser.LastName
+                        });
                         if (transferRecipient != null)
                         {
                             transferRecipient.Balance += transferOut.Amount;

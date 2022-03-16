@@ -14,7 +14,7 @@ namespace LoopBreakers.WebApp.Services
     public class ReportService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private const string ApiUrl = "https://localhost:6001/api";
+        private const string ApiUrl = "https://localhost:44308/api";
 
         public ReportService(IHttpClientFactory httpClientFactory)
         {
@@ -57,7 +57,38 @@ namespace LoopBreakers.WebApp.Services
             }
             return await GetResource<List<CurrencyStatisticsDTO>>($"{ApiUrl}/TransferReport/CurrencyStatistics");
         }
-
+        public async Task<LoginStatisticsDTO> GetLoginStatistics(SearchViewModel filter)
+        {
+            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
+            {
+                return await GetResource<LoginStatisticsDTO>($"{ApiUrl}/ActivityReport/LoginStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
+            }
+            return await GetResource<LoginStatisticsDTO>($"{ApiUrl}/ActivityReport/LoginStatistics");
+        }
+        public async Task<TransferStatsDTO> GetTransferStatistics(SearchViewModel filter)
+        {
+            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
+            {
+                return await GetResource<TransferStatsDTO>($"{ApiUrl}/ActivityReport/TransferStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
+            }
+            return await GetResource<TransferStatsDTO>($"{ApiUrl}/ActivityReport/TransferStatistics");
+        }
+        public async Task<RegisterStatsDTO> GetRegisterStatistics(SearchViewModel filter)
+        {
+            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
+            {
+                return await GetResource<RegisterStatsDTO>($"{ApiUrl}/ActivityReport/RegisterStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
+            }
+            return await GetResource<RegisterStatsDTO>($"{ApiUrl}/ActivityReport/RegisterStatistics");
+        }
+        public async Task<List<MostCommonHoursDTO>> GetMostCommonTransferHoursStatistics(SearchViewModel filter)
+        {
+            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
+            {
+                return await GetResource<List<MostCommonHoursDTO>>($"{ApiUrl}/ActivityReport/MostCommonTransferHours?dateFrom={filter.DateFrom:dd-MM-yyyy-hh}&dateTo={filter.DateTo:dd-MM-yyyy-hh}");
+            }
+            return await GetResource<List<MostCommonHoursDTO>>($"{ApiUrl}/ActivityReport/MostCommonTransferHours");
+        }
         private async Task<TReturn> SendResource<TReturn, TInput>(TInput resource, string url)
         {
 
@@ -94,5 +125,6 @@ namespace LoopBreakers.WebApp.Services
 
             return deserializedResource;
         }
+
     }
 }

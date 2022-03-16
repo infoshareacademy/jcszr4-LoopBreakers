@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 using LoopBreakers.ReportModule.Models;
+using MoreLinq;
 
 namespace LoopBreakers.ReportModule.Services
 {
@@ -65,6 +66,7 @@ namespace LoopBreakers.ReportModule.Services
             return await _activityRepository.GetAllQueryable()
                 .Where(s => s.Created >= dateFrom && s.Created < dateTo).ToListAsync();
         }
+   
 
         public async Task<List<CurrencyStatisticsDTO>> GetCurrencyStatistics()
         {
@@ -89,5 +91,77 @@ namespace LoopBreakers.ReportModule.Services
                     Count = o.Count()
                 }).ToListAsync();
         }
+        public async Task<LoginStatisticsDTO> GetLoginStatistics(DateTime dateFrom, DateTime dateTo)
+        {
+            dateTo = dateTo.AddDays(1);
+            var data = await _activityRepository.GetAllQueryable()
+                .Where(s => s.Created >= dateFrom && s.Created < dateTo && (s.Description.Contains("zalogował")|| s.Description.Contains("zalogowal")))
+                .ToListAsync();
+            return new LoginStatisticsDTO { Name = "Logging quantity: ", Count = data.Count};  
+        }
+        public async Task<LoginStatisticsDTO> GetAllLoginStatistics()
+        {
+            var data = await _activityRepository.GetAllQueryable()
+                .Where(s => s.Description.Contains("zalogował") || (s.Description.Contains("zalogowal")))
+                .ToListAsync();
+            return new LoginStatisticsDTO { Name = "Logging quantity: ", Count = data.Count };
+        }
+        public async Task<TransferStatsDTO> GetTransferStatistics(DateTime dateFrom, DateTime dateTo)
+        {
+            dateTo = dateTo.AddDays(1);
+            var data = await _activityRepository.GetAllQueryable()
+                .Where(s => s.Created >= dateFrom && s.Created < dateTo && s.Description.Contains("przelew"))
+                .ToListAsync();
+            return new TransferStatsDTO { Name = "Transfers quantity: ", Count = data.Count };
+        }
+        public async Task<TransferStatsDTO> GetWholeTransferStatistics()
+        {
+            var data = await _activityRepository.GetAllQueryable()
+                .Where(s => s.Description.Contains("przelew"))
+                .ToListAsync();
+            return new TransferStatsDTO { Name = "Transfers quantity: ", Count = data.Count };
+        }
+        public async Task<RegisterStatsDTO> GetRegisterStatistics(DateTime dateFrom, DateTime dateTo)
+        {
+            dateTo = dateTo.AddDays(1);
+            var data = await _activityRepository.GetAllQueryable()
+                .Where(s => s.Created >= dateFrom && s.Created < dateTo && (s.Description.Contains("zarejestrował")|| s.Description.Contains("zarejestrował")))
+                .ToListAsync();            
+            return new RegisterStatsDTO { Name = "Register quantity: ", Count = data.Count };
+        }
+        public async Task<RegisterStatsDTO> GetWholeRegisterStatistics()
+        {
+            var data = await _activityRepository.GetAllQueryable()
+                .Where(s => (s.Description.Contains("zarejestrował")||s.Description.Contains("zarejestrowal")))
+                .ToListAsync();
+            return new RegisterStatsDTO { Name = "Register quantity: ", Count = data.Count };
+        }
+        public async Task<List<MostCommonHoursDTO>> GetTransferStisticsByHours(DateTime dateFrom, DateTime dateTo)
+        {
+            var dateFromUpdate = new DateTime(dateFrom.Year, dateFrom.Month, dateFrom.Day, 0, 0, 0, DateTimeKind.Utc);
+            var dateTomUpdate = new DateTime(dateTo.Year, dateTo.Month, dateTo.Day, 23, 0, 0, DateTimeKind.Utc);
+            dateTo = dateTo.AddDays(1).AddHours(11);
+            List<MostCommonHoursDTO> mostOverloadHours = new List<MostCommonHoursDTO>();
+            mostOverloadHours.Clear();
+            for (int i = 0; i <= 23; i++)
+            {
+                var data = await _activityRepository.GetAllQueryable()
+                               .Where(s => s.Created.Hour == i && s.Created >= dateFromUpdate && s.Created < dateTomUpdate && (s.Description.Contains("zalogował")|| s.Description.Contains("zalogowal")))
+                               .ToListAsync();
+                if (data.Count > 0)
+                {
+                    mostOverloadHours.Add(new MostCommonHoursDTO { Count = data.Count, Hour = data[0].Created.Hour });
+                }
+                else
+                {
+                    mostOverloadHours.Add(new MostCommonHoursDTO { Count= 0, Hour = i });
+                }
+            }
+            var sortedData = mostOverloadHours.OrderBy(s=>s.Hour).ToList();
+            return sortedData;
+            
+        }
+
+      
     }
 }

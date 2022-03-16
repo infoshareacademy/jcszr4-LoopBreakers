@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using LoopBreakers.DAL.Entities;
+using LoopBreakers.WebApp.Services;
 
 namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
 {
@@ -21,14 +22,17 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-
+        private readonly ReportService _reportService;
         public LoginModel(SignInManager<ApplicationUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            ReportService reportService
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _reportService = reportService;
         }
 
         [BindProperty]
@@ -53,6 +57,7 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
 
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -67,8 +72,7 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();            
             ReturnUrl = returnUrl;
         }
 
@@ -80,12 +84,22 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
         
             if (ModelState.IsValid)
             {
+
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    
                     _logger.LogInformation("User logged in.");
+                    var currentUser = await _userManager.FindByEmailAsync(Input.Email);
+                    await _reportService.SendActivityReport(new ReportModule.Models.ActivityReportDTO { Created = DateTime.UtcNow,
+                        Email = Input.Email,
+                        Description =$"Użytkownik {Input.Email} zalogował się",
+                        FirstName = currentUser.FirstName,
+                        LastName = currentUser.LastName
+                    });
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
