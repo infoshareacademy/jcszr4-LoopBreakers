@@ -29,7 +29,6 @@ namespace LoopBreakers.WebApp.Controllers
 
         public IActionResult Index()
         {
-            throw new AppException("ASFASFSAQWEQWE");
             return View();
         }
     }

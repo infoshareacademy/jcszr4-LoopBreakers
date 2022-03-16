@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
+using LoopBreakers.DAL.Repositories;
+using LoopBreakers.DAL.Entities;
 
 namespace LoopBreakers.WebApp.Helpers
 {
@@ -14,9 +16,10 @@ namespace LoopBreakers.WebApp.Helpers
         public ErrorHandlerMiddleware(RequestDelegate next)
         {
             _next = next;
+
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, IBaseRepository<AppError> errorsRepository)
         {
             try
             {
@@ -44,6 +47,18 @@ namespace LoopBreakers.WebApp.Helpers
                 }
 
                 var result = JsonSerializer.Serialize(new { message = error?.Message });
+                AppError err = new AppError()
+                {
+                    Created = DateTime.UtcNow,
+                    Source = error.Source,
+                    StatusCode = context.Response.StatusCode,
+                    RequestPath = context.Request.PathBase,
+                    Method = context.Request.Method,
+                    ExceptionMessage = error.Message
+            };
+                await errorsRepository.Create(err);
+
+
                 await response.WriteAsync(result);
             }
         }
