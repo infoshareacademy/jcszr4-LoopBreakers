@@ -12,6 +12,7 @@ namespace LoopBreakers.DAL.Context
         public DbSet<Recipient> Recipients { get; set; }
         public DbSet<ActivityReport> ActivityReport { get; set; }
         public DbSet<TransferReport> TransferReport { get; set; }
+        public DbSet<AppError> ExeptionsStorage { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
