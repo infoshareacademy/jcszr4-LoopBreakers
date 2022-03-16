@@ -73,8 +73,9 @@ namespace LoopBreakers.WebApp.Controllers
                 var transferOut = _mapper.Map<Transfer>(transfer);
                 var transferReportOut = _mapper.Map<TransferReportDTO>(transfer);
                 transferReportOut.CountryCode = transfer.Iban.Substring(0, 2);
+                await _reportService.SendTransferReport(transferReportOut);
 
-                if(currentUser != null)
+                if (currentUser != null)
                 {
                     if (transfer.Amount > currentUser.Balance)
                     {
@@ -98,6 +99,7 @@ namespace LoopBreakers.WebApp.Controllers
                             FirstName = currentUser.FirstName,
                             LastName = currentUser.LastName
                         });
+
                         if (transferRecipient != null)
                         {
                             transferRecipient.Balance += transferOut.Amount;
