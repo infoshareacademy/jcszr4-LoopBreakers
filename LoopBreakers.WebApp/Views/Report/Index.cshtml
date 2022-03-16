@@ -1,10 +1,11 @@
 ﻿@model ReportViewDTO
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Reports";
     string dateFrom = Model.SearchFilter.DateFrom == null ? "" : ((DateTime)Model.SearchFilter.DateFrom).ToString("yyyy-MM-dd");
     string dateTo = Model.SearchFilter.DateTo == null ? "" : ((DateTime)Model.SearchFilter.DateTo).ToString("yyyy-MM-dd");
 }
+
 <h3>Reports</h3>
 <hr/>
 <div class="row">
@@ -41,31 +42,86 @@
 <h3>Currency Statistics</h3>
 
 <hr />
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Currency.First().Currency)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Currency.First().Count)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model.Currency)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Currency)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Count)
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-7">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Currency.First().Currency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Currency.First().Count)
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Currency)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Currency)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Count)
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-5">
+        <div class="card border-0" style="width: 70%;">
+            <div class="card-body">
+                @{ 
+                    List<string> listKeys = new List<string>();
+                    List<int> listValues = new List<int>();
+                    foreach(var x in Model.Currency)
+                    {
+                        listKeys.Add(x.Currency.ToString());
+                        listValues.Add(x.Count);
+                    }
+                }
+                <canvas id="myChart" width="200" height="200"></canvas>
+                <script>
+                    const ctx = document.getElementById('myChart');
+                    const myChart = new Chart(ctx,
+                        {
+                            type: 'pie',
+                            data: {
+                                labels: @Html.Raw(Json.Serialize(listKeys)),
+                                datasets: [
+                                    {
+                                        label: '# of Votes',
+                                        data: @Html.Raw(Json.Serialize(listValues)),
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }
+                                ]
+                            }
+                        });
+                </script>
+            </div>
+        </div>
+        
+    </div>
+</div>
 <br/>
 
 <h3>Transfer Report</h3>
