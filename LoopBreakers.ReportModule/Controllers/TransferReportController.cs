@@ -32,7 +32,7 @@ namespace LoopBreakers.ReportModule.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetReport([FromQuery]string dateFrom, [FromQuery]string dateTo)
+        public async Task<IActionResult> GetReport([FromQuery] string dateFrom, [FromQuery] string dateTo)
         {
             if (!DateTime.TryParse(dateFrom, out var apiDateFrom))
             {

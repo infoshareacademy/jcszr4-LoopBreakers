@@ -56,5 +56,53 @@ namespace LoopBreakers.ReportModule.Controllers
             await _reportService.AddActivityReport(activityToCreate);
             return CreatedAtAction(nameof(GetReportById), new { id = activityToCreate.Id }, activityToCreate);
         }
+        [HttpGet("LoginStatistics")]
+        public async Task<IActionResult> GetLoginStatistics([FromQuery] string dateFrom,
+         [FromQuery] string dateTo)
+        {
+
+            if (!DateTime.TryParse(dateFrom, out var apiDateFrom) || !DateTime.TryParse(dateTo, out var apiDateTo))
+            {
+                return Ok();
+            };
+            
+            return Ok(await _reportService.GetLoginStatistics(apiDateFrom, apiDateTo));
+        }
+        [HttpGet("TransferStatistics")]
+        public async Task<IActionResult> GetTransferStatistics([FromQuery] string dateFrom,
+        [FromQuery] string dateTo)
+        {
+
+            if (!DateTime.TryParse(dateFrom, out var apiDateFrom) || !DateTime.TryParse(dateTo, out var apiDateTo))
+            {
+                return Ok();
+            };
+
+            return Ok(await _reportService.GetTransferStatistics(apiDateFrom, apiDateTo));
+        }
+        [HttpGet("RegisterStatistics")]
+        public async Task<IActionResult> GetRegisterStatistics([FromQuery] string dateFrom,
+      [FromQuery] string dateTo)
+        {
+
+            if (!DateTime.TryParse(dateFrom, out var apiDateFrom) || !DateTime.TryParse(dateTo, out var apiDateTo))
+            {
+                return Ok();
+            };
+
+            return Ok(await _reportService.GetRegisterStatistics(apiDateFrom, apiDateTo));
+        }
+        [HttpGet("MostCommonTransferHours")]
+        public async Task<IActionResult> GetTransferStisticsByHours([FromQuery] string dateFrom,
+       [FromQuery] string dateTo)
+        {
+
+            if (!DateTime.TryParse(dateFrom, out var apiDateFrom) || !DateTime.TryParse(dateTo, out var apiDateTo))
+            {
+                return Ok();
+            };
+
+            return Ok(await _reportService.GetTransferStisticsByHours(apiDateFrom, apiDateTo));
+        }
     }
 }

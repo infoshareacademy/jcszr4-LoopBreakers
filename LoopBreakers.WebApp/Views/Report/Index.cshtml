@@ -217,3 +217,159 @@
         }
     </tbody>
 </table>
+
+        <h3>Register counter</h3>
+
+@{
+    if (Model.RegisterCounter != null)
+    {
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayFor(modelItem => Model.RegisterCounter.Name)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.RegisterCounter.Count)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+    }
+}
+
+
+        <h3>Logins counter</h3>
+
+@{
+    if(Model.LoginCounter != null)
+    {
+
+        <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayFor(modelItem => Model.LoginCounter.Name)
+            </th>           
+        </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.LoginCounter.Count)
+            </td>            
+        </tr>
+       </tbody>
+</table>
+<br/>
+
+
+<hr/>
+    }
+}
+        <h3>Transfer Counter</h3>
+
+@{
+    if(Model.TransferCounter != null)
+    {
+
+        <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayFor(modelItem => Model.TransferCounter.Name)
+            </th>           
+        </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.TransferCounter.Count)
+            </td>            
+        </tr>
+       </tbody>
+</table>
+<br/>
+
+
+<hr/>
+    }
+}
+
+
+
+        <h3>Most common transfer hours</h3>
+
+
+@{
+    if (Model.MostCommonTransferHours!=null)
+    {
+        int[] labels =new int[Model.MostCommonTransferHours.Count];
+        int[] values =new int[Model.MostCommonTransferHours.Count];
+        for (int i=0; i < Model.MostCommonTransferHours.Count; i++)
+        {
+            labels[i] = Model.MostCommonTransferHours[i].Hour;
+            values[i] = Model.MostCommonTransferHours[i].Count;
+        }
+        <div class="row d-flex">
+            <div class="col-12">
+
+                <canvas id="myChart" width="100" height="50"></canvas>
+                <script>
+                        var labels =@Json.Serialize(labels);
+                        var values = @Json.Serialize(values);
+                                                        var valuesAC = [0,0,0,500,800,2000,1500,0,20];
+                                                        var tempOut = [10,20,30,40,50,40,30,20,10];
+
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    const myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                 label: "Most common transfer hours",
+                                data: values,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            },                            
+                           ]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+        }
+
+    }
+

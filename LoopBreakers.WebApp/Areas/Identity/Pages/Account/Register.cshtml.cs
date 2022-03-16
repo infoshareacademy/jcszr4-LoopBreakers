@@ -7,6 +7,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using LoopBreakers.DAL.Entities;
 using LoopBreakers.DAL.Enums;
+using LoopBreakers.WebApp.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -25,17 +26,20 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ReportService _reportService;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ReportService reportServie)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _reportService = reportServie;
         }
 
         [BindProperty]
@@ -124,7 +128,14 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
                 {
                     await this._userManager.AddToRoleAsync(user, "User");
                     _logger.LogInformation("User created a new account with password.");
-
+                    await _reportService.SendActivityReport(new ReportModule.Models.ActivityReportDTO
+                    {
+                        Created = DateTime.UtcNow,
+                        Email = user.Email,
+                        Description = $"Użytkownik {user.Email} zarejestrował się",
+                        FirstName = user.FirstName,
+                        LastName = user.LastName
+                    });
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(

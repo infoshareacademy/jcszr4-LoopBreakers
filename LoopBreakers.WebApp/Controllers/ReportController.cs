@@ -28,6 +28,12 @@ namespace LoopBreakers.WebApp.Controllers
             ReportModel.Transfer = await _reportService.GetTransferReportByDate(filter);
             ReportModel.Activity = await _reportService.GetActivityReportByDate(filter);
             ReportModel.Currency = await _reportService.GetCurrencyStatistics(filter);
+            ReportModel.LoginCounter = await _reportService.GetLoginStatistics(filter);
+            ReportModel.TransferCounter = await _reportService.GetTransferStatistics(filter);
+            ReportModel.RegisterCounter = await _reportService.GetRegisterStatistics(filter);
+            ReportModel.MostCommonTransferHours = await _reportService.GetMostCommonTransferHoursStatistics(filter);
+            
+
 
             
             if (filter.DateTo == null)
