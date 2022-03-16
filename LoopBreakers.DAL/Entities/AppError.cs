@@ -12,5 +12,6 @@ namespace LoopBreakers.DAL.Entities
         public int StatusCode { get; set; }
         public string RequestPath { get; set; }
         public string ExceptionMessage { get; set; }
+        public string UserId { get; set; }
     }
 }

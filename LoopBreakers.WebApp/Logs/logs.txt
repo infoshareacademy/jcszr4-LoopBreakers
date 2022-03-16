@@ -239,3 +239,132 @@ ALTER TABLE [ExeptionsStorage] DROP CONSTRAINT [PK_ExeptionsStorage]; {"EventId"
 [21:42:04 INFOR] Application started. Press Ctrl+C to shut down. {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
 [21:42:04 INFOR] Hosting environment: Development {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
 [21:42:04 INFOR] Content root path: C:\Users\oleek\source\repos\jcszr4-LoopBreakers\LoopBreakers.WebApp {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[21:48:50 WARNI] No type was specified for the decimal property 'Balance' on entity type 'ApplicationUser'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[21:48:50 WARNI] No type was specified for the decimal property 'Amount' on entity type 'TransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[21:48:52 INFOR] Application started. Press Ctrl+C to shut down. {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[21:48:52 INFOR] Hosting environment: Development {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[21:48:52 INFOR] Content root path: C:\Users\oleek\source\repos\jcszr4-LoopBreakers\LoopBreakers.WebApp {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[21:49:11 WARNI] No type was specified for the decimal property 'Balance' on entity type 'ApplicationUser'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[21:49:11 WARNI] No type was specified for the decimal property 'Amount' on entity type 'TransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[21:49:12 INFOR] Application started. Press Ctrl+C to shut down. {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[21:49:12 INFOR] Hosting environment: Development {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[21:49:12 INFOR] Content root path: C:\Users\oleek\source\repos\jcszr4-LoopBreakers\LoopBreakers.WebApp {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[21:51:35 WARNI] No type was specified for the decimal property 'Balance' on entity type 'ApplicationUser'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[21:51:35 WARNI] No type was specified for the decimal property 'Amount' on entity type 'TransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[21:51:37 INFOR] Application started. Press Ctrl+C to shut down. {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[21:51:37 INFOR] Hosting environment: Development {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[21:51:37 INFOR] Content root path: C:\Users\oleek\source\repos\jcszr4-LoopBreakers\LoopBreakers.WebApp {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[21:53:30 WARNI] No type was specified for the decimal property 'Balance' on entity type 'ApplicationUser'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[21:53:30 WARNI] No type was specified for the decimal property 'Amount' on entity type 'TransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[21:53:32 INFOR] Application started. Press Ctrl+C to shut down. {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[21:53:32 INFOR] Hosting environment: Development {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[21:53:32 INFOR] Content root path: C:\Users\oleek\source\repos\jcszr4-LoopBreakers\LoopBreakers.WebApp {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[21:54:34 WARNI] No type was specified for the decimal property 'Balance' on entity type 'ApplicationUser'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[21:54:34 WARNI] No type was specified for the decimal property 'Amount' on entity type 'TransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[21:54:36 INFOR] Application started. Press Ctrl+C to shut down. {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[21:54:36 INFOR] Hosting environment: Development {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[21:54:36 INFOR] Content root path: C:\Users\oleek\source\repos\jcszr4-LoopBreakers\LoopBreakers.WebApp {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[22:08:53 WARNI] No type was specified for the decimal property 'Balance' on entity type 'ApplicationUser'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[22:08:53 WARNI] No type was specified for the decimal property 'Amount' on entity type 'TransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[22:08:55 INFOR] Application started. Press Ctrl+C to shut down. {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[22:08:55 INFOR] Hosting environment: Development {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[22:08:55 INFOR] Content root path: C:\Users\oleek\source\repos\jcszr4-LoopBreakers\LoopBreakers.WebApp {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[22:08:57 ERROR] Failed executing DbCommand (57ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (DbType = Int32), @p6='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [ExceptionsStorage] ([Created], [ExceptionMessage], [Method], [RequestPath], [Source], [StatusCode], [UserId])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+SELECT [Id]
+FROM [ExceptionsStorage]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity(); {"EventId":{"Id":20102,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandError"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","ActionId":"584f6f78-2142-48e9-a6ca-db6fb1d9c868","ActionName":"LoopBreakers.WebApp.Controllers.HomeController.Index (LoopBreakers.WebApp)","RequestId":"80000008-0001-fd00-b63f-84710c7967bb","RequestPath":"/","Application":"LoopBreakers"}
+[22:08:58 ERROR] An exception occurred in the database while saving changes for context type 'LoopBreakers.DAL.Context.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'UserId'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__169_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__277_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:135a6f62-92df-4ee9-a963-9e6f13a09357
+Error Number:207,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(DbContext _, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken) {"EventId":{"Id":10000,"Name":"Microsoft.EntityFrameworkCore.Update.SaveChangesFailed"},"SourceContext":"Microsoft.EntityFrameworkCore.Update","ActionId":"584f6f78-2142-48e9-a6ca-db6fb1d9c868","ActionName":"LoopBreakers.WebApp.Controllers.HomeController.Index (LoopBreakers.WebApp)","RequestId":"80000008-0001-fd00-b63f-84710c7967bb","RequestPath":"/","Application":"LoopBreakers"}
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'UserId'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__169_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__277_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:135a6f62-92df-4ee9-a963-9e6f13a09357
+Error Number:207,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(DbContext _, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+[22:08:58 ERROR] An unhandled exception has occurred while executing the request. {"EventId":{"Id":1,"Name":"UnhandledException"},"SourceContext":"Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware","RequestId":"80000008-0001-fd00-b63f-84710c7967bb","RequestPath":"/","Application":"LoopBreakers"}
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'UserId'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__169_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__277_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:135a6f62-92df-4ee9-a963-9e6f13a09357
+Error Number:207,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(DbContext _, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at LoopBreakers.DAL.Repositories.Repository`1.Save() in C:\Users\oleek\source\repos\jcszr4-LoopBreakers\LoopBreakers.DAL\Repositories\Repository.cs:line 63
+   at LoopBreakers.DAL.Repositories.Repository`1.Create(T entity) in C:\Users\oleek\source\repos\jcszr4-LoopBreakers\LoopBreakers.DAL\Repositories\Repository.cs:line 45
+   at LoopBreakers.WebApp.Helpers.ErrorHandlerMiddleware.Invoke(HttpContext context, IBaseRepository`1 errorsRepository, UserManager`1 userManager) in C:\Users\oleek\source\repos\jcszr4-LoopBreakers\LoopBreakers.WebApp\Helpers\ErrorHandlerMiddleware.cs:line 61
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+[22:16:38 WARNI] No type was specified for the decimal property 'Balance' on entity type 'ApplicationUser'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[22:16:38 WARNI] No type was specified for the decimal property 'Amount' on entity type 'TransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[22:16:40 INFOR] Application started. Press Ctrl+C to shut down. {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[22:16:40 INFOR] Hosting environment: Development {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[22:16:40 INFOR] Content root path: C:\Users\oleek\source\repos\jcszr4-LoopBreakers\LoopBreakers.WebApp {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[22:18:34 WARNI] No type was specified for the decimal property 'Balance' on entity type 'ApplicationUser'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[22:18:34 WARNI] No type was specified for the decimal property 'Amount' on entity type 'TransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","Application":"LoopBreakers"}
+[22:18:36 INFOR] Application started. Press Ctrl+C to shut down. {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[22:18:36 INFOR] Hosting environment: Development {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[22:18:36 INFOR] Content root path: C:\Users\oleek\source\repos\jcszr4-LoopBreakers\LoopBreakers.WebApp {"SourceContext":"Microsoft.Hosting.Lifetime","Application":"LoopBreakers"}
+[22:19:18 INFOR] User logged in. {"SourceContext":"LoopBreakers.WebApp.Areas.Identity.Pages.Account.LoginModel","ActionId":"29ae862a-f69a-4476-925a-e5e8534af0b3","ActionName":"/Account/Login","RequestId":"80000008-0003-fa00-b63f-84710c7967bb","RequestPath":"/Identity/Account/Login","Application":"LoopBreakers"}

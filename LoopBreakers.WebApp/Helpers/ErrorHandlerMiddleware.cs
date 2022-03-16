@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using LoopBreakers.DAL.Repositories;
 using LoopBreakers.DAL.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace LoopBreakers.WebApp.Helpers
 {
@@ -19,7 +20,7 @@ namespace LoopBreakers.WebApp.Helpers
 
         }
 
-        public async Task Invoke(HttpContext context, IBaseRepository<AppError> errorsRepository)
+        public async Task Invoke(HttpContext context, IBaseRepository<AppError> errorsRepository, UserManager<ApplicationUser> userManager)
         {
             try
             {
@@ -50,11 +51,12 @@ namespace LoopBreakers.WebApp.Helpers
                 AppError err = new AppError()
                 {
                     Created = DateTime.UtcNow,
-                    Source = error.Source,
+                    Source = $"{context.Request.RouteValues["controller"]}Controller / {error.TargetSite.Name}",
                     StatusCode = context.Response.StatusCode,
                     RequestPath = context.Request.PathBase,
                     Method = context.Request.Method,
-                    ExceptionMessage = error.Message
+                    ExceptionMessage = error.Message,
+                    UserId = context.User.Identity.Name
             };
                 await errorsRepository.Create(err);
 
