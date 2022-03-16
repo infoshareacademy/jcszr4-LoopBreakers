@@ -146,7 +146,7 @@ namespace LoopBreakers.ReportModule.Services
             for (int i = 0; i <= 23; i++)
             {
                 var data = await _activityRepository.GetAllQueryable()
-                               .Where(s => s.Created.Hour == i && s.Created >= dateFromUpdate && s.Created < dateTomUpdate && (s.Description.Contains("zalogował")|| s.Description.Contains("zalogowal")))
+                               .Where(s => s.Created.Hour == i && s.Created >= dateFromUpdate && s.Created < dateTomUpdate && s.Description.Contains("przelew"))
                                .ToListAsync();
                 if (data.Count > 0)
                 {
