@@ -53,7 +53,7 @@ namespace LoopBreakers.WebApp.Helpers
                     Created = DateTime.UtcNow,
                     Source = $"{context.Request.RouteValues["controller"]}Controller / {error.TargetSite.Name}",
                     StatusCode = context.Response.StatusCode,
-                    RequestPath = context.Request.PathBase,
+                    RequestPath = context.Request.Path,
                     Method = context.Request.Method,
                     ExceptionMessage = error.Message,
                     UserId = context.User.Identity.Name

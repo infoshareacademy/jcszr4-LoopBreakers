@@ -113,8 +113,6 @@ namespace LoopBreakers.WebApp.Controllers
 
         public async Task<ActionResult> Index(SearchViewModel filter)
         {
-            throw new AppException("ASFASFSAQWEQWE");
-
             var transfers = await _transferService.FilterBy(filter);
             var model = _mapper.Map<IEnumerable<TransferDTO>>(transfers);
             return View(model);
