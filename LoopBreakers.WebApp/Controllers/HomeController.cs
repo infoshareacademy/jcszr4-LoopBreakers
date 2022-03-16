@@ -1,5 +1,6 @@
 ﻿using LoopBreakers.DAL.Entities;
 using LoopBreakers.WebApp.Contracts;
+using LoopBreakers.WebApp.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

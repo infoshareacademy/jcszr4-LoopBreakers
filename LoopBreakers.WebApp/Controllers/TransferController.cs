@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using LoopBreakers.ReportModule.Models;
 using LoopBreakers.WebApp.Services;
 using Microsoft.AspNetCore.Authorization;
+using LoopBreakers.WebApp.Helpers;
 
 namespace LoopBreakers.WebApp.Controllers
 {
