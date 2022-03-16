@@ -75,12 +75,12 @@
         <div class="card border-0" style="width: 70%;">
             <div class="card-body">
                 @{ 
-                    List<string> listKeys = new List<string>();
-                    List<int> listValues = new List<int>();
+                    List<string> currencyNames = new List<string>();
+                    List<int> currencyCounts = new List<int>();
                     foreach(var x in Model.Currency)
                     {
-                        listKeys.Add(x.Currency.ToString());
-                        listValues.Add(x.Count);
+                        currencyNames.Add(x.Currency.ToString());
+                        currencyCounts.Add(x.Count);
                     }
                 }
                 <canvas id="myChart" width="200" height="200"></canvas>
@@ -90,11 +90,11 @@
                         {
                             type: 'pie',
                             data: {
-                                labels: @Html.Raw(Json.Serialize(listKeys)),
+                                labels: @Html.Raw(Json.Serialize(currencyNames)),
                                 datasets: [
                                     {
-                                        label: '# of Votes',
-                                        data: @Html.Raw(Json.Serialize(listValues)),
+                                        label: 'Currency',
+                                        data: @Html.Raw(Json.Serialize(currencyCounts)),
                                         backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
                                             'rgba(54, 162, 235, 0.2)',
