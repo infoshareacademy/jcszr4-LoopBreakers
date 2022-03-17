@@ -1,10 +1,13 @@
 ﻿@model LoopBreakers.WebApp.DTOs.RecipientDTO
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+
 @{
     ViewData["Title"] = "Edit Recipient";
 }
 
-<h3>Edit Recipient</h3>
+<h3>@_localizer["editRecipent"]</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -39,7 +42,7 @@
             <input type="hidden" asp-for="Id" />
 
             <div class="form-group mt-2">
-                <input type="submit" value="Save" class="btn btn-primary" /> <a class="btn btn-danger" asp-action="Index">Cancel</a>
+                <input type="submit" value="@_localizer["save"]" class="btn btn-primary" /> <a class="btn btn-danger" asp-action="Index">@_localizer["cancel"]</a>
             </div>
         </form>
     </div>

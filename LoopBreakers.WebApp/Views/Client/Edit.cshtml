@@ -1,11 +1,14 @@
 ﻿@model UserDTO
 @using LoopBreakers.DAL.Enums;
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer _localizer
 
 @{
     ViewData["Title"] = "Edit Client";
 }
 
-<h3>Edit Client</h3>
+<h3>@_localizer["editClient"]</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -27,7 +30,6 @@
             <div class="form-group">
                 <label asp-for="Currency" class="control-label"></label>
                 <select asp-for="Currency" asp-items="@Html.GetEnumSelectList<Currency>()" class="form-control">
-                    
                 </select>
                 <span asp-validation-for="Currency" class="text-danger"></span>
             </div>
@@ -49,7 +51,6 @@
             <div class="form-group">
                 <label asp-for="Gender" class="control-label"></label>
                 <select asp-for="Gender" asp-items="@Html.GetEnumSelectList<Gender>()" class="form-control">
-
                 </select>
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
@@ -82,7 +83,7 @@
             <input type="hidden" asp-for="Created" />
             <input type="hidden" asp-for="Registered" />
             <div class="form-group mt-2">
-                <input type="submit" value="Save" class="btn btn-primary" /> <a class="btn btn-danger" asp-action="Index">Cancel</a>
+                <input type="submit" value="@_localizer["save"]" class="btn btn-primary" /> <a class="btn btn-danger" asp-action="Index">@_localizer["cancel"]</a>
             </div>
         </form>
     </div>

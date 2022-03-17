@@ -1,9 +1,12 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center mt-5">
-    <h1 class="display-4">Welcome!</h1>
-    <h1 class="display-4">To</h1>
-    <h1 class="display-4"><i class="bi bi-bank me-2"></i> LoopBreakers Finance Application</h1>
+    <h1 class="display-4">@_localizer["welcome"]</h1>
+    <h1 class="display-4">@_localizer["to"]</h1>
+    <h1 class="display-4"><i class="bi bi-bank me-2"></i>@_localizer["financialApp"]</h1>
 </div>

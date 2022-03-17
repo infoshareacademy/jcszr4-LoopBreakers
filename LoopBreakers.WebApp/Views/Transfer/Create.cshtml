@@ -1,20 +1,23 @@
 ﻿@model LoopBreakers.WebApp.DTOs.TransferPerformDTO
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+
 @{
     ViewData["Title"] = "Create New Transfer";
 }
 
-<h3>Create New Transfer</h3>
+<h3>@_localizer["createTransfer"]</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
-       <form asp-action="Create">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-           @* <div class="form-group">
-                <label asp-for="UserSurname" class="control-label"></label>
-               <input asp-for="UserSurname" class="form-control" />
-                <span asp-validation-for="UserSurname" class="text-danger"></span>
-            </div>*@
+            @* <div class="form-group">
+                    <label asp-for="UserSurname" class="control-label"></label>
+                   <input asp-for="UserSurname" class="form-control" />
+                    <span asp-validation-for="UserSurname" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
                 <label asp-for="Iban" class="control-label"></label>
                 <input asp-for="Iban" class="form-control" />
@@ -41,7 +44,7 @@
                 <span asp-validation-for="Reference" class="text-danger"></span>
             </div>
             <div class="form-group mt-2">
-                <input type="submit" value="Create" class="btn btn-primary" /> <a class="btn btn-danger" asp-action="Index">Cancel</a>
+                <input type="submit" value="@_localizer["create"]" class="btn btn-primary" /> <a class="btn btn-danger" asp-action="Index">@_localizer["cancel"]</a>
             </div>
         </form>
     </div>
@@ -54,8 +57,8 @@
             alert("Transfer amount is higher than Client balance!");
         </script>
     }
-    if(ViewBag.WrongUser)
-     {
+    if (ViewBag.WrongUser)
+    {
         <script>
             alert("The Client with this surname was not found!");
         </script>
