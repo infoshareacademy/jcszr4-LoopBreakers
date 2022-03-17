@@ -83,10 +83,10 @@
                         currencyCounts.Add(x.Count);
                     }
                 }
-                <canvas id="myChart" width="200" height="200"></canvas>
+                  <canvas id="myChart_2" width="200" height="200"></canvas>
                 <script>
-                    const ctx = document.getElementById('myChart');
-                    const myChart = new Chart(ctx,
+                    const ctx_2 = document.getElementById('myChart_2');
+                    const myChart_2 = new Chart(ctx_2,
                         {
                             type: 'pie',
                             data: {
@@ -117,6 +117,7 @@
                             }
                         });
                 </script>
+              
             </div>
         </div>
         
@@ -218,7 +219,17 @@
     </tbody>
 </table>
 
+@{
+    if(dateFrom != "" && dateTo != "")
+    {
         <h3>Register counter</h3>
+    }
+    else
+    {
+       <h3>Choose period in order to see datials about users activities </h3>
+
+    }
+} 
 
 @{
     if (Model.RegisterCounter != null)
@@ -246,8 +257,13 @@
 }
 
 
-        <h3>Logins counter</h3>
-
+@{
+    if(dateFrom != "" && dateTo != "")
+    {
+        <h3>Login counter</h3>
+    }
+    
+} 
 @{
     if(Model.LoginCounter != null)
     {
@@ -275,8 +291,13 @@
 <hr/>
     }
 }
-        <h3>Transfer Counter</h3>
-
+@{
+    if(dateFrom != "" && dateTo != "")
+    {
+        <h3>Transfer counter</h3>
+    }
+    
+} 
 @{
     if(Model.TransferCounter != null)
     {
@@ -305,9 +326,14 @@
     }
 }
 
-
-
+@{
+    if(dateFrom != "" && dateTo != "")
+    {
         <h3>Most common transfer hours</h3>
+    }
+    
+} 
+
 
 
 @{
@@ -326,9 +352,7 @@
                 <canvas id="myChart" width="100" height="50"></canvas>
                 <script>
                         var labels =@Json.Serialize(labels);
-                        var values = @Json.Serialize(values);
-                                                        var valuesAC = [0,0,0,500,800,2000,1500,0,20];
-                                                        var tempOut = [10,20,30,40,50,40,30,20,10];
+                        var values = @Json.Serialize(values);                                                  
 
                     const ctx = document.getElementById('myChart').getContext('2d');
                     const myChart = new Chart(ctx, {
