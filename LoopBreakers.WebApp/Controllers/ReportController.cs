@@ -8,6 +8,9 @@ using LoopBreakers.DAL.Enums;
 using LoopBreakers.WebApp.Services;
 using LoopBreakers.WebApp.DTOs;
 using Microsoft.AspNetCore.Authorization;
+using System.Globalization;
+using Hangfire;
+using LoopBreakers.WebApp.Helpers;
 
 namespace LoopBreakers.WebApp.Controllers
 {
@@ -32,10 +35,19 @@ namespace LoopBreakers.WebApp.Controllers
             ReportModel.TransferCounter = await _reportService.GetTransferStatistics(filter);
             ReportModel.RegisterCounter = await _reportService.GetRegisterStatistics(filter);
             ReportModel.MostCommonTransferHours = await _reportService.GetMostCommonTransferHoursStatistics(filter);
-            
+
+            if (filter.EmailSend != null)
+            {
+                BackgroundJobsHelper.LoginActivity = filter.LoginActivity;
+                BackgroundJobsHelper.RegisterActivity = filter.RegisterActivity;
+                BackgroundJobsHelper.TransferActivity = filter.TransferActivity;
+                BackgroundJobsHelper.EmailAddress = filter.EmailAddress;
+                RecurringJob.AddOrUpdate(() => _reportService.CallMethodHelperForEmailSending(filter), Cron.Daily(filter.EmailSend.Value.Hour, filter.EmailSend.Value.Minute));
+
+            }
 
 
-            
+
             if (filter.DateTo == null)
             {
                 filter.DateTo = DateTime.Now;
@@ -44,7 +56,7 @@ namespace LoopBreakers.WebApp.Controllers
 
             return View(ReportModel);
         }
-
+       
         // GET: ReportController/Details/5
         public ActionResult Details(int id)
         {
@@ -97,7 +109,7 @@ namespace LoopBreakers.WebApp.Controllers
         public ActionResult Delete(int id)
         {
             return View();
-        }
+        }     
 
         // POST: ReportController/Delete/5
         [HttpPost]

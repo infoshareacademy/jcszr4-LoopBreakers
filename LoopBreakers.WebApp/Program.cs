@@ -26,6 +26,7 @@ namespace LoopBreakers.WebApp
             CreateHostBuilder(args).Build().Run();
 
             Log.Information("application started");
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
