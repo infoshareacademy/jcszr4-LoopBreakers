@@ -10,5 +10,10 @@ namespace LoopBreakers.WebApp.DTOs
         public string SearchText { get; set; }
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
+        public DateTime? EmailSend { get; set; }
+        public bool RegisterActivity { get; set; }
+        public bool LoginActivity { get; set; }
+        public bool TransferActivity { get; set; }
+        public string EmailAddress { get; set; }
     }
 }

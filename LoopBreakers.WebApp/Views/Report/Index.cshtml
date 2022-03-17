@@ -1,13 +1,16 @@
-﻿@model ReportViewDTO
+﻿@using LoopBreakers.WebApp.Helpers
+@model ReportViewDTO
 
 @{
     ViewData["Title"] = "Reports";
     string dateFrom = Model.SearchFilter.DateFrom == null ? "" : ((DateTime)Model.SearchFilter.DateFrom).ToString("yyyy-MM-dd");
     string dateTo = Model.SearchFilter.DateTo == null ? "" : ((DateTime)Model.SearchFilter.DateTo).ToString("yyyy-MM-dd");
+    string emailSendingTime = Model.SearchFilter.EmailSend == null ? "" : ((DateTime)Model.SearchFilter.EmailSend).ToString("HH-mm");
+    string emailAddress = BackgroundJobsHelper.EmailAddress;
 }
 
 <h3>Reports</h3>
-<hr/>
+<hr />
 <div class="row">
     <div class="col-auto">
         <form class="row" method="post">
@@ -35,9 +38,55 @@
             </div>
         </form>
     </div>
+    <div class="row">
+        <form class="row" method="post">
+            <div class="col-auto">
+                <label class="col-form-label">Daily Report Email Hour :</label>
+                <input class="col-auto" type="time" value="@emailSendingTime.ToString()" onchange="" name="EmailSend" class="form-control">
+            </div>
+            <div class="col-auto">
+                <label class="col-form-label">Enter your Email address :</label>
+                <input class="col-auto" type="text" value="@emailAddress" onchange="" name="EmailAddress" class="form-control">
+            </div>
+            <div class="row">
+                <div class="col-auto">
+                    <label for="LoginActivity" class="col-auto"> Logins: </label>
+                    <select class="col-auto" name="LoginActivity" id="LoginActivity" onchange=''>
+                        <option value="false" selected>Choose</option>
+                        <option value="true">Active</option>
+                        <option value="false">Disactive</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <label for="RegisterActivity" class="col-auto"> Registers: </label>
+                    <select class="col-auto" name="RegisterActivity" id="RegisterActivity" onchange=''>
+                        <option value="false" selected>Choose</option>
+                        <option value="true">Active</option>
+                        <option value="false">Disactive</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <label for="TransferActivity" class="col-auto"> Transfers: </label>
+                    <select class="col-auto" name="TransferActivity" id="TransferActivity" onchange=''>
+                        <option value="false" selected>Choose</option>
+                        <option value="true">Active</option>
+                        <option value="false">Disactive</option>
+                    </select>
+                </div>                
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Set</button>
+            </div>
+            
+            
+        </form>
+    </div>
+
 </div>
-<hr/>
-<br/>
+
+
+<hr />
+<br />
 
 <h3>Currency Statistics</h3>
 
@@ -47,43 +96,43 @@
 
         <table class="table">
             <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Currency.First().Currency)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Currency.First().Count)
-                </th>
-            </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Currency.First().Currency)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Currency.First().Count)
+                    </th>
+                </tr>
             </thead>
             <tbody>
-            @foreach (var item in Model.Currency)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Currency)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Count)
-                    </td>
-                </tr>
-            }
+                @foreach (var item in Model.Currency)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Currency)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Count)
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
     <div class="col-5">
         <div class="card border-0" style="width: 70%;">
             <div class="card-body">
-                @{ 
+                @{
                     List<string> currencyNames = new List<string>();
                     List<int> currencyCounts = new List<int>();
-                    foreach(var x in Model.Currency)
+                    foreach (var x in Model.Currency)
                     {
                         currencyNames.Add(x.Currency.ToString());
                         currencyCounts.Add(x.Count);
                     }
                 }
-                  <canvas id="myChart_2" width="200" height="200"></canvas>
+                <canvas id="myChart_2" width="200" height="200"></canvas>
                 <script>
                     const ctx_2 = document.getElementById('myChart_2');
                     const myChart_2 = new Chart(ctx_2,
@@ -117,17 +166,17 @@
                             }
                         });
                 </script>
-              
+
             </div>
         </div>
-        
+
     </div>
 </div>
-<br/>
+<br />
 
 <h3>Transfer Report</h3>
 
-<hr/>
+<hr />
 
 <table class="table">
     <thead>
@@ -172,7 +221,7 @@
         }
     </tbody>
 </table>
-<br/>
+<br />
 <h3>Activity Report</h3>
 <hr />
 <table class="table">
@@ -220,16 +269,16 @@
 </table>
 
 @{
-    if(dateFrom != "" && dateTo != "")
+    if (dateFrom != "" && dateTo != "")
     {
         <h3>Register counter</h3>
     }
     else
     {
-       <h3>Choose period in order to see datials about users activities </h3>
+        <h3>Choose period in order to see datials about users activities </h3>
 
     }
-} 
+}
 
 @{
     if (Model.RegisterCounter != null)
@@ -258,90 +307,90 @@
 
 
 @{
-    if(dateFrom != "" && dateTo != "")
+    if (dateFrom != "" && dateTo != "")
     {
         <h3>Login counter</h3>
     }
-    
-} 
+
+}
 @{
-    if(Model.LoginCounter != null)
+    if (Model.LoginCounter != null)
     {
 
         <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayFor(modelItem => Model.LoginCounter.Name)
-            </th>           
-        </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => Model.LoginCounter.Count)
-            </td>            
-        </tr>
-       </tbody>
-</table>
-<br/>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayFor(modelItem => Model.LoginCounter.Name)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.LoginCounter.Count)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
 
 
-<hr/>
+        <hr />
     }
 }
 @{
-    if(dateFrom != "" && dateTo != "")
+    if (dateFrom != "" && dateTo != "")
     {
         <h3>Transfer counter</h3>
     }
-    
-} 
+
+}
 @{
-    if(Model.TransferCounter != null)
+    if (Model.TransferCounter != null)
     {
 
         <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayFor(modelItem => Model.TransferCounter.Name)
-            </th>           
-        </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => Model.TransferCounter.Count)
-            </td>            
-        </tr>
-       </tbody>
-</table>
-<br/>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayFor(modelItem => Model.TransferCounter.Name)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.TransferCounter.Count)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
 
 
-<hr/>
+        <hr />
     }
 }
 
 @{
-    if(dateFrom != "" && dateTo != "")
+    if (dateFrom != "" && dateTo != "")
     {
         <h3>Most common transfer hours</h3>
     }
-    
-} 
+
+}
 
 
 
 @{
-    if (Model.MostCommonTransferHours!=null)
+    if (Model.MostCommonTransferHours != null)
     {
-        int[] labels =new int[Model.MostCommonTransferHours.Count];
-        int[] values =new int[Model.MostCommonTransferHours.Count];
-        for (int i=0; i < Model.MostCommonTransferHours.Count; i++)
+        int[] labels = new int[Model.MostCommonTransferHours.Count];
+        int[] values = new int[Model.MostCommonTransferHours.Count];
+        for (int i = 0; i < Model.MostCommonTransferHours.Count; i++)
         {
             labels[i] = Model.MostCommonTransferHours[i].Hour;
             values[i] = Model.MostCommonTransferHours[i].Count;
@@ -352,7 +401,7 @@
                 <canvas id="myChart" width="100" height="50"></canvas>
                 <script>
                         var labels =@Json.Serialize(labels);
-                        var values = @Json.Serialize(values);                                                  
+                        var values = @Json.Serialize(values);
 
                     const ctx = document.getElementById('myChart').getContext('2d');
                     const myChart = new Chart(ctx, {
@@ -379,7 +428,7 @@
                                     'rgba(255, 159, 64, 1)'
                                 ],
                                 borderWidth: 1
-                            },                            
+                            },
                            ]
                         },
                         options: {
@@ -393,7 +442,7 @@
                 </script>
             </div>
         </div>
-        }
-
     }
+
+}
 
