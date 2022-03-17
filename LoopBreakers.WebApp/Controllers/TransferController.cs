@@ -94,7 +94,7 @@ namespace LoopBreakers.WebApp.Controllers
                         await _reportService.SendTransferReport(transferReportOut);
                         await _reportService.SendActivityReport(new ActivityReportDTO
                         {
-                            Description = $"Użytkownik {currentUser.Email} wykonał przelew",
+                            Description = DAL.Enums.ActivityEvents.transfering.ToString(),
                             Created = DateTime.Now,
                             Email = currentUser.Email,
                             FirstName = currentUser.FirstName,
