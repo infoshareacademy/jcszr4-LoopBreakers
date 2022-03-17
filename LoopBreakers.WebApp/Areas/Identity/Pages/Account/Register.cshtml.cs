@@ -132,7 +132,7 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
                     {
                         Created = DateTime.UtcNow,
                         Email = user.Email,
-                        Description = DAL.Enums.ActivityEvents.registering.ToString(),
+                        Description = ((int)DAL.Enums.ActivityEvents.registering).ToString(),
                         FirstName = user.FirstName,
                         LastName = user.LastName
                     });

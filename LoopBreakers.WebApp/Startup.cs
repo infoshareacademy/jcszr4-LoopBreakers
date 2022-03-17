@@ -20,6 +20,7 @@ using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using LoopBreakers.WebApp.Helpers;
+using Newtonsoft.Json.Converters;
 
 namespace LoopBreakers.WebApp
 {
@@ -54,7 +55,11 @@ namespace LoopBreakers.WebApp
             services.AddRazorPages();
             // services.AddIdentity<ApplicationUser, IdentityRole>();
 
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddControllersWithViews().AddNewtonsoftJson(
+                options =>
+                options.SerializerSettings.Converters.Add(new StringEnumConverter())).AddRazorRuntimeCompilation();
+            services.AddSwaggerGenNewtonsoftSupport();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,7 +91,10 @@ namespace LoopBreakers.WebApp
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseMiddleware<ErrorHandlerMiddleware>();
+            if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            {
+                app.UseMiddleware<ErrorHandlerMiddleware>();
+            }
 
             app.UseEndpoints(endpoints =>
             {
