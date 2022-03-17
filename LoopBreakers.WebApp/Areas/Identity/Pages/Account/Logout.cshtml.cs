@@ -42,7 +42,7 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
             {
                 Created = DateTime.UtcNow,
                 Email = currentUser.Email,
-                Description = $"Użytkownik {currentUser.Email} wylogował się",
+                Description = ((int)DAL.Enums.ActivityEvents.logout).ToString(),
                 FirstName = currentUser.FirstName,
                 LastName = currentUser.LastName
             });

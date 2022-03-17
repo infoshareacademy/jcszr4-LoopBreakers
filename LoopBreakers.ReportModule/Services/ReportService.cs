@@ -93,16 +93,19 @@ namespace LoopBreakers.ReportModule.Services
         }
         public async Task<LoginStatisticsDTO> GetLoginStatistics(DateTime dateFrom, DateTime dateTo)
         {
+            var x = ((int)DAL.Enums.ActivityEvents.logging).ToString();
             dateTo = dateTo.AddDays(1);
+            var data1 = await _activityRepository.GetAllQueryable()
+                .ToListAsync();
             var data = await _activityRepository.GetAllQueryable()
-                .Where(s => s.Created >= dateFrom && s.Created < dateTo && (s.Description.Contains("zalogował")|| s.Description.Contains("zalogowal")))
+                .Where(s => s.Created >= dateFrom && s.Created < dateTo && s.Description== ((int)DAL.Enums.ActivityEvents.logging).ToString())
                 .ToListAsync();
             return new LoginStatisticsDTO { Name = "Logging quantity: ", Count = data.Count};  
         }
         public async Task<LoginStatisticsDTO> GetAllLoginStatistics()
         {
             var data = await _activityRepository.GetAllQueryable()
-                .Where(s => s.Description.Contains("zalogował") || (s.Description.Contains("zalogowal")))
+                .Where(s => s.Description== ((int)DAL.Enums.ActivityEvents.logging).ToString())
                 .ToListAsync();
             return new LoginStatisticsDTO { Name = "Logging quantity: ", Count = data.Count };
         }
@@ -110,14 +113,14 @@ namespace LoopBreakers.ReportModule.Services
         {
             dateTo = dateTo.AddDays(1);
             var data = await _activityRepository.GetAllQueryable()
-                .Where(s => s.Created >= dateFrom && s.Created < dateTo && s.Description.Contains("przelew"))
+                .Where(s => s.Created >= dateFrom && s.Created < dateTo && s.Description== ((int)DAL.Enums.ActivityEvents.transfering).ToString())
                 .ToListAsync();
             return new TransferStatsDTO { Name = "Transfers quantity: ", Count = data.Count };
         }
         public async Task<TransferStatsDTO> GetWholeTransferStatistics()
         {
             var data = await _activityRepository.GetAllQueryable()
-                .Where(s => s.Description.Contains("przelew"))
+                .Where(s => s.Description == ((int)DAL.Enums.ActivityEvents.transfering).ToString())
                 .ToListAsync();
             return new TransferStatsDTO { Name = "Transfers quantity: ", Count = data.Count };
         }
@@ -125,14 +128,14 @@ namespace LoopBreakers.ReportModule.Services
         {
             dateTo = dateTo.AddDays(1);
             var data = await _activityRepository.GetAllQueryable()
-                .Where(s => s.Created >= dateFrom && s.Created < dateTo && (s.Description.Contains("zarejestrował")|| s.Description.Contains("zarejestrował")))
+                .Where(s => s.Created >= dateFrom && s.Created < dateTo && s.Description == ((int)DAL.Enums.ActivityEvents.registering).ToString())
                 .ToListAsync();            
             return new RegisterStatsDTO { Name = "Register quantity: ", Count = data.Count };
         }
         public async Task<RegisterStatsDTO> GetWholeRegisterStatistics()
         {
             var data = await _activityRepository.GetAllQueryable()
-                .Where(s => (s.Description.Contains("zarejestrował")||s.Description.Contains("zarejestrowal")))
+                .Where(s => s.Description == ((int)DAL.Enums.ActivityEvents.registering).ToString())
                 .ToListAsync();
             return new RegisterStatsDTO { Name = "Register quantity: ", Count = data.Count };
         }
@@ -146,7 +149,7 @@ namespace LoopBreakers.ReportModule.Services
             for (int i = 0; i <= 23; i++)
             {
                 var data = await _activityRepository.GetAllQueryable()
-                               .Where(s => s.Created.Hour == i && s.Created >= dateFromUpdate && s.Created < dateTomUpdate && s.Description.Contains("przelew"))
+                               .Where(s => s.Created.Hour == i && s.Created >= dateFromUpdate && s.Description == ((int)DAL.Enums.ActivityEvents.transfering).ToString())
                                .ToListAsync();
                 if (data.Count > 0)
                 {

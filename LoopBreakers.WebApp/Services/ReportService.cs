@@ -1,13 +1,16 @@
 ﻿using LoopBreakers.ReportModule.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using LoopBreakers.WebApp.DTOs;
 using Newtonsoft.Json;
+using System.Net.Mail;
+using System.Net;
+
+using LoopBreakers.WebApp.Helpers;
 
 namespace LoopBreakers.WebApp.Services
 {
@@ -125,6 +128,68 @@ namespace LoopBreakers.WebApp.Services
 
             return deserializedResource;
         }
+        public void SendEmail(SearchViewModel filter, ReportViewDTO report)
+        {
+            var fromAddress = new MailAddress("rafalszczerbaalarm@gmail.com", "Daily report");
+            var toAddress = new MailAddress(filter.EmailAddress, "To Name");
+            const string fromPassword = "Angelika29!";
+            const string subject = "Daily Repot LoopBreakers APP";
+            string contentLoginActivity="";
+            string contentRegisterActivity = "";
+            string contentTransferActivity = "";
+            if (filter.LoginActivity)
+            {
+                 contentLoginActivity = $"{report?.LoginCounter?.Name} : {report?.LoginCounter?.Count}";
 
+            }
+            if (filter.RegisterActivity)
+            {
+                contentRegisterActivity = $"{report?.RegisterCounter?.Name} : {report?.RegisterCounter?.Count}";
+
+            }
+            if (filter.TransferActivity)
+            {
+                contentTransferActivity = $"{report?.TransferCounter?.Name} : {report?.TransferCounter?.Count}";
+
+            }
+            string body = $"{contentLoginActivity} \r\n {contentRegisterActivity} \r\n {contentTransferActivity} ";
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                smtp.Send(message);
+            }           
+        }
+
+        public async Task CallMethodHelperForEmailSending(SearchViewModel filter)
+        {
+            ReportViewDTO ReportModel = new ReportViewDTO();
+            filter.DateFrom = DateTime.Now.AddHours(-DateTime.Now.Hour);
+            filter.DateTo = DateTime.Now.AddDays(1);
+            filter.LoginActivity = BackgroundJobsHelper.LoginActivity;
+            filter.RegisterActivity = BackgroundJobsHelper.RegisterActivity;
+            filter.TransferActivity = BackgroundJobsHelper.TransferActivity;
+            filter.EmailAddress = BackgroundJobsHelper.EmailAddress;
+            ReportModel.Transfer = await GetTransferReportByDate(filter);
+            ReportModel.Activity = await GetActivityReportByDate(filter);
+            ReportModel.Currency = await GetCurrencyStatistics(filter);
+            ReportModel.LoginCounter = await GetLoginStatistics(filter);
+            ReportModel.TransferCounter = await GetTransferStatistics(filter);
+            ReportModel.RegisterCounter = await GetRegisterStatistics(filter);
+            ReportModel.MostCommonTransferHours = await GetMostCommonTransferHoursStatistics(filter);
+            SendEmail(filter, ReportModel);
+
+        }
     }
 }

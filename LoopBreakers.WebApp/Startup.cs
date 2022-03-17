@@ -20,6 +20,9 @@ using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using LoopBreakers.WebApp.Helpers;
+using Newtonsoft.Json.Converters;
+using Hangfire;
+using Hangfire.SqlServer;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -73,8 +76,23 @@ namespace LoopBreakers.WebApp
             services.AddRazorPages();
             // services.AddIdentity<ApplicationUser, IdentityRole>();
 
-            services.AddControllersWithViews()
-                .AddRazorRuntimeCompilation();
+            services.AddControllersWithViews().AddNewtonsoftJson(
+                options =>
+                options.SerializerSettings.Converters.Add(new StringEnumConverter())).AddRazorRuntimeCompilation();
+            services.AddSwaggerGenNewtonsoftSupport();
+            services.AddHangfire(configuration => configuration
+                  .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                  .UseSimpleAssemblyNameTypeSerializer()
+                  .UseRecommendedSerializerSettings()
+                  .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
+                  {
+                      CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                      SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                      QueuePollInterval = TimeSpan.Zero,
+                      UseRecommendedIsolationLevel = true,
+                      DisableGlobalLocks = true
+                  }));
+            services.AddHangfireServer();
 
         }
 
@@ -106,11 +124,15 @@ namespace LoopBreakers.WebApp
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseHangfireDashboard();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseMiddleware<ErrorHandlerMiddleware>();
+            if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            {
+                app.UseMiddleware<ErrorHandlerMiddleware>();
+            }
 
             app.UseEndpoints(endpoints =>
             {

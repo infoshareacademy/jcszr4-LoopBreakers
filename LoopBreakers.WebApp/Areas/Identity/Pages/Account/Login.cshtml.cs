@@ -95,7 +95,7 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
                     var currentUser = await _userManager.FindByEmailAsync(Input.Email);
                     await _reportService.SendActivityReport(new ReportModule.Models.ActivityReportDTO { Created = DateTime.UtcNow,
                         Email = Input.Email,
-                        Description =$"Użytkownik {Input.Email} zalogował się",
+                        Description = ((int)DAL.Enums.ActivityEvents.logging).ToString(),
                         FirstName = currentUser.FirstName,
                         LastName = currentUser.LastName
                     });

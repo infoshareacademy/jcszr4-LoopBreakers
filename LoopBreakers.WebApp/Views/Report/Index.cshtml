@@ -1,4 +1,5 @@
-﻿@model ReportViewDTO
+﻿@using LoopBreakers.WebApp.Helpers
+@model ReportViewDTO
 
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer _localizer
@@ -7,6 +8,8 @@
     ViewData["Title"] = "Reports";
     string dateFrom = Model.SearchFilter.DateFrom == null ? "" : ((DateTime)Model.SearchFilter.DateFrom).ToString("yyyy-MM-dd");
     string dateTo = Model.SearchFilter.DateTo == null ? "" : ((DateTime)Model.SearchFilter.DateTo).ToString("yyyy-MM-dd");
+    string emailSendingTime = Model.SearchFilter.EmailSend == null ? "" : ((DateTime)Model.SearchFilter.EmailSend).ToString("HH-mm");
+    string emailAddress = BackgroundJobsHelper.EmailAddress;
 }
 
 <h3>Reports</h3>
@@ -38,7 +41,53 @@
             </div>
         </form>
     </div>
+    <div class="row">
+        <form class="row" method="post">
+            <div class="col-auto">
+                <label class="col-form-label">Daily Report Email Hour :</label>
+                <input class="col-auto" type="time" value="@emailSendingTime.ToString()" onchange="" name="EmailSend" class="form-control">
+            </div>
+            <div class="col-auto">
+                <label class="col-form-label">Enter your Email address :</label>
+                <input class="col-auto" type="text" value="@emailAddress" onchange="" name="EmailAddress" class="form-control">
+            </div>
+            <div class="row">
+                <div class="col-auto">
+                    <label for="LoginActivity" class="col-auto"> Logins: </label>
+                    <select class="col-auto" name="LoginActivity" id="LoginActivity" onchange=''>
+                        <option value="false" selected>Choose</option>
+                        <option value="true">Active</option>
+                        <option value="false">Disactive</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <label for="RegisterActivity" class="col-auto"> Registers: </label>
+                    <select class="col-auto" name="RegisterActivity" id="RegisterActivity" onchange=''>
+                        <option value="false" selected>Choose</option>
+                        <option value="true">Active</option>
+                        <option value="false">Disactive</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <label for="TransferActivity" class="col-auto"> Transfers: </label>
+                    <select class="col-auto" name="TransferActivity" id="TransferActivity" onchange=''>
+                        <option value="false" selected>Choose</option>
+                        <option value="true">Active</option>
+                        <option value="false">Disactive</option>
+                    </select>
+                </div>                
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Set</button>
+            </div>
+            
+            
+        </form>
+    </div>
+
 </div>
+
+
 <hr />
 <br />
 
@@ -86,10 +135,10 @@
                         currencyCounts.Add(x.Count);
                     }
                 }
-                <canvas id="myChart" width="200" height="200"></canvas>
+                <canvas id="myChart_2" width="200" height="200"></canvas>
                 <script>
-                    const ctx = document.getElementById('myChart');
-                    const myChart = new Chart(ctx,
+                    const ctx_2 = document.getElementById('myChart_2');
+                    const myChart_2 = new Chart(ctx_2,
                         {
                             type: 'pie',
                             data: {
@@ -120,6 +169,7 @@
                             }
                         });
                 </script>
+
             </div>
         </div>
 
@@ -221,7 +271,17 @@
     </tbody>
 </table>
 
-<h3>@_localizer["registerCounter"]</h3>
+@{
+    if (dateFrom != "" && dateTo != "")
+    {
+        <h3>Register counter</h3>
+    }
+    else
+    {
+        <h3>Choose period in order to see datials about users activities </h3>
+
+    }
+}
 
 @{
     if (Model.RegisterCounter != null)
@@ -249,8 +309,9 @@
 }
 
 
-<h3>@_localizer["loginsCounter"]</h3>
+        <h3>Logins counter</h3>
 
+}
 @{
     if (Model.LoginCounter != null)
     {
@@ -258,6 +319,10 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>
+                        @Html.DisplayFor(modelItem => Model.LoginCounter.Name)
+                    </th>
+                </tr>
                     <th>
                         @Html.DisplayFor(modelItem => Model.LoginCounter.Name)
                     </th>
@@ -275,15 +340,20 @@
         <br />
 
 
-        <hr />
+<hr/>
     }
 }
-<h3>@_localizer["transfersCounter"]</h3>
+        <h3>Transfer Counter</h3>
 
+}
 @{
     if (Model.TransferCounter != null)
     {
 
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
         <table class="table">
             <thead>
                 <tr>
@@ -308,9 +378,15 @@
     }
 }
 
+@{
+    if (dateFrom != "" && dateTo != "")
+    {
+        <h3>Most common transfer hours</h3>
+    }
 
+}
 
-<h3>@_localizer["mostCommonTransferHrs"]</h3>
+        <h3>Most common transfer hours</h3>
 
 
 @{
@@ -324,14 +400,11 @@
             values[i] = Model.MostCommonTransferHours[i].Count;
         }
         <div class="row d-flex">
-            <div class="col-12">
 
                 <canvas id="myChart" width="100" height="50"></canvas>
                 <script>
                         var labels =@Json.Serialize(labels);
                         var values = @Json.Serialize(values);
-                                                        var valuesAC = [0,0,0,500,800,2000,1500,0,20];
-                                                        var tempOut = [10,20,30,40,50,40,30,20,10];
 
                     const ctx = document.getElementById('myChart').getContext('2d');
                     const myChart = new Chart(ctx, {

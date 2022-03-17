@@ -1,3 +1,5 @@
+using Hangfire;
+using Hangfire.SqlServer;
 using LoopBreakers.DAL.Context;
 using LoopBreakers.DAL.Repositories;
 using LoopBreakers.ReportModule.Services;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
+using System;
 
 namespace LoopBreakers.ReportModule
 {
@@ -37,6 +40,7 @@ namespace LoopBreakers.ReportModule
 
             var profileAssembly = typeof(Startup).Assembly;
             services.AddAutoMapper(profileAssembly);
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
