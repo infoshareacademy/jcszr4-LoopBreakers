@@ -1,33 +1,36 @@
 ﻿@model RecipientViewDTO
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+
 @{
     ViewData["Title"] = "Recipients";
 }
 
-<h3>Recipients</h3>
+<h3>@_localizer["recipents"]</h3>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create"><i class="bi bi-person-plus me-2"></i>Add New Recipient</a>
+    <a class="btn btn-primary" asp-action="Create"><i class="bi bi-person-plus me-2"></i>@_localizer["addNew"]</a>
 </p>
 <hr />
 <div class="row">
     <div class="col-auto">
         <form class="row" method="post">
             <div class="col-auto">
-                <label class="col-form-label">Search:</label>
+                <label class="col-form-label">@_localizer["search"]:</label>
             </div>
             <div class="col-auto">
                 <input type="text" value="@Model.SearchFilter.SearchText" name="SearchText" class="form-control" placeholder="">
             </div>
             <div class="col-auto">
-                <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Search</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>@_localizer["search"]</button>
             </div>
         </form>
     </div>
     <div class="col-auto">
         <form class="row" method="post">
             <div class="col-auto">
-                <button type="submit" class="btn btn-danger"><i class="bi bi-x-circle me-2"></i>Clear</button>
+                <button type="submit" class="btn btn-danger"><i class="bi bi-x-circle me-2"></i>@_localizer["clear"]</button>
             </div>
         </form>
     </div>

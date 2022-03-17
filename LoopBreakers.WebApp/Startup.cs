@@ -20,6 +20,9 @@ using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using LoopBreakers.WebApp.Helpers;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace LoopBreakers.WebApp
 {
@@ -35,11 +38,12 @@ namespace LoopBreakers.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>().AddRoles<ApplicationRoles>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
-            
             services.AddScoped(typeof(IBaseRepository<>), typeof(Repository<>));
             services.AddScoped<ITransferService, TransferService>();
             services.AddScoped<IClientService, ClientService>();
@@ -54,7 +58,10 @@ namespace LoopBreakers.WebApp
             services.AddRazorPages();
             // services.AddIdentity<ApplicationUser, IdentityRole>();
 
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddControllersWithViews()
+                .AddRazorRuntimeCompilation()
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,6 +85,20 @@ namespace LoopBreakers.WebApp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            var suporrtedCultures = new[]
+            {
+                new CultureInfo("en-US"),
+                new CultureInfo("pl-PL")
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("pl"),
+                SupportedCultures = suporrtedCultures,
+                SupportedUICultures = suporrtedCultures
+            });
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

@@ -1,5 +1,8 @@
 ﻿@model ReportViewDTO
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+
 @{
     ViewData["Title"] = "Reports";
     string dateFrom = Model.SearchFilter.DateFrom == null ? "" : ((DateTime)Model.SearchFilter.DateFrom).ToString("yyyy-MM-dd");
@@ -7,12 +10,12 @@
 }
 
 <h3>Reports</h3>
-<hr/>
+<hr />
 <div class="row">
     <div class="col-auto">
         <form class="row" method="post">
             <div class="col-auto">
-                <label class="col-form-label">Search date from:</label>
+                <label class="col-form-label">@_localizer["dateFrom"]:</label>
             </div>
             <div class="col-auto">
                 <input type="date" value="@dateFrom" onchange="" name="dateFrom" class="form-control">
@@ -24,20 +27,20 @@
                 <input type="date" value="@dateTo" name="dateTo" class="form-control">
             </div>
             <div class="col-auto">
-                <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Search</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>@_localizer["search"]</button>
             </div>
         </form>
     </div>
     <div class="col-auto">
         <form class="row" method="post">
             <div class="col-auto">
-                <button type="submit" class="btn btn-danger"><i class="bi bi-x-circle me-2"></i>Clear</button>
+                <button type="submit" class="btn btn-danger"><i class="bi bi-x-circle me-2"></i>@_localizer["clear"]</button>
             </div>
         </form>
     </div>
 </div>
-<hr/>
-<br/>
+<hr />
+<br />
 
 <h3>Currency Statistics</h3>
 
@@ -47,37 +50,37 @@
 
         <table class="table">
             <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Currency.First().Currency)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Currency.First().Count)
-                </th>
-            </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Currency.First().Currency)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Currency.First().Count)
+                    </th>
+                </tr>
             </thead>
             <tbody>
-            @foreach (var item in Model.Currency)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Currency)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Count)
-                    </td>
-                </tr>
-            }
+                @foreach (var item in Model.Currency)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Currency)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Count)
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
     <div class="col-5">
         <div class="card border-0" style="width: 70%;">
             <div class="card-body">
-                @{ 
+                @{
                     List<string> currencyNames = new List<string>();
                     List<int> currencyCounts = new List<int>();
-                    foreach(var x in Model.Currency)
+                    foreach (var x in Model.Currency)
                     {
                         currencyNames.Add(x.Currency.ToString());
                         currencyCounts.Add(x.Count);
@@ -119,14 +122,14 @@
                 </script>
             </div>
         </div>
-        
+
     </div>
 </div>
-<br/>
+<br />
 
-<h3>Transfer Report</h3>
+<h3>@_localizer["transferReport"]</h3>
 
-<hr/>
+<hr />
 
 <table class="table">
     <thead>
@@ -171,8 +174,8 @@
         }
     </tbody>
 </table>
-<br/>
-<h3>Activity Report</h3>
+<br />
+<h3>@_localizer["activityReport"]</h3>
 <hr />
 <table class="table">
     <thead>
@@ -218,7 +221,7 @@
     </tbody>
 </table>
 
-        <h3>Register counter</h3>
+<h3>@_localizer["registerCounter"]</h3>
 
 @{
     if (Model.RegisterCounter != null)
@@ -246,76 +249,76 @@
 }
 
 
-        <h3>Logins counter</h3>
+<h3>@_localizer["loginsCounter"]</h3>
 
 @{
-    if(Model.LoginCounter != null)
+    if (Model.LoginCounter != null)
     {
 
         <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayFor(modelItem => Model.LoginCounter.Name)
-            </th>           
-        </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => Model.LoginCounter.Count)
-            </td>            
-        </tr>
-       </tbody>
-</table>
-<br/>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayFor(modelItem => Model.LoginCounter.Name)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.LoginCounter.Count)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
 
 
-<hr/>
+        <hr />
     }
 }
-        <h3>Transfer Counter</h3>
+<h3>@_localizer["transfersCounter"]</h3>
 
 @{
-    if(Model.TransferCounter != null)
+    if (Model.TransferCounter != null)
     {
 
         <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayFor(modelItem => Model.TransferCounter.Name)
-            </th>           
-        </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => Model.TransferCounter.Count)
-            </td>            
-        </tr>
-       </tbody>
-</table>
-<br/>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayFor(modelItem => Model.TransferCounter.Name)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.TransferCounter.Count)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
 
 
-<hr/>
+        <hr />
     }
 }
 
 
 
-        <h3>Most common transfer hours</h3>
+<h3>@_localizer["mostCommonTransferHrs"]</h3>
 
 
 @{
-    if (Model.MostCommonTransferHours!=null)
+    if (Model.MostCommonTransferHours != null)
     {
-        int[] labels =new int[Model.MostCommonTransferHours.Count];
-        int[] values =new int[Model.MostCommonTransferHours.Count];
-        for (int i=0; i < Model.MostCommonTransferHours.Count; i++)
+        int[] labels = new int[Model.MostCommonTransferHours.Count];
+        int[] values = new int[Model.MostCommonTransferHours.Count];
+        for (int i = 0; i < Model.MostCommonTransferHours.Count; i++)
         {
             labels[i] = Model.MostCommonTransferHours[i].Hour;
             values[i] = Model.MostCommonTransferHours[i].Count;
@@ -355,7 +358,7 @@
                                     'rgba(255, 159, 64, 1)'
                                 ],
                                 borderWidth: 1
-                            },                            
+                            },
                            ]
                         },
                         options: {
@@ -369,7 +372,7 @@
                 </script>
             </div>
         </div>
-        }
-
     }
+
+}
 
