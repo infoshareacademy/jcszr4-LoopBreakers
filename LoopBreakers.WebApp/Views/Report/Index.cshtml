@@ -174,7 +174,7 @@
 </div>
 <br />
 
-<h3>Transfer Report</h3>
+@*<h3>Transfer Report</h3>
 
 <hr />
 
@@ -221,7 +221,7 @@
         }
     </tbody>
 </table>
-<br />
+<br />*@
 <h3>Activity Report</h3>
 <hr />
 <table class="table">
@@ -275,15 +275,13 @@
     }
     else
     {
-        <h3>Choose period in order to see datials about users activities </h3>
-
+        <h3>Choose period in order to see details about users activities</h3>
     }
 }
 
 @{
     if (Model.RegisterCounter != null)
     {
-
         <table class="table">
             <thead>
                 <tr>
@@ -369,8 +367,6 @@
             </tbody>
         </table>
         <br />
-
-
         <hr />
     }
 }
@@ -380,10 +376,7 @@
     {
         <h3>Most common transfer hours</h3>
     }
-
 }
-
-
 
 @{
     if (Model.MostCommonTransferHours != null)
@@ -443,6 +436,4 @@
             </div>
         </div>
     }
-
 }
-

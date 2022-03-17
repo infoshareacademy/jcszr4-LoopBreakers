@@ -17,7 +17,7 @@ namespace LoopBreakers.WebApp.Services
     public class ReportService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private const string ApiUrl = "https://localhost:44308/api";
+        private const string ApiUrl = "https://localhost:6001/api";
 
         public ReportService(IHttpClientFactory httpClientFactory)
         {
@@ -133,24 +133,21 @@ namespace LoopBreakers.WebApp.Services
             var fromAddress = new MailAddress("rafalszczerbaalarm@gmail.com", "Daily report");
             var toAddress = new MailAddress(filter.EmailAddress, "To Name");
             const string fromPassword = "Angelika29!";
-            const string subject = "Daily Repot LoopBreakers APP";
+            const string subject = "Daily Report LoopBreakers APP";
             string contentLoginActivity="";
             string contentRegisterActivity = "";
             string contentTransferActivity = "";
             if (filter.LoginActivity)
             {
                  contentLoginActivity = $"{report?.LoginCounter?.Name} : {report?.LoginCounter?.Count}";
-
             }
             if (filter.RegisterActivity)
             {
                 contentRegisterActivity = $"{report?.RegisterCounter?.Name} : {report?.RegisterCounter?.Count}";
-
             }
             if (filter.TransferActivity)
             {
                 contentTransferActivity = $"{report?.TransferCounter?.Name} : {report?.TransferCounter?.Count}";
-
             }
             string body = $"{contentLoginActivity} \r\n {contentRegisterActivity} \r\n {contentTransferActivity} ";
             var smtp = new SmtpClient
@@ -174,21 +171,21 @@ namespace LoopBreakers.WebApp.Services
 
         public async Task CallMethodHelperForEmailSending(SearchViewModel filter)
         {
-            ReportViewDTO ReportModel = new ReportViewDTO();
+            ReportViewDTO reportModel = new ReportViewDTO();
             filter.DateFrom = DateTime.Now.AddHours(-DateTime.Now.Hour);
             filter.DateTo = DateTime.Now.AddDays(1);
             filter.LoginActivity = BackgroundJobsHelper.LoginActivity;
             filter.RegisterActivity = BackgroundJobsHelper.RegisterActivity;
             filter.TransferActivity = BackgroundJobsHelper.TransferActivity;
             filter.EmailAddress = BackgroundJobsHelper.EmailAddress;
-            ReportModel.Transfer = await GetTransferReportByDate(filter);
-            ReportModel.Activity = await GetActivityReportByDate(filter);
-            ReportModel.Currency = await GetCurrencyStatistics(filter);
-            ReportModel.LoginCounter = await GetLoginStatistics(filter);
-            ReportModel.TransferCounter = await GetTransferStatistics(filter);
-            ReportModel.RegisterCounter = await GetRegisterStatistics(filter);
-            ReportModel.MostCommonTransferHours = await GetMostCommonTransferHoursStatistics(filter);
-            SendEmail(filter, ReportModel);
+            reportModel.Transfer = await GetTransferReportByDate(filter);
+            reportModel.Activity = await GetActivityReportByDate(filter);
+            reportModel.Currency = await GetCurrencyStatistics(filter);
+            reportModel.LoginCounter = await GetLoginStatistics(filter);
+            reportModel.TransferCounter = await GetTransferStatistics(filter);
+            reportModel.RegisterCounter = await GetRegisterStatistics(filter);
+            reportModel.MostCommonTransferHours = await GetMostCommonTransferHoursStatistics(filter);
+            SendEmail(filter, reportModel);
 
         }
     }

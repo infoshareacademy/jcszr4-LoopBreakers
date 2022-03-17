@@ -20,15 +20,13 @@ namespace LoopBreakers.ReportModule.Services
         public Task<List<ActivityReport>> GetActivityReportByDate(DateTime dateFrom, DateTime dateTo);
         public Task<List<CurrencyStatisticsDTO>> GetCurrencyStatistics();
         public Task<List<CurrencyStatisticsDTO>> GetCurrencyStatisticsByDate(DateTime dateFrom, DateTime dateTo);
-        Task<LoginStatisticsDTO> GetLoginStatistics(DateTime dateFrom, DateTime dateTo);
-        Task<TransferStatsDTO> GetTransferStatistics(DateTime dateFrom, DateTime dateTo);
-        Task<LoginStatisticsDTO> GetAllLoginStatistics();
-        Task<TransferStatsDTO> GetWholeTransferStatistics();
-        Task<RegisterStatsDTO> GetRegisterStatistics(DateTime dateFrom, DateTime dateTo);
-        Task<RegisterStatsDTO> GetWholeRegisterStatistics();
-        Task<List<MostCommonHoursDTO>> GetTransferStisticsByHours(DateTime dateFrom, DateTime dateTo);
-
-
-
+        public Task<LoginStatisticsDTO> GetLoginStatistics(DateTime dateFrom, DateTime dateTo);
+        public Task<TransferStatsDTO> GetTransferStatistics(DateTime dateFrom, DateTime dateTo);
+        public Task<LoginStatisticsDTO> GetAllLoginStatistics();
+        public Task<TransferStatsDTO> GetWholeTransferStatistics();
+        public Task<RegisterStatsDTO> GetRegisterStatistics(DateTime dateFrom, DateTime dateTo);
+        public Task<RegisterStatsDTO> GetWholeRegisterStatistics();
+        public Task<List<MostCommonHoursDTO>> GetAllTransferStaticsByHours();
+        public Task<List<MostCommonHoursDTO>> GetTransferStaticsByHours(DateTime dateFrom, DateTime dateTo);
     }
 }

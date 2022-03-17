@@ -22,5 +22,7 @@ namespace LoopBreakers.ReportModule.Models
         [Required]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
+        [Required]
+        public ActivityEvents ActivityType { get; set; }
     }
 }

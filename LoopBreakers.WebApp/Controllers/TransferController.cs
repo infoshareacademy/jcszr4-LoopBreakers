@@ -94,11 +94,12 @@ namespace LoopBreakers.WebApp.Controllers
                         await _reportService.SendTransferReport(transferReportOut);
                         await _reportService.SendActivityReport(new ActivityReportDTO
                         {
-                            Description = ((int)DAL.Enums.ActivityEvents.transfering).ToString(),
+                            Description = "Transfer created",
                             Created = DateTime.Now,
                             Email = currentUser.Email,
                             FirstName = currentUser.FirstName,
-                            LastName = currentUser.LastName
+                            LastName = currentUser.LastName,
+                            ActivityType = ActivityEvents.transfering
                         });
 
                         if (transferRecipient != null)
