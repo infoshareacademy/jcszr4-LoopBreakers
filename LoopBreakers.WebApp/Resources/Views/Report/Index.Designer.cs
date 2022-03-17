@@ -88,11 +88,29 @@ namespace LoopBreakers.WebApp.Resources.Views.Report {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to godzinna dziennego raportu email.
+        /// </summary>
+        public static string dailyReportEmailHour {
+            get {
+                return ResourceManager.GetString("dailyReportEmailHour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to szukaj od daty.
         /// </summary>
         public static string dateFrom {
             get {
                 return ResourceManager.GetString("dateFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to wpisz adres email.
+        /// </summary>
+        public static string enterEmail {
+            get {
+                return ResourceManager.GetString("enterEmail", resourceCulture);
             }
         }
         

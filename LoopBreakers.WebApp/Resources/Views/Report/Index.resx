@@ -126,8 +126,14 @@
   <data name="currencyStats" xml:space="preserve">
     <value>Statystyki waluty</value>
   </data>
+  <data name="dailyReportEmailHour" xml:space="preserve">
+    <value>godzinna dziennego raportu email</value>
+  </data>
   <data name="dateFrom" xml:space="preserve">
     <value>szukaj od daty</value>
+  </data>
+  <data name="enterEmail" xml:space="preserve">
+    <value>wpisz adres email</value>
   </data>
   <data name="loginsCounter" xml:space="preserve">
     <value>Licznik logowań</value>
