@@ -23,6 +23,7 @@ using LoopBreakers.WebApp.Helpers;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Options;
 
 namespace LoopBreakers.WebApp
 {
@@ -39,6 +40,20 @@ namespace LoopBreakers.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(opt =>
+           {
+               var suporrtedCultures = new List<CultureInfo>
+           {
+                new CultureInfo("en"),
+                new CultureInfo("pl")
+           };
+               opt.DefaultRequestCulture = new RequestCulture("pl");
+               opt.SupportedCultures = suporrtedCultures;
+               opt.SupportedUICultures = suporrtedCultures;
+           });
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -59,9 +74,8 @@ namespace LoopBreakers.WebApp
             // services.AddIdentity<ApplicationUser, IdentityRole>();
 
             services.AddControllersWithViews()
-                .AddRazorRuntimeCompilation()
-                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                .AddDataAnnotationsLocalization();
+                .AddRazorRuntimeCompilation();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,18 +100,7 @@ namespace LoopBreakers.WebApp
                 app.UseHsts();
             }
 
-            var suporrtedCultures = new[]
-            {
-                new CultureInfo("en-US"),
-                new CultureInfo("pl-PL")
-            };
-
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture("pl"),
-                SupportedCultures = suporrtedCultures,
-                SupportedUICultures = suporrtedCultures
-            });
+            app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
