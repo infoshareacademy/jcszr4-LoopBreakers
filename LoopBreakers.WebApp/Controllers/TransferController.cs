@@ -81,7 +81,7 @@ namespace LoopBreakers.WebApp.Controllers
                     if (transfer.Amount > currentUser.Balance)
                     {
                         transfer.FromId = currentUser.IdentityNumber;
-                        transfer.Currency = (Currency)Enum.Parse(typeof(Currency), currentUser.Currency);
+                        transfer.Currency = currentUser.Currency;
                         transfer.Created = DateTime.Now;
                         ViewBag.NotEnoughMoney = true;
                     }
