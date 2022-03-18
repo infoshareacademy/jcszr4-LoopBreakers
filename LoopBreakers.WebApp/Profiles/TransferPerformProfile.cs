@@ -9,7 +9,7 @@ namespace LoopBreakers.WebApp.Profiles
         public TransferPerformProfile()
         {
             CreateMap<TransferPerformDTO, Transfer>().ForMember(d=>d.Id, o=>o.Ignore());
-                
+            CreateMap<RecipientDTO, TransferPerformDTO>();
         }
     }
 }

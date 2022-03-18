@@ -156,11 +156,11 @@
   <data name="lastname" xml:space="preserve">
     <value>Nazwisko</value>
   </data>
-  <data name="recieverLastname" xml:space="preserve">
-    <value>Nazwisko odbiorcy</value>
-  </data>
-  <data name="reciverFirstname" xml:space="preserve">
+  <data name="receiverFirstname" xml:space="preserve">
     <value>Imię odbiorcy</value>
+  </data>
+  <data name="receiverLastname" xml:space="preserve">
+    <value>Nazwisko odbiorcy</value>
   </data>
   <data name="reference" xml:space="preserve">
     <value>Tytuł</value>

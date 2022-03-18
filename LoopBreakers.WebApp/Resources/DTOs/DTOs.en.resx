@@ -156,11 +156,11 @@
   <data name="lastname" xml:space="preserve">
     <value>Last name</value>
   </data>
-  <data name="recieverLastname" xml:space="preserve">
-    <value>Receiver Last Name</value>
-  </data>
-  <data name="reciverFirstname" xml:space="preserve">
+  <data name="receiverFirstname" xml:space="preserve">
     <value>Reciever First Name</value>
+  </data>
+  <data name="receiverLastname" xml:space="preserve">
+    <value>Receiver Last Name</value>
   </data>
   <data name="reference" xml:space="preserve">
     <value>Reference</value>

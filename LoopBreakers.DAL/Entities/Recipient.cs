@@ -14,5 +14,6 @@ namespace LoopBreakers.DAL.Entities
         public string Email { get; set; }
         public string Address { get; set; }
         public string Iban { get; set; }
+        public string FromId { get; set; }
     }
 }

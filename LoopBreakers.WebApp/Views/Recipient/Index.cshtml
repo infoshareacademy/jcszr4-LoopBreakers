@@ -84,6 +84,7 @@
                 </td>
                 <td>
                     <div class="btn-group-sm" role="group">
+                        <a class="btn btn-outline-info" asp-action="Send" asp-route-id="@item.Id"><i class="bi bi-reply"></i></a>
                         <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
                         <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
                     </div>

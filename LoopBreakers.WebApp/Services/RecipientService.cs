@@ -19,9 +19,10 @@ namespace LoopBreakers.WebApp.Services
             _recipientRepository = recipientRepository;
         }
 
-        public async Task<IEnumerable<Recipient>> FilterBy(SearchViewModel filter)
+        public async Task<IEnumerable<Recipient>> FilterBy(SearchViewModel filter, ApplicationUser user)
         {
-            var recipientQuery = _recipientRepository.GetAllQueryable();
+            var recipientQuery = _recipientRepository.GetAllQueryable()
+                                                                        .Where(u=>u.FromId == user.Id.ToString());
 
             if (filter.SearchText != null && filter.SearchText.Length > 2)
             {
