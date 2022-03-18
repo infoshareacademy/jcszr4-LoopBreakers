@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using LoopBreakers.DAL.Entities;
+using LoopBreakers.ReportModule.Helpers;
 using LoopBreakers.ReportModule.Models;
 using LoopBreakers.ReportModule.Services;
 
@@ -33,16 +34,7 @@ namespace LoopBreakers.ReportModule.Controllers
         [HttpGet()]
         public async Task<IActionResult> GetReport([FromQuery] string dateFrom, [FromQuery] string dateTo)
         {
-            if (!DateTime.TryParse(dateFrom, out var apiDateFrom))
-            {
-                return Ok(await _reportService.GetAllActivityReports());
-            };
-
-            if (!DateTime.TryParse(dateTo, out var apiDateTo))
-            {
-                return Ok(await _reportService.GetAllActivityReports());
-            };
-            return Ok(await _reportService.GetActivityReportByDate(apiDateFrom, apiDateTo));
+            return Ok(await _reportService.GetActivityReport(ParseDate.Convert(dateFrom, dateTo)));
         }
 
         [HttpPost]
@@ -59,41 +51,25 @@ namespace LoopBreakers.ReportModule.Controllers
         [HttpGet("LoginStatistics")]
         public async Task<IActionResult> GetLoginStatistics([FromQuery] string dateFrom, [FromQuery] string dateTo)
         {
-            if (!DateTime.TryParse(dateFrom, out var apiDateFrom) || !DateTime.TryParse(dateTo, out var apiDateTo))
-            {
-                return Ok(await _reportService.GetAllLoginStatistics());
-            };
-            return Ok(await _reportService.GetLoginStatistics(apiDateFrom, apiDateTo));
+            return Ok(await _reportService.GetLoginStatistics(ParseDate.Convert(dateFrom, dateTo)));
         }
 
         [HttpGet("TransferStatistics")]
         public async Task<IActionResult> GetTransferStatistics([FromQuery] string dateFrom, [FromQuery] string dateTo)
         {
-            if (!DateTime.TryParse(dateFrom, out var apiDateFrom) || !DateTime.TryParse(dateTo, out var apiDateTo))
-            {
-                return Ok(await _reportService.GetWholeTransferStatistics());
-            };
-            return Ok(await _reportService.GetTransferStatistics(apiDateFrom, apiDateTo));
+            return Ok(await _reportService.GetTransferStatistics(ParseDate.Convert(dateFrom, dateTo)));
         }
 
         [HttpGet("RegisterStatistics")]
         public async Task<IActionResult> GetRegisterStatistics([FromQuery] string dateFrom, [FromQuery] string dateTo)
         {
-            if (!DateTime.TryParse(dateFrom, out var apiDateFrom) || !DateTime.TryParse(dateTo, out var apiDateTo))
-            {
-                return Ok(await _reportService.GetWholeRegisterStatistics());
-            };
-            return Ok(await _reportService.GetRegisterStatistics(apiDateFrom, apiDateTo));
+            return Ok(await _reportService.GetRegisterStatistics(ParseDate.Convert(dateFrom, dateTo)));
         }
 
         [HttpGet("MostCommonTransferHours")]
         public async Task<IActionResult> GetTransferStatisticsByHours([FromQuery] string dateFrom, [FromQuery] string dateTo)
         {
-            if (!DateTime.TryParse(dateFrom, out var apiDateFrom) || !DateTime.TryParse(dateTo, out var apiDateTo))
-            {
-                return Ok(await _reportService.GetAllTransferStaticsByHours());
-            };
-            return Ok(await _reportService.GetTransferStaticsByHours(apiDateFrom, apiDateTo));
+            return Ok(await _reportService.GetTransferStaticsByHours(ParseDate.Convert(dateFrom, dateTo)));
         }
     }
 }

@@ -29,13 +29,9 @@ namespace LoopBreakers.WebApp.Services
             return await SendResource<TransferReportDTO, TransferReportDTO>(transfer, $"{ApiUrl}/TransferReport");
         }
 
-        public async Task<List<TransferReportDTO>> GetTransferReportByDate(SearchViewModel filter)
+        public async Task<List<TransferReportDTO>> GetTransferReport(SearchViewModel filter)
         {
-            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
-            {
-                return await GetResource<List<TransferReportDTO>>($"{ApiUrl}/TransferReport?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
-            }
-            return await GetResource<List<TransferReportDTO>>($"{ApiUrl}/TransferReport");
+            return await GetResource<List<TransferReportDTO>>($"{ApiUrl}/TransferReport?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
 
         public async Task<ActivityReportDTO> SendActivityReport(ActivityReportDTO activity)
@@ -43,54 +39,30 @@ namespace LoopBreakers.WebApp.Services
             return await SendResource<ActivityReportDTO, ActivityReportDTO>(activity, $"{ApiUrl}/ActivityReport");
         }
 
-        public async Task<List<ActivityReportDTO>> GetActivityReportByDate(SearchViewModel filter)
+        public async Task<List<ActivityReportDTO>> GetActivityReport(SearchViewModel filter)
         {
-            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
-            {
-                return await GetResource<List<ActivityReportDTO>>($"{ApiUrl}/ActivityReport?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
-            }
-            return await GetResource<List<ActivityReportDTO>>($"{ApiUrl}/ActivityReport");
+            return await GetResource<List<ActivityReportDTO>>($"{ApiUrl}/ActivityReport?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
 
         public async Task<List<CurrencyStatisticsDTO>> GetCurrencyStatistics(SearchViewModel filter)
         {
-            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
-            {
-                return await GetResource<List<CurrencyStatisticsDTO>>($"{ApiUrl}/TransferReport/CurrencyStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
-            }
-            return await GetResource<List<CurrencyStatisticsDTO>>($"{ApiUrl}/TransferReport/CurrencyStatistics");
+            return await GetResource<List<CurrencyStatisticsDTO>>($"{ApiUrl}/TransferReport/CurrencyStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
         public async Task<LoginStatisticsDTO> GetLoginStatistics(SearchViewModel filter)
         {
-            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
-            {
-                return await GetResource<LoginStatisticsDTO>($"{ApiUrl}/ActivityReport/LoginStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
-            }
-            return await GetResource<LoginStatisticsDTO>($"{ApiUrl}/ActivityReport/LoginStatistics");
+            return await GetResource<LoginStatisticsDTO>($"{ApiUrl}/ActivityReport/LoginStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
         public async Task<TransferStatsDTO> GetTransferStatistics(SearchViewModel filter)
         {
-            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
-            {
-                return await GetResource<TransferStatsDTO>($"{ApiUrl}/ActivityReport/TransferStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
-            }
-            return await GetResource<TransferStatsDTO>($"{ApiUrl}/ActivityReport/TransferStatistics");
+            return await GetResource<TransferStatsDTO>($"{ApiUrl}/ActivityReport/TransferStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
         public async Task<RegisterStatsDTO> GetRegisterStatistics(SearchViewModel filter)
         {
-            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
-            {
-                return await GetResource<RegisterStatsDTO>($"{ApiUrl}/ActivityReport/RegisterStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
-            }
-            return await GetResource<RegisterStatsDTO>($"{ApiUrl}/ActivityReport/RegisterStatistics");
+            return await GetResource<RegisterStatsDTO>($"{ApiUrl}/ActivityReport/RegisterStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
         public async Task<List<MostCommonHoursDTO>> GetMostCommonTransferHoursStatistics(SearchViewModel filter)
         {
-            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
-            {
-                return await GetResource<List<MostCommonHoursDTO>>($"{ApiUrl}/ActivityReport/MostCommonTransferHours?dateFrom={filter.DateFrom:dd-MM-yyyy-hh}&dateTo={filter.DateTo:dd-MM-yyyy-hh}");
-            }
-            return await GetResource<List<MostCommonHoursDTO>>($"{ApiUrl}/ActivityReport/MostCommonTransferHours");
+            return await GetResource<List<MostCommonHoursDTO>>($"{ApiUrl}/ActivityReport/MostCommonTransferHours?dateFrom={filter.DateFrom:dd-MM-yyyy-hh}&dateTo={filter.DateTo:dd-MM-yyyy-hh}");
         }
         private async Task<TReturn> SendResource<TReturn, TInput>(TInput resource, string url)
         {
@@ -178,8 +150,8 @@ namespace LoopBreakers.WebApp.Services
             filter.RegisterActivity = BackgroundJobsHelper.RegisterActivity;
             filter.TransferActivity = BackgroundJobsHelper.TransferActivity;
             filter.EmailAddress = BackgroundJobsHelper.EmailAddress;
-            reportModel.Transfer = await GetTransferReportByDate(filter);
-            reportModel.Activity = await GetActivityReportByDate(filter);
+            reportModel.Transfer = await GetTransferReport(filter);
+            reportModel.Activity = await GetActivityReport(filter);
             reportModel.Currency = await GetCurrencyStatistics(filter);
             reportModel.LoginCounter = await GetLoginStatistics(filter);
             reportModel.TransferCounter = await GetTransferStatistics(filter);

@@ -28,8 +28,8 @@ namespace LoopBreakers.WebApp.Controllers
         public async Task<ActionResult> Index(SearchViewModel filter)
         {
             ReportViewDTO ReportModel = new ReportViewDTO();
-            ReportModel.Transfer = await _reportService.GetTransferReportByDate(filter);
-            ReportModel.Activity = await _reportService.GetActivityReportByDate(filter);
+            ReportModel.Transfer = await _reportService.GetTransferReport(filter);
+            ReportModel.Activity = await _reportService.GetActivityReport(filter);
             ReportModel.Currency = await _reportService.GetCurrencyStatistics(filter);
             ReportModel.LoginCounter = await _reportService.GetLoginStatistics(filter);
             ReportModel.TransferCounter = await _reportService.GetTransferStatistics(filter);
