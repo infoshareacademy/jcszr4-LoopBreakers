@@ -103,6 +103,10 @@ namespace LoopBreakers.WebApp.Services
         public void SendEmail(SearchViewModel filter, ReportViewDTO report)
         {
             var fromAddress = new MailAddress("rafalszczerbaalarm@gmail.com", "Daily report");
+            if (filter.EmailAddress == null)
+            {
+                return;
+            }         
             var toAddress = new MailAddress(filter.EmailAddress, "To Name");
             const string fromPassword = "Angelika29!";
             const string subject = "Daily Report LoopBreakers APP";

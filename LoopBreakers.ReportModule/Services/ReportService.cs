@@ -104,8 +104,8 @@ namespace LoopBreakers.ReportModule.Services
 
         public async Task<List<MostCommonHoursDTO>> GetTransferStaticsByHours(SearchDate filter)
         {
-            var result = await _transferRepository.GetAllQueryable()
-                .Where(s => s.Created >= filter.dateFrom && s.Created < filter.dateTo)
+            var result = await _activityRepository.GetAllQueryable()
+                .Where(s => s.Created >= filter.dateFrom && s.Created < filter.dateTo && s.ActivityType == ActivityEvents.transfering)
                 .GroupBy(g => g.Created.Hour)
                 .Select(s => new MostCommonHoursDTO
                 {
