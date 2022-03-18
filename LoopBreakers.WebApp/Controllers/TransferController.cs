@@ -74,7 +74,6 @@ namespace LoopBreakers.WebApp.Controllers
                 var transferOut = _mapper.Map<Transfer>(transfer);
                 var transferReportOut = _mapper.Map<TransferReportDTO>(transfer);
                 transferReportOut.CountryCode = transfer.Iban.Substring(0, 2);
-                await _reportService.SendTransferReport(transferReportOut);
 
                 if (currentUser != null)
                 {
@@ -84,7 +83,6 @@ namespace LoopBreakers.WebApp.Controllers
                         transfer.Currency = (Currency)Enum.Parse(typeof(Currency), currentUser.Currency);
                         transfer.Created = DateTime.Now;
                         ViewBag.NotEnoughMoney = true;
-                       
                     }
                     else
                     {

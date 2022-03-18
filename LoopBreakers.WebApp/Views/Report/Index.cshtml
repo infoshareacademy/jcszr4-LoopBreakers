@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-auto">
                     <label for="TransferActivity" class="col-form-label"> Transfers: </label>
-                </div>   
+                </div>
                 <div class="col-auto">
                     <select class="form-select" name="TransferActivity" id="TransferActivity" onchange=''>
                         <option value="false" selected>Choose</option>
@@ -95,7 +95,7 @@
                     <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Set</button>
                 </div>
             </div>
-            
+
         </form>
     </div>
 </div>
@@ -188,52 +188,53 @@
 <hr />
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Activity.First().Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Activity.First().FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Activity.First().LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Activity.First().Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Activity.First().Description)
-            </th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Activity.First().Created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Activity.First().FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Activity.First().LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Activity.First().Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Activity.First().Description)
+        </th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Activity)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Created)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-            </tr>
-        }
+    @foreach (var item in Model.Activity)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+        </tr>
+    }
     </tbody>
 </table>
+<br/>
 
 @{
     if (Model.RegisterCounter != null)
     {
-    <h3>@_localizer["registerCounter"]</h3>
+        <h3>@_localizer["registerCounter"]</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -252,13 +253,14 @@
             </tbody>
         </table>
         <br />
+        <hr />
     }
 }
 
 @{
     if (Model.LoginCounter != null)
     {
-    <h3>@_localizer["loginsCounter"]</h3>
+        <h3>@_localizer["loginsCounter"]</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -284,7 +286,7 @@
 @{
     if (Model.TransferCounter != null)
     {
-    <h3>@_localizer["transfersCounter"]</h3>
+        <h3>@_localizer["transfersCounter"]</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -307,11 +309,10 @@
     }
 }
 
-
 @{
     if (Model.MostCommonTransferHours != null)
     {
-    <h3>@_localizer["mostCommonTransferHrs"]</h3>
+        <h3>@_localizer["mostCommonTransferHrs"]</h3>
 
         int[] labels = new int[Model.MostCommonTransferHours.Count];
         int[] values = new int[Model.MostCommonTransferHours.Count];
@@ -325,7 +326,7 @@
 
                 <canvas id="myChart" width="100" height="50"></canvas>
                 <script>
-                        var labels =@Json.Serialize(labels);
+                        var labels = @Json.Serialize(labels);
                         var values = @Json.Serialize(values);
 
                     const ctx = document.getElementById('myChart').getContext('2d');
@@ -353,7 +354,7 @@
                                     'rgba(255, 159, 64, 1)'
                                 ],
                                 borderWidth: 1
-                            },
+                            }
                            ]
                         },
                         options: {
