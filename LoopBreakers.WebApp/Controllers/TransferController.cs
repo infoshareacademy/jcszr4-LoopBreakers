@@ -72,8 +72,9 @@ namespace LoopBreakers.WebApp.Controllers
                 var transferRecipient = await _clientService.FindRecipient(transfer.Iban);
                 transfer.Created= DateTime.Now;
                 var transferOut = _mapper.Map<Transfer>(transfer);
+                transferOut.FromId = currentUser.Id.ToString();
                 var transferReportOut = _mapper.Map<TransferReportDTO>(transfer);
-                transferReportOut.CountryCode = transfer.Iban.Substring(0, 2);
+                transferReportOut.CountryCode = transfer.Iban.Substring(0, 2).ToUpper();
 
                 if (currentUser != null)
                 {
@@ -127,8 +128,9 @@ namespace LoopBreakers.WebApp.Controllers
             {
                 filter.DateTo = DateTime.Now;
             }
-            
-            var transfers = await _transferService.FilterBy(filter);
+            var userLogon = HttpContext.User.Identity.Name;
+            var currentUser = await _clientService.FindTransferPerformer(userLogon);
+            var transfers = await _transferService.FilterBy(filter, currentUser);
             var transferModel = new TransferViewDTO()
             {
                 Transfer = _mapper.Map<IEnumerable<TransferDTO>>(transfers),
