@@ -41,58 +41,67 @@
             </div>
         </form>
     </div>
-    <div class="row">
+</div>
+<hr />
+<div class="row">
+    <div class="col-auto">
         <form class="row" method="post">
-            <div class="col-auto">
-                <label class="col-form-label">@_localizer["dailyReportEmailHour"]</label>
-                <input class="col-auto" type="time" value="@emailSendingTime.ToString()" onchange="" name="EmailSend" class="form-control">
-            </div>
-            <div class="col-auto">
-                <label class="col-form-label">@_localizer["enterEmail"]:</label>
-                <input class="col-auto" type="text" value="@emailAddress" onchange="" name="EmailAddress" class="form-control">
+            <div class="row mb-3">
+                <div class="col-auto">
+                    <label class="col-form-label">@_localizer["dailyReportEmailHour"]</label>
+                </div>
+                <div class="col-auto">
+                    <input type="time" value="@emailSendingTime.ToString()" onchange="" name="EmailSend" class="form-control">
+                </div>
+                <div class="col-auto">
+                    <label class="col-form-label">@_localizer["enterEmail"]:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" value="@emailAddress" onchange="" name="EmailAddress" class="form-control">
+                </div>
             </div>
             <div class="row">
                 <div class="col-auto">
-                    <label for="LoginActivity" class="col-auto"> Logins: </label>
-                    <select class="col-auto" name="LoginActivity" id="LoginActivity" onchange=''>
+                    <label for="LoginActivity" class="col-form-label"> Logins: </label>
+                </div>
+                <div class="col-auto">
+                    <select class="form-select" name="LoginActivity" id="LoginActivity" onchange=''>
                         <option value="false" selected>Choose</option>
                         <option value="true">Active</option>
                         <option value="false">Disactive</option>
                     </select>
                 </div>
                 <div class="col-auto">
-                    <label for="RegisterActivity" class="col-auto"> Registers: </label>
-                    <select class="col-auto" name="RegisterActivity" id="RegisterActivity" onchange=''>
+                    <label for="RegisterActivity" class="col-form-label"> Registers: </label>
+                </div>
+                <div class="col-auto">
+                    <select class="form-select" name="RegisterActivity" id="RegisterActivity" onchange=''>
                         <option value="false" selected>Choose</option>
                         <option value="true">Active</option>
                         <option value="false">Disactive</option>
                     </select>
                 </div>
                 <div class="col-auto">
-                    <label for="TransferActivity" class="col-auto"> Transfers: </label>
-                    <select class="col-auto" name="TransferActivity" id="TransferActivity" onchange=''>
+                    <label for="TransferActivity" class="col-form-label"> Transfers: </label>
+                </div>   
+                <div class="col-auto">
+                    <select class="form-select" name="TransferActivity" id="TransferActivity" onchange=''>
                         <option value="false" selected>Choose</option>
                         <option value="true">Active</option>
                         <option value="false">Disactive</option>
                     </select>
                 </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Set</button>
+                </div>
             </div>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Set</button>
-            </div>
-
-
+            
         </form>
     </div>
-
 </div>
-
-
 <hr />
 <br />
-
 <h3>@_localizer["currencyStats"]</h3>
-
 <hr />
 <div class="row">
     <div class="col-7">
@@ -169,63 +178,11 @@
                             }
                         });
                 </script>
-
             </div>
         </div>
-
     </div>
 </div>
 <br />
-
-@*<h3>@_localizer["transferReport"]</h3>
-
-<hr />
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Transfer.First().Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Transfer.First().Currency)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Transfer.First().Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Transfer.First().FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Transfer.First().LastName)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Transfer)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Created)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Currency)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<br />*@
 <br />
 <h3>@_localizer["activityReport"]</h3>
 <hr />
@@ -274,19 +231,9 @@
 </table>
 
 @{
-    if (dateFrom != "" && dateTo != "")
-    {
-        <h3>@_localizer["registerCounter"]</h3>
-    }
-    else
-    {
-        <h3>Choose period in order to see details about users activities</h3>
-    }
-}
-
-@{
     if (Model.RegisterCounter != null)
     {
+    <h3>@_localizer["registerCounter"]</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -308,18 +255,10 @@
     }
 }
 
-
-@{
-    if (dateFrom != "" && dateTo != "")
-    {
-        <h3>@_localizer["loginsCounter"]</h3>
-    }
-
-}
 @{
     if (Model.LoginCounter != null)
     {
-
+    <h3>@_localizer["loginsCounter"]</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -338,22 +277,14 @@
             </tbody>
         </table>
         <br />
-
-
         <hr />
     }
 }
-@{
-    if (dateFrom != "" && dateTo != "")
-    {
-        <h3>@_localizer["transfersCounter"]</h3>
-    }
 
-}
 @{
     if (Model.TransferCounter != null)
     {
-
+    <h3>@_localizer["transfersCounter"]</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -376,16 +307,12 @@
     }
 }
 
-@{
-    if (dateFrom != "" && dateTo != "")
-    {
-        <h3>@_localizer["mostCommonTransferHrs"]</h3>
-    }
-}
 
 @{
     if (Model.MostCommonTransferHours != null)
     {
+    <h3>@_localizer["mostCommonTransferHrs"]</h3>
+
         int[] labels = new int[Model.MostCommonTransferHours.Count];
         int[] values = new int[Model.MostCommonTransferHours.Count];
         for (int i = 0; i < Model.MostCommonTransferHours.Count; i++)

@@ -10,15 +10,10 @@
     var culture = Context.Features.Get<IRequestCultureFeature>();
     var culturesList = locOptions.Value.SupportedUICultures.Select(x => new SelectListItem { Value = x.Name, Text = x.Name }).ToList();
 }
-<style>
-    select option {
-        background: #343a40;
-    }
-</style>
 
 <div>
     <form asp-action="CultureManagement" asp-controller="Home" method="post">
-        <select name="culture" style="width:100%; background: transparent; text-align: center; padding: 5px; color: white" asp-for="@culture.RequestCulture.UICulture.Name" asp-items="culturesList"
+        <select name="culture" class="language-menu form-select text-light" asp-for="@culture.RequestCulture.UICulture.Name" asp-items="culturesList"
                 onchange="this.form.submit();"></select>
     </form>
 </div>

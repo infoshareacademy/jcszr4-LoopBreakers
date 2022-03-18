@@ -55,11 +55,23 @@ button.accept-policy {
   line-height: inherit;
 }
 
+/* Language menu
+-------------------------------------------------- */
+.language-menu {
+    /*width: 100%;*/
+    background: transparent;
+    text-align: center;
+    padding: 5px;
+}
+
+.language-menu option {
+    background: #343a40;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {

@@ -81,7 +81,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LoopBreakers.DAL\LoopBreakers.DAL.csproj" />
-    <ProjectReference Include="..\LoopBreakers.Logic\LoopBreakers.Logic.csproj" />
     <ProjectReference Include="..\LoopBreakers.ReportModule\LoopBreakers.ReportModule.csproj" />
   </ItemGroup>
 
