@@ -19,10 +19,15 @@ namespace LoopBreakers.WebApp.Services
             _transfersRepository = transfersRepository;
         }
 
-        public async Task<IEnumerable<Transfer>> FilterBy(SearchViewModel filter)
+        public async Task<IEnumerable<Transfer>> FilterBy(SearchViewModel filter, ApplicationUser user)
         {
             var transfersQuery = _transfersRepository.GetAllQueryable();
 
+            if (user.Id > 1)
+            {
+                transfersQuery = transfersQuery.Where(q => q.FromId == user.Id.ToString() ||
+                                                           q.Iban == user.Iban);
+            }
             if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
             {
                 transfersQuery = transfersQuery.Where(q => q.Created >= filter.DateFrom.Value && q.Created <= filter.DateTo.Value);

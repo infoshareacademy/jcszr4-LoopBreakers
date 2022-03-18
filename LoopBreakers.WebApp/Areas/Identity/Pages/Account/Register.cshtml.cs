@@ -110,7 +110,7 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
                     IdentityNumber = Guid.NewGuid().ToString(),
                     IsActive = true,
                     Balance = Input.Balance,
-                    Currency = Input.Currency.ToString(),
+                    Currency = Input.Currency,
                     Age = Input.Age,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,

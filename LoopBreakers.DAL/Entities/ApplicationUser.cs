@@ -14,7 +14,7 @@ namespace LoopBreakers.DAL.Entities
         public string IdentityNumber { get; set; }
         public bool IsActive { get; set; }
         public decimal Balance { get; set; }
-        public string Currency { get; set; }
+        public Currency Currency { get; set; }
         public int Age { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

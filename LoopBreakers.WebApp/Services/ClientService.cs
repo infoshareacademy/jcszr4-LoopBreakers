@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using LoopBreakers.WebApp.Contracts;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace LoopBreakers.WebApp.Services
 {
@@ -19,7 +20,8 @@ namespace LoopBreakers.WebApp.Services
         }
         public async Task<IEnumerable<ApplicationUser>> FilterBy(SearchViewModel filter)
         {
-            var clientQuery = _clientRepository.GetAllQueryable();
+            var clientQuery = _clientRepository.GetAllQueryable()
+                                                                        .Where(n => n.Id > 1);
 
             if (filter.SearchText != null && filter.SearchText.Length > 2)
             {
