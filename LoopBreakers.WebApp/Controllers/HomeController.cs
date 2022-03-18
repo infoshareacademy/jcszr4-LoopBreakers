@@ -2,6 +2,7 @@
 using LoopBreakers.WebApp.Contracts;
 using LoopBreakers.WebApp.Helpers;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -25,6 +26,15 @@ namespace LoopBreakers.WebApp.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+        }
+
+        [HttpPost]
+        public IActionResult CultureManagement(string culture)
+        {
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTimeOffset.UtcNow.AddDays(30) });
+
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Index()

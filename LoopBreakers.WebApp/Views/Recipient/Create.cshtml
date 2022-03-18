@@ -1,10 +1,13 @@
 ﻿@model LoopBreakers.WebApp.DTOs.RecipientDTO
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+
 @{
     ViewData["Title"] = "New Recipient";
 }
 
-<h3>New Recipient</h3>
+<h3>@_localizer["newRecipent"]</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -36,7 +39,7 @@
                 <span asp-validation-for="Iban" class="text-danger"></span>
             </div>
             <div class="form-group mt-2">
-                <input type="submit" value="Create" class="btn btn-primary" /> <a class="btn btn-danger" asp-action="Index">Cancel</a>
+                <input type="submit" value="@_localizer["create"]" class="btn btn-primary" /> <a class="btn btn-danger" asp-action="Index">@_localizer["cancel"]</a>
             </div>
         </form>
     </div>

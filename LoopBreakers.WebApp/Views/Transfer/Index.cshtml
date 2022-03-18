@@ -1,15 +1,18 @@
 ﻿@model TransferViewDTO
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+
 @{
     ViewData["Title"] = "Index";
     string dateFrom = Model.SearchFilter.DateFrom == null ? "" : ((DateTime)Model.SearchFilter.DateFrom).ToString("yyyy-MM-dd");
     string dateTo = Model.SearchFilter.DateTo == null ? "" : ((DateTime)Model.SearchFilter.DateTo).ToString("yyyy-MM-dd");
 }
 
-<h3>Transfers</h3>
+<h3>@_localizer["transfers"]</h3>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create"><i class="bi bi-plus-circle me-2"></i>Add New Transfer</a>
+    <a class="btn btn-primary" asp-action="Create"><i class="bi bi-plus-circle me-2"></i>@_localizer["addNew"]</a>
 </p>
 
 <hr />
@@ -17,32 +20,32 @@
     <div class="col-auto">
         <form class="row" method="post">
             <div class="col-auto">
-                <label class="col-form-label">Search date from:</label>
+                <label class="col-form-label">@_localizer["dateFrom"]:</label>
             </div>
             <div class="col-auto">
                 <input type="date" value="@dateFrom" onchange="" name="dateFrom" class="form-control">
             </div>
             <div class="col-auto">
-                <label class="col-form-label">to:</label>
+                <label class="col-form-label">@_localizer["to"]:</label>
             </div>
             <div class="col-auto">
                 <input type="date" value="@dateTo" name="dateTo" class="form-control">
             </div>
             <div class="col-auto">
-                <label class="col-form-label">Search text:</label>
+                <label class="col-form-label">@_localizer["searchText"]</label>
             </div>
             <div class="col-auto">
                 <input type="text" value="@Model.SearchFilter.SearchText" name="SearchText" class="form-control" placeholder="">
             </div>
             <div class="col-auto">
-                <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>Search</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>@_localizer["search"]</button>
             </div>
         </form>
     </div>
     <div class="col-auto">
         <form class="row" method="post">
             <div class="col-auto">
-                <button type="submit" class="btn btn-danger"><i class="bi bi-x-circle me-2"></i>Clear</button>
+                <button type="submit" class="btn btn-danger"><i class="bi bi-x-circle me-2"></i>@_localizer["clear"]</button>
             </div>
         </form>
     </div>
@@ -104,8 +107,8 @@
                         </td>
                         <td>
                             @*<div class="btn-group-sm" role="group" aria-label="Basic example">
-                                <a class="btn btn-primary " asp-action="Details" asp-route-id="@item.Id">Details</a>
-                            </div>*@
+                                    <a class="btn btn-primary " asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                </div>*@
                         </td>
                     </tr>
                 }
