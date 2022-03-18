@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using LoopBreakers.DAL.Entities;
+using LoopBreakers.ReportModule.Helpers;
 using LoopBreakers.ReportModule.Models;
 using LoopBreakers.ReportModule.Services;
 
@@ -34,32 +35,13 @@ namespace LoopBreakers.ReportModule.Controllers
         [HttpGet()]
         public async Task<IActionResult> GetReport([FromQuery] string dateFrom, [FromQuery] string dateTo)
         {
-            if (!DateTime.TryParse(dateFrom, out var apiDateFrom))
-            {
-                return Ok(await _reportService.GetAllTransferReports());
-            };
-
-            if (!DateTime.TryParse(dateTo, out var apiDateTo))
-            {
-                return Ok(await _reportService.GetAllTransferReports());
-            };
-            return Ok(await _reportService.GetTransferReportByDate(apiDateFrom, apiDateTo));
+            return Ok(await _reportService.GetTransferReport(ParseDate.Convert(dateFrom, dateTo)));
         }
 
         [HttpGet("CurrencyStatistics")]
-        public async Task<IActionResult> GetCurrencyStatistics([FromQuery] string dateFrom,
-            [FromQuery] string dateTo)
+        public async Task<IActionResult> GetCurrencyStatistics([FromQuery] string dateFrom, [FromQuery] string dateTo)
         {
-            if (!DateTime.TryParse(dateFrom, out var apiDateFrom))
-            {
-                return Ok(await _reportService.GetCurrencyStatistics());
-            };
-
-            if (!DateTime.TryParse(dateTo, out var apiDateTo))
-            {
-                return Ok(await _reportService.GetCurrencyStatistics());
-            };
-            return Ok(await _reportService.GetCurrencyStatisticsByDate(apiDateFrom, apiDateTo));
+            return Ok(await _reportService.GetCurrencyStatistics(ParseDate.Convert(dateFrom, dateTo)));
         }
 
         [HttpPost]

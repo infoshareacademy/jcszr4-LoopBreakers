@@ -17,7 +17,7 @@ namespace LoopBreakers.WebApp.Services
     public class ReportService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private const string ApiUrl = "https://localhost:44308/api";
+        private const string ApiUrl = "https://localhost:6001/api";
 
         public ReportService(IHttpClientFactory httpClientFactory)
         {
@@ -29,13 +29,9 @@ namespace LoopBreakers.WebApp.Services
             return await SendResource<TransferReportDTO, TransferReportDTO>(transfer, $"{ApiUrl}/TransferReport");
         }
 
-        public async Task<List<TransferReportDTO>> GetTransferReportByDate(SearchViewModel filter)
+        public async Task<List<TransferReportDTO>> GetTransferReport(SearchViewModel filter)
         {
-            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
-            {
-                return await GetResource<List<TransferReportDTO>>($"{ApiUrl}/TransferReport?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
-            }
-            return await GetResource<List<TransferReportDTO>>($"{ApiUrl}/TransferReport");
+            return await GetResource<List<TransferReportDTO>>($"{ApiUrl}/TransferReport?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
 
         public async Task<ActivityReportDTO> SendActivityReport(ActivityReportDTO activity)
@@ -43,54 +39,30 @@ namespace LoopBreakers.WebApp.Services
             return await SendResource<ActivityReportDTO, ActivityReportDTO>(activity, $"{ApiUrl}/ActivityReport");
         }
 
-        public async Task<List<ActivityReportDTO>> GetActivityReportByDate(SearchViewModel filter)
+        public async Task<List<ActivityReportDTO>> GetActivityReport(SearchViewModel filter)
         {
-            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
-            {
-                return await GetResource<List<ActivityReportDTO>>($"{ApiUrl}/ActivityReport?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
-            }
-            return await GetResource<List<ActivityReportDTO>>($"{ApiUrl}/ActivityReport");
+            return await GetResource<List<ActivityReportDTO>>($"{ApiUrl}/ActivityReport?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
 
         public async Task<List<CurrencyStatisticsDTO>> GetCurrencyStatistics(SearchViewModel filter)
         {
-            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
-            {
-                return await GetResource<List<CurrencyStatisticsDTO>>($"{ApiUrl}/TransferReport/CurrencyStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
-            }
-            return await GetResource<List<CurrencyStatisticsDTO>>($"{ApiUrl}/TransferReport/CurrencyStatistics");
+            return await GetResource<List<CurrencyStatisticsDTO>>($"{ApiUrl}/TransferReport/CurrencyStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
         public async Task<LoginStatisticsDTO> GetLoginStatistics(SearchViewModel filter)
         {
-            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
-            {
-                return await GetResource<LoginStatisticsDTO>($"{ApiUrl}/ActivityReport/LoginStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
-            }
-            return await GetResource<LoginStatisticsDTO>($"{ApiUrl}/ActivityReport/LoginStatistics");
+            return await GetResource<LoginStatisticsDTO>($"{ApiUrl}/ActivityReport/LoginStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
         public async Task<TransferStatsDTO> GetTransferStatistics(SearchViewModel filter)
         {
-            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
-            {
-                return await GetResource<TransferStatsDTO>($"{ApiUrl}/ActivityReport/TransferStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
-            }
-            return await GetResource<TransferStatsDTO>($"{ApiUrl}/ActivityReport/TransferStatistics");
+            return await GetResource<TransferStatsDTO>($"{ApiUrl}/ActivityReport/TransferStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
         public async Task<RegisterStatsDTO> GetRegisterStatistics(SearchViewModel filter)
         {
-            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
-            {
-                return await GetResource<RegisterStatsDTO>($"{ApiUrl}/ActivityReport/RegisterStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
-            }
-            return await GetResource<RegisterStatsDTO>($"{ApiUrl}/ActivityReport/RegisterStatistics");
+            return await GetResource<RegisterStatsDTO>($"{ApiUrl}/ActivityReport/RegisterStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
         public async Task<List<MostCommonHoursDTO>> GetMostCommonTransferHoursStatistics(SearchViewModel filter)
         {
-            if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
-            {
-                return await GetResource<List<MostCommonHoursDTO>>($"{ApiUrl}/ActivityReport/MostCommonTransferHours?dateFrom={filter.DateFrom:dd-MM-yyyy-hh}&dateTo={filter.DateTo:dd-MM-yyyy-hh}");
-            }
-            return await GetResource<List<MostCommonHoursDTO>>($"{ApiUrl}/ActivityReport/MostCommonTransferHours");
+            return await GetResource<List<MostCommonHoursDTO>>($"{ApiUrl}/ActivityReport/MostCommonTransferHours?dateFrom={filter.DateFrom:dd-MM-yyyy-hh}&dateTo={filter.DateTo:dd-MM-yyyy-hh}");
         }
         private async Task<TReturn> SendResource<TReturn, TInput>(TInput resource, string url)
         {
@@ -133,24 +105,21 @@ namespace LoopBreakers.WebApp.Services
             var fromAddress = new MailAddress("rafalszczerbaalarm@gmail.com", "Daily report");
             var toAddress = new MailAddress(filter.EmailAddress, "To Name");
             const string fromPassword = "Angelika29!";
-            const string subject = "Daily Repot LoopBreakers APP";
+            const string subject = "Daily Report LoopBreakers APP";
             string contentLoginActivity="";
             string contentRegisterActivity = "";
             string contentTransferActivity = "";
             if (filter.LoginActivity)
             {
                  contentLoginActivity = $"{report?.LoginCounter?.Name} : {report?.LoginCounter?.Count}";
-
             }
             if (filter.RegisterActivity)
             {
                 contentRegisterActivity = $"{report?.RegisterCounter?.Name} : {report?.RegisterCounter?.Count}";
-
             }
             if (filter.TransferActivity)
             {
                 contentTransferActivity = $"{report?.TransferCounter?.Name} : {report?.TransferCounter?.Count}";
-
             }
             string body = $"{contentLoginActivity} \r\n {contentRegisterActivity} \r\n {contentTransferActivity} ";
             var smtp = new SmtpClient
@@ -174,21 +143,21 @@ namespace LoopBreakers.WebApp.Services
 
         public async Task CallMethodHelperForEmailSending(SearchViewModel filter)
         {
-            ReportViewDTO ReportModel = new ReportViewDTO();
+            ReportViewDTO reportModel = new ReportViewDTO();
             filter.DateFrom = DateTime.Now.AddHours(-DateTime.Now.Hour);
             filter.DateTo = DateTime.Now.AddDays(1);
             filter.LoginActivity = BackgroundJobsHelper.LoginActivity;
             filter.RegisterActivity = BackgroundJobsHelper.RegisterActivity;
             filter.TransferActivity = BackgroundJobsHelper.TransferActivity;
             filter.EmailAddress = BackgroundJobsHelper.EmailAddress;
-            ReportModel.Transfer = await GetTransferReportByDate(filter);
-            ReportModel.Activity = await GetActivityReportByDate(filter);
-            ReportModel.Currency = await GetCurrencyStatistics(filter);
-            ReportModel.LoginCounter = await GetLoginStatistics(filter);
-            ReportModel.TransferCounter = await GetTransferStatistics(filter);
-            ReportModel.RegisterCounter = await GetRegisterStatistics(filter);
-            ReportModel.MostCommonTransferHours = await GetMostCommonTransferHoursStatistics(filter);
-            SendEmail(filter, ReportModel);
+            reportModel.Transfer = await GetTransferReport(filter);
+            reportModel.Activity = await GetActivityReport(filter);
+            reportModel.Currency = await GetCurrencyStatistics(filter);
+            reportModel.LoginCounter = await GetLoginStatistics(filter);
+            reportModel.TransferCounter = await GetTransferStatistics(filter);
+            reportModel.RegisterCounter = await GetRegisterStatistics(filter);
+            reportModel.MostCommonTransferHours = await GetMostCommonTransferHoursStatistics(filter);
+            SendEmail(filter, reportModel);
 
         }
     }

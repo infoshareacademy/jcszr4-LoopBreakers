@@ -33,13 +33,13 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ReportService reportServie)
+            ReportService reportService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            _reportService = reportServie;
+            _reportService = reportService;
         }
 
         [BindProperty]
@@ -126,15 +126,16 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    await this._userManager.AddToRoleAsync(user, "User");
+                    await _userManager.AddToRoleAsync(user, "User");
                     _logger.LogInformation("User created a new account with password.");
                     await _reportService.SendActivityReport(new ReportModule.Models.ActivityReportDTO
                     {
                         Created = DateTime.UtcNow,
                         Email = user.Email,
-                        Description = ((int)DAL.Enums.ActivityEvents.registering).ToString(),
+                        Description = "User created a new account",
                         FirstName = user.FirstName,
-                        LastName = user.LastName
+                        LastName = user.LastName,
+                        ActivityType = ActivityEvents.registering
                     });
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

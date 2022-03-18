@@ -17,7 +17,6 @@ namespace LoopBreakers.WebApp.Helpers
         public ErrorHandlerMiddleware(RequestDelegate next)
         {
             _next = next;
-
         }
 
         public async Task Invoke(HttpContext context, IBaseRepository<AppError> errorsRepository, UserManager<ApplicationUser> userManager)
@@ -57,9 +56,8 @@ namespace LoopBreakers.WebApp.Helpers
                     Method = context.Request.Method,
                     ExceptionMessage = error.Message,
                     UserId = context.User.Identity.Name
-            };
+                };
                 await errorsRepository.Create(err);
-
 
                 await response.WriteAsync(result);
             }

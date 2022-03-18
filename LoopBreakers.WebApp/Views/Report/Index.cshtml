@@ -1,4 +1,4 @@
-﻿@model ReportViewDTO
+@model ReportViewDTO
 
 @using LoopBreakers.WebApp.Helpers
 @using Microsoft.AspNetCore.Mvc.Localization
@@ -177,7 +177,7 @@
 </div>
 <br />
 
-<h3>@_localizer["transferReport"]</h3>
+@*<h3>@_localizer["transferReport"]</h3>
 
 <hr />
 
@@ -224,6 +224,8 @@
         }
     </tbody>
 </table>
+
+<br />*@
 <br />
 <h3>@_localizer["activityReport"]</h3>
 <hr />
@@ -278,15 +280,13 @@
     }
     else
     {
-        <h3>Choose period in order to see datials about users activities </h3>
-
+        <h3>Choose period in order to see details about users activities</h3>
     }
 }
 
 @{
     if (Model.RegisterCounter != null)
     {
-
         <table class="table">
             <thead>
                 <tr>
@@ -372,8 +372,6 @@
             </tbody>
         </table>
         <br />
-
-
         <hr />
     }
 }
@@ -383,10 +381,7 @@
     {
         <h3>@_localizer["mostCommonTransferHrs"]</h3>
     }
-
 }
-
-
 
 @{
     if (Model.MostCommonTransferHours != null)
@@ -446,5 +441,4 @@
             </div>
         </div>
     }
-
 }

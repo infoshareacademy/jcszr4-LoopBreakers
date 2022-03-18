@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LoopBreakers.DAL.Entities;
+using LoopBreakers.DAL.Enums;
 using LoopBreakers.WebApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,8 +21,10 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ReportService _reportService;
 
-        public LogoutModel(SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, UserManager<ApplicationUser> userManager, ReportService reportService
-)
+        public LogoutModel(SignInManager<ApplicationUser> signInManager, 
+                            ILogger<LogoutModel> logger, 
+                            UserManager<ApplicationUser> userManager, 
+                            ReportService reportService)
         {
             _signInManager = signInManager;
             _logger = logger;
@@ -42,9 +45,10 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
             {
                 Created = DateTime.UtcNow,
                 Email = currentUser.Email,
-                Description = ((int)DAL.Enums.ActivityEvents.logout).ToString(),
+                Description = "User logout from app",
                 FirstName = currentUser.FirstName,
-                LastName = currentUser.LastName
+                LastName = currentUser.LastName,
+                ActivityType = ActivityEvents.logout
             });
 
             if (returnUrl != null)

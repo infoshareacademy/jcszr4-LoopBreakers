@@ -1,13 +1,12 @@
 ﻿using LoopBreakers.DAL.Context;
 using LoopBreakers.DAL.Entities;
 using LoopBreakers.DAL.Repositories;
-using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using LoopBreakers.DAL.Enums;
 using LoopBreakers.ReportModule.Models;
-using MoreLinq;
 
 namespace LoopBreakers.ReportModule.Services
 {
@@ -33,11 +32,11 @@ namespace LoopBreakers.ReportModule.Services
             return await _transferRepository.FindAll();
         }
 
-        public async Task<List<TransferReport>> GetTransferReportByDate(DateTime dateFrom, DateTime dateTo)
+        public async Task<List<TransferReport>> GetTransferReport(SearchDate filter)
         {
-            dateTo = dateTo.AddDays(1);
             return await _transferRepository.GetAllQueryable()
-                .Where(s => s.Created >= dateFrom && s.Created < dateTo).ToListAsync();
+                .Where(s => s.Created >= filter.dateFrom && s.Created < filter.dateTo)
+                .ToListAsync();
         }
 
         public async Task<TransferReport> GetTransferReportById(int id)
@@ -60,30 +59,17 @@ namespace LoopBreakers.ReportModule.Services
             return await _activityRepository.FindById(id);
         }
 
-        public async Task<List<ActivityReport>> GetActivityReportByDate(DateTime dateFrom, DateTime dateTo)
+        public async Task<List<ActivityReport>> GetActivityReport(SearchDate filter)
         {
-            dateTo = dateTo.AddDays(1);
             return await _activityRepository.GetAllQueryable()
-                .Where(s => s.Created >= dateFrom && s.Created < dateTo).ToListAsync();
-        }
-   
-
-        public async Task<List<CurrencyStatisticsDTO>> GetCurrencyStatistics()
-        {
-           return await _transferRepository.GetAllQueryable()
-               .GroupBy(s => s.Currency)
-               .Select(o => new CurrencyStatisticsDTO()
-               {
-                   Currency = o.Key,
-                   Count = o.Count()
-               }).ToListAsync();
+                .Where(s => s.Created >= filter.dateFrom && s.Created < filter.dateTo)
+                .ToListAsync();
         }
 
-        public async Task<List<CurrencyStatisticsDTO>> GetCurrencyStatisticsByDate(DateTime dateFrom, DateTime dateTo)
+        public async Task<List<CurrencyStatisticsDTO>> GetCurrencyStatistics(SearchDate filter)
         {
-            dateTo = dateTo.AddDays(1);
             return await _transferRepository.GetAllQueryable()
-                .Where(s => s.Created >= dateFrom && s.Created < dateTo)
+                .Where(s => s.Created >= filter.dateFrom && s.Created < filter.dateTo)
                 .GroupBy(s => s.Currency)
                 .Select(o => new CurrencyStatisticsDTO()
                 {
@@ -91,80 +77,54 @@ namespace LoopBreakers.ReportModule.Services
                     Count = o.Count()
                 }).ToListAsync();
         }
-        public async Task<LoginStatisticsDTO> GetLoginStatistics(DateTime dateFrom, DateTime dateTo)
-        {
-            var x = ((int)DAL.Enums.ActivityEvents.logging).ToString();
-            dateTo = dateTo.AddDays(1);
-            var data1 = await _activityRepository.GetAllQueryable()
-                .ToListAsync();
-            var data = await _activityRepository.GetAllQueryable()
-                .Where(s => s.Created >= dateFrom && s.Created < dateTo && s.Description== ((int)DAL.Enums.ActivityEvents.logging).ToString())
-                .ToListAsync();
-            return new LoginStatisticsDTO { Name = "Logging quantity: ", Count = data.Count};  
-        }
-        public async Task<LoginStatisticsDTO> GetAllLoginStatistics()
+
+        public async Task<LoginStatisticsDTO> GetLoginStatistics(SearchDate filter)
         {
             var data = await _activityRepository.GetAllQueryable()
-                .Where(s => s.Description== ((int)DAL.Enums.ActivityEvents.logging).ToString())
-                .ToListAsync();
-            return new LoginStatisticsDTO { Name = "Logging quantity: ", Count = data.Count };
-        }
-        public async Task<TransferStatsDTO> GetTransferStatistics(DateTime dateFrom, DateTime dateTo)
-        {
-            dateTo = dateTo.AddDays(1);
-            var data = await _activityRepository.GetAllQueryable()
-                .Where(s => s.Created >= dateFrom && s.Created < dateTo && s.Description== ((int)DAL.Enums.ActivityEvents.transfering).ToString())
-                .ToListAsync();
-            return new TransferStatsDTO { Name = "Transfers quantity: ", Count = data.Count };
-        }
-        public async Task<TransferStatsDTO> GetWholeTransferStatistics()
-        {
-            var data = await _activityRepository.GetAllQueryable()
-                .Where(s => s.Description == ((int)DAL.Enums.ActivityEvents.transfering).ToString())
-                .ToListAsync();
-            return new TransferStatsDTO { Name = "Transfers quantity: ", Count = data.Count };
-        }
-        public async Task<RegisterStatsDTO> GetRegisterStatistics(DateTime dateFrom, DateTime dateTo)
-        {
-            dateTo = dateTo.AddDays(1);
-            var data = await _activityRepository.GetAllQueryable()
-                .Where(s => s.Created >= dateFrom && s.Created < dateTo && s.Description == ((int)DAL.Enums.ActivityEvents.registering).ToString())
-                .ToListAsync();            
-            return new RegisterStatsDTO { Name = "Register quantity: ", Count = data.Count };
-        }
-        public async Task<RegisterStatsDTO> GetWholeRegisterStatistics()
-        {
-            var data = await _activityRepository.GetAllQueryable()
-                .Where(s => s.Description == ((int)DAL.Enums.ActivityEvents.registering).ToString())
-                .ToListAsync();
-            return new RegisterStatsDTO { Name = "Register quantity: ", Count = data.Count };
-        }
-        public async Task<List<MostCommonHoursDTO>> GetTransferStisticsByHours(DateTime dateFrom, DateTime dateTo)
-        {
-            var dateFromUpdate = new DateTime(dateFrom.Year, dateFrom.Month, dateFrom.Day, 0, 0, 0, DateTimeKind.Utc);
-            var dateTomUpdate = new DateTime(dateTo.Year, dateTo.Month, dateTo.Day, 23, 0, 0, DateTimeKind.Utc);
-            dateTo = dateTo.AddDays(1).AddHours(11);
-            List<MostCommonHoursDTO> mostOverloadHours = new List<MostCommonHoursDTO>();
-            mostOverloadHours.Clear();
-            for (int i = 0; i <= 23; i++)
-            {
-                var data = await _activityRepository.GetAllQueryable()
-                               .Where(s => s.Created.Hour == i && s.Created >= dateFromUpdate && s.Description == ((int)DAL.Enums.ActivityEvents.transfering).ToString())
-                               .ToListAsync();
-                if (data.Count > 0)
-                {
-                    mostOverloadHours.Add(new MostCommonHoursDTO { Count = data.Count, Hour = data[0].Created.Hour });
-                }
-                else
-                {
-                    mostOverloadHours.Add(new MostCommonHoursDTO { Count= 0, Hour = i });
-                }
-            }
-            var sortedData = mostOverloadHours.OrderBy(s=>s.Hour).ToList();
-            return sortedData;
-            
+                .Where(s => s.Created >= filter.dateFrom && s.Created < filter.dateTo && s.ActivityType == ActivityEvents.logging)
+                .CountAsync();
+            return new LoginStatisticsDTO { Name = "Logging quantity: ", Count = data };  
         }
 
-      
+        public async Task<TransferStatsDTO> GetTransferStatistics(SearchDate filter)
+        {
+            var data = await _activityRepository.GetAllQueryable()
+                .Where(s => s.Created >= filter.dateFrom && s.Created < filter.dateTo && s.ActivityType == ActivityEvents.transfering)
+                .CountAsync();
+            return new TransferStatsDTO { Name = "Transfers quantity: ", Count = data };
+        }
+
+        public async Task<RegisterStatsDTO> GetRegisterStatistics(SearchDate filter)
+        {
+            var data = await _activityRepository.GetAllQueryable()
+                .Where(s => s.Created >= filter.dateFrom && s.Created < filter.dateTo && s.ActivityType == ActivityEvents.registering)
+                .CountAsync();            
+            return new RegisterStatsDTO { Name = "Register quantity: ", Count = data };
+        }
+
+        public async Task<List<MostCommonHoursDTO>> GetTransferStaticsByHours(SearchDate filter)
+        {
+            var result = await _transferRepository.GetAllQueryable()
+                .Where(s => s.Created >= filter.dateFrom && s.Created < filter.dateTo)
+                .GroupBy(g => g.Created.Hour)
+                .Select(s => new MostCommonHoursDTO
+                {
+                    Hour = s.Key,
+                    Count = s.Count()
+                }).ToListAsync();
+
+            var data = new List<MostCommonHoursDTO>();
+            for (int i = 0; i < 24; i++)
+            {
+                data.Add(new MostCommonHoursDTO() { Hour = i, Count = 0 });
+            }
+
+            foreach (var item in result)
+            {
+                data[item.Hour].Count = item.Count;
+            }
+
+            return data;
+        }
     }
 }

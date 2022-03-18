@@ -28,8 +28,8 @@ namespace LoopBreakers.WebApp.Controllers
         public async Task<ActionResult> Index(SearchViewModel filter)
         {
             ReportViewDTO ReportModel = new ReportViewDTO();
-            ReportModel.Transfer = await _reportService.GetTransferReportByDate(filter);
-            ReportModel.Activity = await _reportService.GetActivityReportByDate(filter);
+            ReportModel.Transfer = await _reportService.GetTransferReport(filter);
+            ReportModel.Activity = await _reportService.GetActivityReport(filter);
             ReportModel.Currency = await _reportService.GetCurrencyStatistics(filter);
             ReportModel.LoginCounter = await _reportService.GetLoginStatistics(filter);
             ReportModel.TransferCounter = await _reportService.GetTransferStatistics(filter);
@@ -43,10 +43,7 @@ namespace LoopBreakers.WebApp.Controllers
                 BackgroundJobsHelper.TransferActivity = filter.TransferActivity;
                 BackgroundJobsHelper.EmailAddress = filter.EmailAddress;
                 RecurringJob.AddOrUpdate(() => _reportService.CallMethodHelperForEmailSending(filter), Cron.Daily(filter.EmailSend.Value.Hour, filter.EmailSend.Value.Minute));
-
             }
-
-
 
             if (filter.DateTo == null)
             {
@@ -55,75 +52,6 @@ namespace LoopBreakers.WebApp.Controllers
             ReportModel.SearchFilter = filter;
 
             return View(ReportModel);
-        }
-       
-        // GET: ReportController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: ReportController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ReportController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ReportController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ReportController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ReportController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }     
-
-        // POST: ReportController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
