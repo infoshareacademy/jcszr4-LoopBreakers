@@ -85,6 +85,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\DTOs\DTOs.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DTOs.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Views\Client\Create.Designer.cs">
       <DependentUpon>Create.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -153,6 +158,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\DTOs\DTOs.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\DTOs\DTOs.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DTOs.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Client\Create.resx">
       <LastGenOutput>Create.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
