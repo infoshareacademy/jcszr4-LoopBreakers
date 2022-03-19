@@ -1,24 +1,18 @@
 ﻿@model LoopBreakers.WebApp.DTOs.TransferPerformDTO
-
 @using Microsoft.AspNetCore.Mvc.Localization
 @using LoopBreakers.DAL.Enums
 @inject IViewLocalizer _localizer
 
 @{
-    ViewData["Title"] = "Create New Transfer";
+    ViewData["Title"] = @_localizer["sendTransfer"];
 }
 
-<h3>@_localizer["createTransfer"]</h3>
+<h2>@_localizer["sendTransfer"]r</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Send">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Iban" class="control-label"></label>
-                <input asp-for="Iban" class="form-control" />
-                <span asp-validation-for="Iban" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
@@ -28,6 +22,11 @@
                 <label asp-for="LastName" class="control-label"></label>
                 <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Iban" class="control-label"></label>
+                <input asp-for="Iban" class="form-control" />
+                <span asp-validation-for="Iban" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Amount" class="control-label"></label>
@@ -46,7 +45,7 @@
                 <span asp-validation-for="Reference" class="text-danger"></span>
             </div>
             <div class="form-group mt-2">
-                <input type="submit" value="@_localizer["create"]" class="btn btn-primary" /> <a class="btn btn-danger" asp-action="Index">@_localizer["cancel"]</a>
+                <input type="submit" value="@_localizer["send"]" class="btn btn-primary" /> <a class="btn btn-danger" asp-action="Index">@_localizer["cancel"]</a>
             </div>
         </form>
     </div>
@@ -55,15 +54,9 @@
 @{
     if (ViewBag.NotEnoughMoney)
     {
-        <script>
-            alert("Transfer amount is higher than Client balance!");
-        </script>
-    }
-    if (ViewBag.WrongUser)
-    {
-        <script>
-            alert("The Client with this surname was not found!");
-        </script>
+    <script>
+            alert(@_localizer["balanceWarning"]);
+    </script>
     }
 }
 

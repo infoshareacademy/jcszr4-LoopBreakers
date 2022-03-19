@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="addNew" xml:space="preserve">
-    <value>dodaj nowego odbiorcę</value>
+    <value>Dodaj nowego odbiorcę</value>
   </data>
   <data name="clear" xml:space="preserve">
-    <value>wyczyść</value>
+    <value>Wyczyść</value>
   </data>
-  <data name="recipents" xml:space="preserve">
+  <data name="recipients" xml:space="preserve">
     <value>Odbiorcy</value>
   </data>
   <data name="search" xml:space="preserve">
-    <value>szukaj</value>
+    <value>Szukaj</value>
   </data>
 </root>

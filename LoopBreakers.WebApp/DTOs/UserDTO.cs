@@ -22,7 +22,7 @@ namespace LoopBreakers.WebApp.DTOs
 
         [Required]
         [Display(Name = "currency", ResourceType = typeof(Resources.DTOs.DTOs))]
-        public string Currency { get; set; }
+        public Currency Currency { get; set; }
 
         [Required]
         [Range(18, 130, ErrorMessage = "Age must be between 18 and 130")]

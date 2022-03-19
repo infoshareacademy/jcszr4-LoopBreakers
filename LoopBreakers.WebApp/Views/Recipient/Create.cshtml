@@ -1,13 +1,12 @@
 ﻿@model LoopBreakers.WebApp.DTOs.RecipientDTO
-
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer _localizer
 
 @{
-    ViewData["Title"] = "New Recipient";
+    ViewData["Title"] = @_localizer["newRecipient"];
 }
 
-<h3>@_localizer["newRecipent"]</h3>
+<h3>@_localizer["newRecipient"]</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">

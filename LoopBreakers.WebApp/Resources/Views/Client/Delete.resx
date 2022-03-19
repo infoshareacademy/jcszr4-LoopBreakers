@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="cancel" xml:space="preserve">
-    <value>anuluj</value>
+    <value>Anuluj</value>
   </data>
   <data name="delete" xml:space="preserve">
-    <value>usuń</value>
+    <value>Usuń</value>
   </data>
   <data name="deleteClient" xml:space="preserve">
     <value>Usuwanie klienta</value>

@@ -11,10 +11,10 @@ namespace LoopBreakers.WebApp.DTOs
         [MaxLength(28)]
         public string Iban { get; set; }
         [Required]
-        [Display(Name = "reciverFirstname", ResourceType = typeof(Resources.DTOs.DTOs))]
+        [Display(Name = "receiverFirstname", ResourceType = typeof(Resources.DTOs.DTOs))]
         public string FirstName { get; set; }
         [Required]
-        [Display(Name = "reciverLastname", ResourceType = typeof(Resources.DTOs.DTOs))]
+        [Display(Name = "receiverLastname", ResourceType = typeof(Resources.DTOs.DTOs))]
         public string LastName { get; set; }
         public string FromId { get; set; }
         public TransferType Type { get; set; }

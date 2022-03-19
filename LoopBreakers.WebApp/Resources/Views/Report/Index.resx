@@ -117,23 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="active" xml:space="preserve">
+    <value>Aktywny</value>
+  </data>
   <data name="activityReport" xml:space="preserve">
     <value>Raport aktywności</value>
   </data>
   <data name="clear" xml:space="preserve">
-    <value>wyczyść</value>
+    <value>Wyczyść</value>
+  </data>
+  <data name="currency" xml:space="preserve">
+    <value>Waluty</value>
   </data>
   <data name="currencyStats" xml:space="preserve">
     <value>Statystyki waluty</value>
   </data>
   <data name="dailyReportEmailHour" xml:space="preserve">
-    <value>godzinna dziennego raportu email</value>
+    <value>Godzinna dziennego raportu email</value>
   </data>
   <data name="dateFrom" xml:space="preserve">
-    <value>szukaj od daty</value>
+    <value>Szukaj od daty</value>
   </data>
   <data name="enterEmail" xml:space="preserve">
-    <value>wpisz adres email</value>
+    <value>Wpisz adres email</value>
+  </data>
+  <data name="inactive" xml:space="preserve">
+    <value>Nieaktywny</value>
+  </data>
+  <data name="logins" xml:space="preserve">
+    <value>Logowania</value>
   </data>
   <data name="loginsCounter" xml:space="preserve">
     <value>Licznik logowań</value>
@@ -144,14 +156,29 @@
   <data name="registerCounter" xml:space="preserve">
     <value>Licznik rejestracji</value>
   </data>
+  <data name="registers" xml:space="preserve">
+    <value>Rejestracje</value>
+  </data>
   <data name="reports" xml:space="preserve">
     <value>Raporty</value>
   </data>
   <data name="search" xml:space="preserve">
-    <value>szukaj</value>
+    <value>Szukaj</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>Wybierz</value>
+  </data>
+  <data name="set" xml:space="preserve">
+    <value>Ustaw</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>do</value>
   </data>
   <data name="transferReport" xml:space="preserve">
     <value>Prześlij raport</value>
+  </data>
+  <data name="transfers" xml:space="preserve">
+    <value>Transfery</value>
   </data>
   <data name="transfersCounter" xml:space="preserve">
     <value>Licznik transferów</value>

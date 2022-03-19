@@ -61,7 +61,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Client {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to anuluj.
+        ///   Looks up a localized string similar to Anuluj.
         /// </summary>
         public static string cancel {
             get {
@@ -79,7 +79,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Client {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to zapisz.
+        ///   Looks up a localized string similar to Zapisz.
         /// </summary>
         public static string save {
             get {

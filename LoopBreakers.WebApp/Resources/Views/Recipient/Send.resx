@@ -117,25 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="clients" xml:space="preserve">
-    <value>Clients</value>
+  <data name="balanceWarning" xml:space="preserve">
+    <value>Niewystarczająca ilość środków na koncie!</value>
   </data>
-  <data name="home" xml:space="preserve">
-    <value>Home</value>
+  <data name="cancel" xml:space="preserve">
+    <value>Anuluj</value>
   </data>
-  <data name="login" xml:space="preserve">
-    <value>Login</value>
+  <data name="send" xml:space="preserve">
+    <value>Wyślij</value>
   </data>
-  <data name="logout" xml:space="preserve">
-    <value>Logout</value>
-  </data>
-  <data name="recipients" xml:space="preserve">
-    <value>Recipients</value>
-  </data>
-  <data name="reports" xml:space="preserve">
-    <value>Reports</value>
-  </data>
-  <data name="transfers" xml:space="preserve">
-    <value>Transfers</value>
+  <data name="sendTransfer" xml:space="preserve">
+    <value>Utwórz przelew</value>
   </data>
 </root>

@@ -117,23 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="active" xml:space="preserve">
+    <value>Active</value>
+  </data>
   <data name="activityReport" xml:space="preserve">
     <value>Activity Report</value>
   </data>
   <data name="clear" xml:space="preserve">
-    <value>clear</value>
+    <value>Clear</value>
+  </data>
+  <data name="currency" xml:space="preserve">
+    <value>Currency</value>
   </data>
   <data name="currencyStats" xml:space="preserve">
     <value>Currency Statistics</value>
   </data>
   <data name="dailyReportEmailHour" xml:space="preserve">
-    <value>daily report email hour:</value>
+    <value>Daily report email hour</value>
   </data>
   <data name="dateFrom" xml:space="preserve">
     <value>Search date from</value>
   </data>
   <data name="enterEmail" xml:space="preserve">
     <value>Enter your email address</value>
+  </data>
+  <data name="inactive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="logins" xml:space="preserve">
+    <value>Logins</value>
   </data>
   <data name="loginsCounter" xml:space="preserve">
     <value>Logins counter</value>
@@ -144,14 +156,29 @@
   <data name="registerCounter" xml:space="preserve">
     <value>Register counter</value>
   </data>
+  <data name="registers" xml:space="preserve">
+    <value>Registers</value>
+  </data>
   <data name="reports" xml:space="preserve">
     <value>Reports</value>
   </data>
   <data name="search" xml:space="preserve">
-    <value>search</value>
+    <value>Search</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="set" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>to</value>
   </data>
   <data name="transferReport" xml:space="preserve">
     <value>Transfer Report</value>
+  </data>
+  <data name="transfers" xml:space="preserve">
+    <value>Transfers</value>
   </data>
   <data name="transfersCounter" xml:space="preserve">
     <value>Transfer Counter</value>

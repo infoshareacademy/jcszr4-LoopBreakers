@@ -1,13 +1,12 @@
 ﻿@model LoopBreakers.WebApp.DTOs.RecipientDTO
-
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer _localizer
 
 @{
-    ViewData["Title"] = "Edit Recipient";
+    ViewData["Title"] = @_localizer["editRecipient"];
 }
 
-<h3>@_localizer["editRecipent"]</h3>
+<h3>@_localizer["editRecipient"]</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -47,4 +46,3 @@
         </form>
     </div>
 </div>
-

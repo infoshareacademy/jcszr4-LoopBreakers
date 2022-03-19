@@ -7,6 +7,6 @@ namespace LoopBreakers.WebApp.Contracts
 {
     public interface IRecipientService
     {
-        Task<IEnumerable<Recipient>> FilterBy(SearchViewModel filter);
+        Task<IEnumerable<Recipient>> FilterBy(SearchViewModel filter, ApplicationUser user);
     }
 }

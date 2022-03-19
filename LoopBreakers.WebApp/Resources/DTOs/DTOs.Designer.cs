@@ -178,20 +178,20 @@ namespace LoopBreakers.WebApp.Resources.DTOs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nazwisko odbiorcy.
+        ///   Looks up a localized string similar to Imię odbiorcy.
         /// </summary>
-        public static string recieverLastname {
+        public static string receiverFirstname {
             get {
-                return ResourceManager.GetString("recieverLastname", resourceCulture);
+                return ResourceManager.GetString("receiverFirstname", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Imię odbiorcy.
+        ///   Looks up a localized string similar to Nazwisko odbiorcy.
         /// </summary>
-        public static string reciverFirstname {
+        public static string receiverLastname {
             get {
-                return ResourceManager.GetString("reciverFirstname", resourceCulture);
+                return ResourceManager.GetString("receiverLastname", resourceCulture);
             }
         }
         

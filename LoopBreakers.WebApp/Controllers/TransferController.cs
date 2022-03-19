@@ -67,53 +67,14 @@ namespace LoopBreakers.WebApp.Controllers
             }
             try
             {
-                var userLogon = HttpContext.User.Identity.Name;
-                var currentUser = await _clientService.FindTransferPerformer(userLogon);
-                var transferRecipient = await _clientService.FindRecipient(transfer.Iban);
-                transfer.Created= DateTime.Now;
-                var transferOut = _mapper.Map<Transfer>(transfer);
-                transferOut.FromId = currentUser.Id.ToString();
-                var transferReportOut = _mapper.Map<TransferReportDTO>(transfer);
-                transferReportOut.CountryCode = transfer.Iban.Substring(0, 2).ToUpper();
-
-                if (currentUser != null)
+                var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+                var result = await _transferService.SendTransfer(transfer, user);
+                if (!result)
                 {
-                    if (transfer.Amount > currentUser.Balance)
-                    {
-                        transfer.FromId = currentUser.IdentityNumber;
-                        transfer.Currency = currentUser.Currency;
-                        transfer.Created = DateTime.Now;
-                        ViewBag.NotEnoughMoney = true;
-                    }
-                    else
-                    {
-                        await _transferService.CreateNew(transferOut);
-                        currentUser.Balance -= transferOut.Amount;
-                        await _clientService.PerformerBalanceUpdateAfterTransfer(currentUser);
-                        await _reportService.SendTransferReport(transferReportOut);
-                        await _reportService.SendActivityReport(new ActivityReportDTO
-                        {
-                            Description = "Transfer created",
-                            Created = DateTime.Now,
-                            Email = currentUser.Email,
-                            FirstName = currentUser.FirstName,
-                            LastName = currentUser.LastName,
-                            ActivityType = ActivityEvents.transfering
-                        });
-
-                        if (transferRecipient != null)
-                        {
-                            transferRecipient.Balance += transferOut.Amount;
-                            await _clientService.RecipientBalanceUpdateAfterTransfer(transferRecipient);
-                        }
-                        return RedirectToAction(nameof(Index));
-                    }
+                    ViewBag.NotEnoughMoney = true;
+                    return View();
                 }
-                else
-                {
-                    ViewBag.WrongUser = true;
-                }
-                return View();
+                return RedirectToAction(nameof(Index));
 
             }
             catch
@@ -128,9 +89,8 @@ namespace LoopBreakers.WebApp.Controllers
             {
                 filter.DateTo = DateTime.Now;
             }
-            var userLogon = HttpContext.User.Identity.Name;
-            var currentUser = await _clientService.FindTransferPerformer(userLogon);
-            var transfers = await _transferService.FilterBy(filter, currentUser);
+            var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+            var transfers = await _transferService.FilterBy(filter, user);
             var transferModel = new TransferViewDTO()
             {
                 Transfer = _mapper.Map<IEnumerable<TransferDTO>>(transfers),

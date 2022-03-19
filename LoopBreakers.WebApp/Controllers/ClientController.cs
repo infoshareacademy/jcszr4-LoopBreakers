@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LoopBreakers.WebApp.Controllers
 {
-    [Authorize(Roles = "User,Admin")]
+    [Authorize(Roles = "Admin")]
     public class ClientController : Controller
     {
         private readonly IBaseRepository<ApplicationUser> _clientRepository;
