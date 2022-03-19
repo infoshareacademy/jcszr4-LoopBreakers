@@ -1,6 +1,7 @@
 ﻿@model LoopBreakers.WebApp.DTOs.TransferPerformDTO
 
 @using Microsoft.AspNetCore.Mvc.Localization
+@using LoopBreakers.DAL.Enums
 @inject IViewLocalizer _localizer
 
 @{
@@ -32,6 +33,12 @@
                 <label asp-for="Amount" class="control-label"></label>
                 <input asp-for="Amount" class="form-control" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency" class="control-label"></label>
+                <select asp-for="Currency" asp-items="@Html.GetEnumSelectList<Currency>()" class="form-control">
+                </select>
+                <span asp-validation-for="Currency" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Reference" class="control-label"></label>
