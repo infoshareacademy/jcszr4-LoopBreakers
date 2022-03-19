@@ -126,4 +126,10 @@
   <data name="createTransfer" xml:space="preserve">
     <value>Utwórz transfer</value>
   </data>
+  <data name="invalidRecipient" xml:space="preserve">
+    <value>Nie można wysłać przelewu do tego konta!</value>
+  </data>
+  <data name="notEnoughMoney" xml:space="preserve">
+    <value>Nie masz wystarczjącej ilości środków na koncie!</value>
+  </data>
 </root>

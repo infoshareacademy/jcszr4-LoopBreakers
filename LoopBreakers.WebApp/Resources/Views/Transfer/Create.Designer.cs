@@ -86,5 +86,23 @@ namespace LoopBreakers.WebApp.Resources.Views.Transfer {
                 return ResourceManager.GetString("createTransfer", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie można wysłać przelewu do tego konta!.
+        /// </summary>
+        public static string invalidRecipient {
+            get {
+                return ResourceManager.GetString("invalidRecipient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie masz wystarczjącej ilości środków na koncie!.
+        /// </summary>
+        public static string notEnoughMoney {
+            get {
+                return ResourceManager.GetString("notEnoughMoney", resourceCulture);
+            }
+        }
     }
 }

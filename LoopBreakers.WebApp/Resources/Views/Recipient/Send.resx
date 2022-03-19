@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="balanceWarning" xml:space="preserve">
-    <value>Niewystarczająca ilość środków na koncie!</value>
-  </data>
   <data name="cancel" xml:space="preserve">
     <value>Anuluj</value>
+  </data>
+  <data name="invalidRecipient" xml:space="preserve">
+    <value>Nie można wysłać przelewu do tego konta!</value>
+  </data>
+  <data name="notEnoughMoney" xml:space="preserve">
+    <value>Nie masz wystarczjącej ilości środków na koncie!</value>
   </data>
   <data name="send" xml:space="preserve">
     <value>Wyślij</value>

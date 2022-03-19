@@ -126,4 +126,10 @@
   <data name="createTransfer" xml:space="preserve">
     <value>Create transfer</value>
   </data>
+  <data name="invalidRecipient" xml:space="preserve">
+    <value>You cannot send a transfer to this account!</value>
+  </data>
+  <data name="notEnoughMoney" xml:space="preserve">
+    <value>You do not have enough funds in your account!</value>
+  </data>
 </root>

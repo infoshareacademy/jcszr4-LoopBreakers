@@ -7,7 +7,7 @@
     ViewData["Title"] = @_localizer["sendTransfer"];
 }
 
-<h2>@_localizer["sendTransfer"]r</h2>
+<h3 class="mt-4">@_localizer["sendTransfer"]</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -54,9 +54,15 @@
 @{
     if (ViewBag.NotEnoughMoney)
     {
-    <script>
-            alert(@_localizer["balanceWarning"]);
-    </script>
+        <script>
+            alert("@_localizer["notEnoughMoney"]");
+        </script>
+    }
+    if (ViewBag.WrongUser)
+    {
+        <script>
+            alert("@_localizer["invalidRecipient"]");
+        </script>
     }
 }
 

@@ -68,6 +68,11 @@ namespace LoopBreakers.WebApp.Controllers
             try
             {
                 var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+                if (user.Iban == transfer.Iban)
+                {
+                    ViewBag.WrongUser = true;
+                    return View();
+                }
                 var result = await _transferService.SendTransfer(transfer, user);
                 if (!result)
                 {
@@ -75,7 +80,6 @@ namespace LoopBreakers.WebApp.Controllers
                     return View();
                 }
                 return RedirectToAction(nameof(Index));
-
             }
             catch
             {

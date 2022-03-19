@@ -123,6 +123,9 @@
   <data name="create" xml:space="preserve">
     <value>Create</value>
   </data>
+  <data name="invalidRecipient" xml:space="preserve">
+    <value>You cannot add your account as recipient!</value>
+  </data>
   <data name="newRecipient" xml:space="preserve">
     <value>Create recipient</value>
   </data>

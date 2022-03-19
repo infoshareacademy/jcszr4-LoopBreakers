@@ -9,7 +9,7 @@
     string dateTo = Model.SearchFilter.DateTo == null ? "" : ((DateTime)Model.SearchFilter.DateTo).ToString("yyyy-MM-dd");
 }
 
-<h3>@_localizer["transfers"]</h3>
+<h3 class="mt-4">@_localizer["transfers"]</h3>
 
 <p>
     <a class="btn btn-primary" asp-action="Create"><i class="bi bi-plus-circle me-2"></i>@_localizer["addNew"]</a>

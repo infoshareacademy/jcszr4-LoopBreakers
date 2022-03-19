@@ -8,7 +8,7 @@
     ViewData["Title"] = "Create New Transfer";
 }
 
-<h3>@_localizer["createTransfer"]</h3>
+<h3 class="mt-4">@_localizer["createTransfer"]</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -56,13 +56,13 @@
     if (ViewBag.NotEnoughMoney)
     {
         <script>
-            alert("Transfer amount is higher than Client balance!");
+            alert("@_localizer["notEnoughMoney"]");
         </script>
     }
     if (ViewBag.WrongUser)
     {
         <script>
-            alert("The Client with this surname was not found!");
+            alert("@_localizer["invalidRecipient"]");
         </script>
     }
 }

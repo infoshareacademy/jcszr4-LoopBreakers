@@ -36,8 +36,7 @@ namespace LoopBreakers.WebApp.Services
 
             if (user.Id > 1)
             {
-                transfersQuery = transfersQuery.Where(q => q.FromId == user.Id.ToString() ||
-                                                           q.Iban == user.Iban);
+                transfersQuery = transfersQuery.Where(q => q.FromId == user.Id.ToString() || q.Iban == user.Iban);
             }
             if (filter.DateFrom.HasValue && filter.DateTo.HasValue)
             {

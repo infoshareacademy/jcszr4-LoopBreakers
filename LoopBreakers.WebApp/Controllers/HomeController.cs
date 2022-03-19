@@ -63,8 +63,8 @@ namespace LoopBreakers.WebApp.Controllers
                     var homeView = new HomePageViewDTO();
                     var filter = new SearchViewModel()
                     {
-                        DateFrom = DateTime.UtcNow.AddYears(-50),
-                        DateTo = DateTime.UtcNow
+                        DateFrom = DateTime.Now.AddYears(-50),
+                        DateTo = null
                     };
                     var transfers = await _transferService.FilterBy(filter, user);
                     var transfersDto = _mapper.Map<IEnumerable<TransferDTO>>(transfers);
@@ -77,7 +77,6 @@ namespace LoopBreakers.WebApp.Controllers
                     homeView.Currency = user.Currency;
 
                     return View(homeView);
-
                 }
                 else
                 {

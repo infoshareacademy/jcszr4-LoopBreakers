@@ -53,6 +53,7 @@ namespace LoopBreakers.WebApp.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.WrongUser = false; 
             return View();
         }
 
@@ -60,15 +61,21 @@ namespace LoopBreakers.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(RecipientDTO model)
         {
+            ViewBag.WrongUser = false; 
             try
             {
                 if (!ModelState.IsValid)
                 {
                     return View(model);
                 }
+                var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+                if (user.Iban == model.Iban)
+                {
+                    ViewBag.WrongUser = true;
+                    return View();
+                }
                 var recipient = _mapper.Map<Recipient>(model);
                 recipient.Created = DateTime.Now;
-                var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
                 recipient.FromId = user.Id.ToString();
                 await _recipientRepository.Create(recipient);
 
@@ -82,7 +89,8 @@ namespace LoopBreakers.WebApp.Controllers
 
         public async Task<ActionResult> Send(int id)
         {
-            ViewBag.NotEnoughMoney = false; 
+            ViewBag.NotEnoughMoney = false;
+            ViewBag.WrongUser = false;
             var recipient = await _recipientRepository.FindById(id);
             var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
             if (recipient.FromId != user.Id.ToString())
@@ -100,6 +108,7 @@ namespace LoopBreakers.WebApp.Controllers
         public async Task<ActionResult> SendAsync(int id, TransferPerformDTO transfer)
         {
             ViewBag.NotEnoughMoney = false;
+            ViewBag.WrongUser = false;
             if (!ModelState.IsValid)
             {
                 return View();
@@ -107,6 +116,12 @@ namespace LoopBreakers.WebApp.Controllers
             try
             {
                 var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+                if (user.Iban == transfer.Iban)
+                {
+                    ViewBag.WrongUser = true;
+                    return View();
+                }
+                
                 var result = await _transferService.SendTransfer(transfer, user);
                 if (!result)
                 {

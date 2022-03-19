@@ -79,6 +79,15 @@ namespace LoopBreakers.WebApp.Resources.Views.Recipient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nie można podać swojego konta jako odbiorcę!.
+        /// </summary>
+        public static string invalidRecipient {
+            get {
+                return ResourceManager.GetString("invalidRecipient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Utwórz odbiorcę.
         /// </summary>
         public static string newRecipient {
