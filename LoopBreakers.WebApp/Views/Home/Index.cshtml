@@ -1,12 +1,85 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using LoopBreakers.DAL.Enums
+
+@model HomePageViewDTO
 @inject IViewLocalizer _localizer
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center mt-5">
-    <h1 class="display-4">@_localizer["welcome"]</h1>
-    <h1 class="display-4">@_localizer["to"]</h1>
-    <h1 class="display-4"><i class="bi bi-bank me-2"></i>@_localizer["financialApp"]</h1>
+<div class="card mt-5">
+    <div class="card-header">
+        @Model.Firstname @Model.Lastname 
+    </div>
+    <div class="card-body">
+        <div class="d-flex">
+            <h5 class="card-title">@Model.AccountNumber</h5>
+            <h5 class="ms-auto">@Model.Balance@Model.Currency</h5>
+        </div>
+        <p class="card-text">
+            <div class="row">
+                <div class="col">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TransfersHistory.First().Created)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TransfersHistory.First().Iban)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TransfersHistory.First().FirstName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TransfersHistory.First().LastName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TransfersHistory.First().Type)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TransfersHistory.First().Amount)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TransfersHistory.First().Reference)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.TransfersHistory)
+                            {
+                                <tr class="@(item.Type == TransferType.Payment ? "table-danger" : "table-success")">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Created)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Iban)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FirstName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LastName)
+                                    </td>
+                                    <td>
+                                        <i class="@(item.Type == TransferType.Payment ? "bi bi-arrow-right-circle-fill text-danger" : "bi bi-arrow-left-circle-fill text-success")"></i> @Html.DisplayFor(modelItem => item.Type)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Amount) @Html.DisplayFor(modelItem => item.Currency)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Reference)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </p>
+        <a href="/transfer/create" class="btn btn-primary">@_localizer["createTransfer"]</a>
+        <a href="/transfer" class="btn btn-primary">@_localizer["fullHistory"]</a>
+    </div>
 </div>

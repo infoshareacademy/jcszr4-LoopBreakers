@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using LoopBreakers.WebApp.DTOs;
+using LoopBreakers.DAL.Repositories;
+using AutoMapper;
 
 namespace LoopBreakers.WebApp.Controllers
 {
@@ -18,14 +21,23 @@ namespace LoopBreakers.WebApp.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IBaseRepository<Transfer> _transferRepository;
+        private readonly ITransferService _transferService;
+        private readonly IMapper _mapper;
 
         public HomeController(ILogger<HomeController> logger, 
                                 UserManager<ApplicationUser> userManager, 
-                                SignInManager<ApplicationUser> signInManager)
+                                SignInManager<ApplicationUser> signInManager,
+                                IBaseRepository<Transfer> transferRepository,
+                                ITransferService transferService,
+                                IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _transferRepository = transferRepository;
+            _transferService = transferService;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -37,9 +49,27 @@ namespace LoopBreakers.WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+            var homeView = new HomePageViewDTO();
+            var filter = new SearchViewModel()
+            {
+                DateFrom = DateTime.UtcNow.AddYears(-50),
+                DateTo = DateTime.UtcNow
+            };
+            var transfers = await _transferService.FilterBy(filter, user);
+            var transfersDto = _mapper.Map<IEnumerable<TransferDTO>>(transfers);
+            transfersDto
+                .OrderBy(x => x.Created)
+                .Take(12);
+            homeView.AccountNumber = user.Iban;
+            homeView.Firstname = user.FirstName;
+            homeView.Lastname = user.LastName;
+            homeView.Balance = user.Balance;
+            homeView.TransfersHistory = transfersDto;
+            homeView.Currency = user.Currency;
+            return View(homeView);
         }
     }
 }

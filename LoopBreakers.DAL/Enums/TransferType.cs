@@ -1,4 +1,6 @@
-﻿namespace LoopBreakers.DAL.Enums
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LoopBreakers.DAL.Enums
 {
     public enum TransferType
     {
