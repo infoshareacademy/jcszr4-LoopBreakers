@@ -159,6 +159,9 @@
   <data name="identityNumber" xml:space="preserve">
     <value>Numer identyfikacyjny</value>
   </data>
+  <data name="isActive" xml:space="preserve">
+    <value>Czy aktywny?</value>
+  </data>
   <data name="lastname" xml:space="preserve">
     <value>Nazwisko</value>
   </data>

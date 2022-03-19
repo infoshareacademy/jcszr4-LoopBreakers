@@ -187,6 +187,15 @@ namespace LoopBreakers.WebApp.Resources.DTOs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Czy aktywny?.
+        /// </summary>
+        public static string isActive {
+            get {
+                return ResourceManager.GetString("isActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nazwisko.
         /// </summary>
         public static string lastname {
