@@ -13,6 +13,7 @@ namespace LoopBreakers.WebApp.DTOs
 
         [Display(Name = "identityNumber", ResourceType = typeof(Resources.DTOs.DTOs))]
         public string IdentityNumber { get; set; }
+        [Display(Name = "isActive", ResourceType = typeof(Resources.DTOs.DTOs))]
         public bool IsActive { get; set; }
 
         [Required]
