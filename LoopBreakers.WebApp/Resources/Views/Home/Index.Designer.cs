@@ -61,11 +61,38 @@ namespace LoopBreakers.WebApp.Resources.Views.Home {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to nowy przelew.
+        /// </summary>
+        public static string createTransfer {
+            get {
+                return ResourceManager.GetString("createTransfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aplikacji bankowej LoopBreakers.
         /// </summary>
         public static string financialApp {
             get {
                 return ResourceManager.GetString("financialApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to historia transferów.
+        /// </summary>
+        public static string fullHistory {
+            get {
+                return ResourceManager.GetString("fullHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ostatnie trasfery:.
+        /// </summary>
+        public static string recentTransfers {
+            get {
+                return ResourceManager.GetString("recentTransfers", resourceCulture);
             }
         }
         
