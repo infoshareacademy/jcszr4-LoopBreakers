@@ -53,41 +53,55 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "E-mail")]
+            [Display(Name = "email", ResourceType = typeof(Resources.DTOs.DTOs))]
             public string Email { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "password", ResourceType = typeof(Resources.DTOs.DTOs))]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "confirmPassword", ResourceType = typeof(Resources.DTOs.DTOs))]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
             public DateTime Created { get; set; } = DateTime.Now;
 
-            [Required, Display(Name = "Balance for start ;)"), Range(0, 999999999)]
+            [Required]
+            [Display(Name = "balanceForStart", ResourceType = typeof(Resources.DTOs.DTOs))]
+            [Range(0, 999999999)]
             public decimal Balance { get; set; }
-            [Required, Display(Name = "Currency")]
+
+            [Required]
+            [Display(Name = "currency", ResourceType = typeof(Resources.DTOs.DTOs))]
             public Currency Currency { get; set; }
-            [Required, Display(Name = "Age"), Range(18,120)]
+            [Required]
+            [Display(Name = "age", ResourceType = typeof(Resources.DTOs.DTOs))]
+            [Range(18,120)]
             public int Age { get; set; }
-            [Required, Display(Name = "First name")]
+            [Required]
+            [Display(Name = "firstname", ResourceType = typeof(Resources.DTOs.DTOs))]
             public string FirstName { get; set; }
-            [Required, Display(Name = "Last name")]
+            [Required]
+            [Display(Name = "lastname", ResourceType = typeof(Resources.DTOs.DTOs))]
             public string LastName { get; set; }
-            [Required, Display(Name = "Sex")]
+            [Required]
+            [Display(Name = "gender", ResourceType = typeof(Resources.DTOs.DTOs))]
             public Gender Gender { get; set; }
-            [Display(Name = "Company")]
+            [Display(Name = "company", ResourceType = typeof(Resources.DTOs.DTOs))]
             public string Company { get; set; }
-            [Required, Display(Name = "Phone [+48...]"), MinLength(12), MaxLength(13)]
+            [Required]
+            [Display(Name = "newPhone", ResourceType = typeof(Resources.DTOs.DTOs))]
+            [MinLength(12), MaxLength(13)]
             public string Phone { get; set; }
-            [Required, Display(Name = "Address")]
+            [Required]
+            [Display(Name = "address", ResourceType = typeof(Resources.DTOs.DTOs))]
             public string Address { get; set; }
-            public DateTime Registered { get; set; }=DateTime.Now;
-            [Required, Display(Name = "Account number - IBAN [PL...]"), MinLength(28), MaxLength(28)]
+            public DateTime Registered { get; set; } = DateTime.Now;
+            [Required]
+            [Display(Name = "newIban", ResourceType = typeof(Resources.DTOs.DTOs))]
+            [MinLength(28), MaxLength(28)]
             public string Iban { get; set; }
         }
 

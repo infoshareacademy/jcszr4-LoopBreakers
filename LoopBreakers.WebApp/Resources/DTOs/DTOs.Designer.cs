@@ -97,11 +97,29 @@ namespace LoopBreakers.WebApp.Resources.DTOs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Środki na start :).
+        /// </summary>
+        public static string balanceForStart {
+            get {
+                return ResourceManager.GetString("balanceForStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Firma.
         /// </summary>
         public static string company {
             get {
                 return ResourceManager.GetString("company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Powtórz hasło.
+        /// </summary>
+        public static string confirmPassword {
+            get {
+                return ResourceManager.GetString("confirmPassword", resourceCulture);
             }
         }
         
@@ -174,6 +192,24 @@ namespace LoopBreakers.WebApp.Resources.DTOs {
         public static string lastname {
             get {
                 return ResourceManager.GetString("lastname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Numer konta - IBAN [PL...].
+        /// </summary>
+        public static string newIban {
+            get {
+                return ResourceManager.GetString("newIban", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telefon [+48...].
+        /// </summary>
+        public static string newPhone {
+            get {
+                return ResourceManager.GetString("newPhone", resourceCulture);
             }
         }
         

@@ -51,7 +51,7 @@ namespace LoopBreakers.WebApp.Services
                                                            n.Iban.Contains(filter.SearchText));
             }
 
-            var data = await transfersQuery.ToListAsync();
+            var data = await transfersQuery.OrderByDescending(d=>d.Created).ToListAsync();
             for(int i = 0; i< data.Count(); i++)
             {
                 if (user.Iban == data[i].Iban)

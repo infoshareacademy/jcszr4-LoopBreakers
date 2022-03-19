@@ -129,8 +129,14 @@
   <data name="balance" xml:space="preserve">
     <value>Balance</value>
   </data>
+  <data name="balanceForStart" xml:space="preserve">
+    <value>Balance for start ;)</value>
+  </data>
   <data name="company" xml:space="preserve">
     <value>Company</value>
+  </data>
+  <data name="confirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
   </data>
   <data name="createdDate" xml:space="preserve">
     <value>Created</value>
@@ -155,6 +161,12 @@
   </data>
   <data name="lastname" xml:space="preserve">
     <value>Last name</value>
+  </data>
+  <data name="newIban" xml:space="preserve">
+    <value>Account number - IBAN [PL...]</value>
+  </data>
+  <data name="newPhone" xml:space="preserve">
+    <value>Phone [+48...]</value>
   </data>
   <data name="password" xml:space="preserve">
     <value>Password</value>
