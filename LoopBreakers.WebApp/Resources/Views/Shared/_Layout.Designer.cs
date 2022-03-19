@@ -99,9 +99,9 @@ namespace LoopBreakers.WebApp.Resources.Views.Shared {
         /// <summary>
         ///   Looks up a localized string similar to Odbiorcy.
         /// </summary>
-        public static string recipents {
+        public static string recipients {
             get {
-                return ResourceManager.GetString("recipents", resourceCulture);
+                return ResourceManager.GetString("recipients", resourceCulture);
             }
         }
         

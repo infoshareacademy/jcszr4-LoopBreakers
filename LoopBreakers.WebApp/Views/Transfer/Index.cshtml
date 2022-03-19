@@ -1,10 +1,10 @@
 ﻿@model TransferViewDTO
-
 @using Microsoft.AspNetCore.Mvc.Localization
+@using LoopBreakers.DAL.Enums
 @inject IViewLocalizer _localizer
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = @_localizer["transfers"];
     string dateFrom = Model.SearchFilter.DateFrom == null ? "" : ((DateTime)Model.SearchFilter.DateFrom).ToString("yyyy-MM-dd");
     string dateTo = Model.SearchFilter.DateTo == null ? "" : ((DateTime)Model.SearchFilter.DateTo).ToString("yyyy-MM-dd");
 }
@@ -14,7 +14,6 @@
 <p>
     <a class="btn btn-primary" asp-action="Create"><i class="bi bi-plus-circle me-2"></i>@_localizer["addNew"]</a>
 </p>
-
 <hr />
 <div class="row">
     <div class="col-auto">
@@ -57,6 +56,9 @@
             <thead>
                 <tr>
                     <th>
+                        @Html.DisplayNameFor(model => model.Transfer.First().Created)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Transfer.First().Iban)
                     </th>
                     <th>
@@ -72,18 +74,17 @@
                         @Html.DisplayNameFor(model => model.Transfer.First().Amount)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Transfer.First().Created)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Transfer.First().Reference)
                     </th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.Transfer)
                 {
-                    <tr>
+                    <tr class="@(item.Type == TransferType.Payment ? "table-danger" : "table-success")">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Iban)
                         </td>
@@ -94,21 +95,13 @@
                             @Html.DisplayFor(modelItem => item.LastName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Type)
+                            <i class="@(item.Type == TransferType.Payment ? "bi bi-arrow-right-circle-fill text-danger" : "bi bi-arrow-left-circle-fill text-success")"></i> @Html.DisplayFor(modelItem => item.Type)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Amount) @Html.DisplayFor(modelItem => item.Currency)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Created)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Reference)
-                        </td>
-                        <td>
-                            @*<div class="btn-group-sm" role="group" aria-label="Basic example">
-                                    <a class="btn btn-primary " asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                </div>*@
                         </td>
                     </tr>
                 }

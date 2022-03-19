@@ -129,7 +129,7 @@
   <data name="logout" xml:space="preserve">
     <value>Wyloguj</value>
   </data>
-  <data name="recipents" xml:space="preserve">
+  <data name="recipients" xml:space="preserve">
     <value>Odbiorcy</value>
   </data>
   <data name="reports" xml:space="preserve">

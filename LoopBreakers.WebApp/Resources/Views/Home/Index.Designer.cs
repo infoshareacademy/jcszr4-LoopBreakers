@@ -61,7 +61,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to aplikacji bankowej LoopBreakers.
+        ///   Looks up a localized string similar to Aplikacji bankowej LoopBreakers.
         /// </summary>
         public static string financialApp {
             get {

@@ -2,10 +2,10 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer _localizer
 @{
-    ViewData["Title"] = "Delete Recipient";
+    ViewData["Title"] = @_localizer["deleteRecipient"];
 }
 
-<h3>@_localizer["deleteRecipent"]</h3>
+<h3>@_localizer["deleteRecipient"]</h3>
 <hr />
 <h4>@_localizer["ensureDelete"]</h4>
 <div>

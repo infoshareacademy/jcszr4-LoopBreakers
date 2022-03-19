@@ -4,7 +4,7 @@
 @inject IViewLocalizer _localizer
 
 @{
-    ViewData["Title"] = "Clients";
+    ViewData["Title"] = @_localizer["clients"];
 }
 
 <h3>@_localizer["clients"]</h3>
@@ -150,9 +150,6 @@
                                                 @Html.DisplayNameFor(model => model.Client.First().Registered)
                                             </th>
                                             <th>
-                                                @Html.DisplayNameFor(model => model.Client.First().Created)
-                                            </th>
-                                            <th>
                                                 @Html.DisplayNameFor(model => model.Client.First().IsActive)
                                             </th>
                                         </tr>
@@ -164,9 +161,6 @@
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Registered)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Created)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.IsActive)

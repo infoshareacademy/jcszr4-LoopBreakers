@@ -121,16 +121,16 @@
     <value>Add new trasfer</value>
   </data>
   <data name="clear" xml:space="preserve">
-    <value>clear</value>
+    <value>Clear</value>
   </data>
   <data name="dateFrom" xml:space="preserve">
     <value>Search date from</value>
   </data>
   <data name="search" xml:space="preserve">
-    <value>search</value>
+    <value>Search</value>
   </data>
   <data name="searchText" xml:space="preserve">
-    <value>search text:</value>
+    <value>Search text</value>
   </data>
   <data name="to" xml:space="preserve">
     <value>to</value>

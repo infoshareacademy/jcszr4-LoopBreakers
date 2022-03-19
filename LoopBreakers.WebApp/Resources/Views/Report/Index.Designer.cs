@@ -61,6 +61,15 @@ namespace LoopBreakers.WebApp.Resources.Views.Report {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aktywny.
+        /// </summary>
+        public static string active {
+            get {
+                return ResourceManager.GetString("active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Raport aktywności.
         /// </summary>
         public static string activityReport {
@@ -70,11 +79,20 @@ namespace LoopBreakers.WebApp.Resources.Views.Report {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to wyczyść.
+        ///   Looks up a localized string similar to Wyczyść.
         /// </summary>
         public static string clear {
             get {
                 return ResourceManager.GetString("clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waluty.
+        /// </summary>
+        public static string currency {
+            get {
+                return ResourceManager.GetString("currency", resourceCulture);
             }
         }
         
@@ -88,7 +106,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Report {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to godzinna dziennego raportu email.
+        ///   Looks up a localized string similar to Godzinna dziennego raportu email.
         /// </summary>
         public static string dailyReportEmailHour {
             get {
@@ -97,7 +115,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Report {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to szukaj od daty.
+        ///   Looks up a localized string similar to Szukaj od daty.
         /// </summary>
         public static string dateFrom {
             get {
@@ -106,11 +124,29 @@ namespace LoopBreakers.WebApp.Resources.Views.Report {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to wpisz adres email.
+        ///   Looks up a localized string similar to Wpisz adres email.
         /// </summary>
         public static string enterEmail {
             get {
                 return ResourceManager.GetString("enterEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieaktywny.
+        /// </summary>
+        public static string inactive {
+            get {
+                return ResourceManager.GetString("inactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logowania.
+        /// </summary>
+        public static string logins {
+            get {
+                return ResourceManager.GetString("logins", resourceCulture);
             }
         }
         
@@ -142,6 +178,15 @@ namespace LoopBreakers.WebApp.Resources.Views.Report {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rejestracje.
+        /// </summary>
+        public static string registers {
+            get {
+                return ResourceManager.GetString("registers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Raporty.
         /// </summary>
         public static string reports {
@@ -151,11 +196,38 @@ namespace LoopBreakers.WebApp.Resources.Views.Report {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to szukaj.
+        ///   Looks up a localized string similar to Szukaj.
         /// </summary>
         public static string search {
             get {
                 return ResourceManager.GetString("search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wybierz.
+        /// </summary>
+        public static string select {
+            get {
+                return ResourceManager.GetString("select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ustaw.
+        /// </summary>
+        public static string set {
+            get {
+                return ResourceManager.GetString("set", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to do.
+        /// </summary>
+        public static string to {
+            get {
+                return ResourceManager.GetString("to", resourceCulture);
             }
         }
         
@@ -165,6 +237,15 @@ namespace LoopBreakers.WebApp.Resources.Views.Report {
         public static string transferReport {
             get {
                 return ResourceManager.GetString("transferReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfery.
+        /// </summary>
+        public static string transfers {
+            get {
+                return ResourceManager.GetString("transfers", resourceCulture);
             }
         }
         

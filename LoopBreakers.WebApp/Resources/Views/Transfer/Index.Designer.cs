@@ -61,7 +61,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Transfer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dodaj nowy transfer.
+        ///   Looks up a localized string similar to Dodaj nowy transfer.
         /// </summary>
         public static string addNew {
             get {
@@ -70,7 +70,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Transfer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to wyczyść.
+        ///   Looks up a localized string similar to Wyczyść.
         /// </summary>
         public static string clear {
             get {
@@ -79,7 +79,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Transfer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to szukaj od daty.
+        ///   Looks up a localized string similar to Szukaj od daty.
         /// </summary>
         public static string dateFrom {
             get {
@@ -88,7 +88,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Transfer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to szukaj.
+        ///   Looks up a localized string similar to Szukaj.
         /// </summary>
         public static string search {
             get {
@@ -97,7 +97,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Transfer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to szukaj tekstu:.
+        ///   Looks up a localized string similar to Szukaj tekstu.
         /// </summary>
         public static string searchText {
             get {

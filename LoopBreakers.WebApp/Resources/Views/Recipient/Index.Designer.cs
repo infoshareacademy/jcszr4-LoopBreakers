@@ -61,7 +61,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Recipient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dodaj nowego odbiorcę.
+        ///   Looks up a localized string similar to Dodaj nowego odbiorcę.
         /// </summary>
         public static string addNew {
             get {
@@ -70,7 +70,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Recipient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to wyczyść.
+        ///   Looks up a localized string similar to Wyczyść.
         /// </summary>
         public static string clear {
             get {
@@ -81,14 +81,14 @@ namespace LoopBreakers.WebApp.Resources.Views.Recipient {
         /// <summary>
         ///   Looks up a localized string similar to Odbiorcy.
         /// </summary>
-        public static string recipents {
+        public static string recipients {
             get {
-                return ResourceManager.GetString("recipents", resourceCulture);
+                return ResourceManager.GetString("recipients", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to szukaj.
+        ///   Looks up a localized string similar to Szukaj.
         /// </summary>
         public static string search {
             get {

@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="cancel" xml:space="preserve">
-    <value>cancel</value>
+    <value>Cancel</value>
   </data>
   <data name="create" xml:space="preserve">
-    <value>create</value>
+    <value>Create</value>
   </data>
   <data name="createClient" xml:space="preserve">
     <value>Create client</value>

@@ -57,24 +57,30 @@
                                 @_localizer["home"]
                             </a>
                         </li>
-                        <li>
-                            <a class="nav-link @(Accessor.HttpContext.Request.Path.Value == "/Client" ? "active" : "text-white" )" asp-area="" asp-controller="Client" asp-action="Index">
-                                <i class="bi bi-person-circle me-2"></i>
-                                @_localizer["clients"]
-                            </a>
-                        </li>
+                        if (isAdmin)
+                        {
+                            <li>
+                                <a class="nav-link @(Accessor.HttpContext.Request.Path.Value == "/Client" ? "active" : "text-white")" asp-area="" asp-controller="Client" asp-action="Index">
+                                    <i class="bi bi-person-circle me-2"></i>
+                                    @_localizer["clients"]
+                                </a>
+                            </li>
+                        }
                         <li>
                             <a class="nav-link @(Accessor.HttpContext.Request.Path.Value == "/Transfer" ? "active" : "text-white" )" asp-area="" asp-controller="Transfer" asp-action="Index">
                                 <i class="bi bi-cash-coin me-2"></i>
                                 @_localizer["transfers"]
                             </a>
                         </li>
-                        <li>
-                            <a class="nav-link @(Accessor.HttpContext.Request.Path.Value == "/Recipient" ? "active" : "text-white" )" asp-area="" asp-controller="Recipient" asp-action="Index">
-                                <i class="bi bi-envelope me-2"></i>
-                                @_localizer["recipents"]
-                            </a>
-                        </li>
+                        if (!isAdmin)
+                        {
+                            <li>
+                                <a class="nav-link @(Accessor.HttpContext.Request.Path.Value == "/Recipient" ? "active" : "text-white" )" asp-area="" asp-controller="Recipient" asp-action="Index">
+                                    <i class="bi bi-envelope me-2"></i>
+                                    @_localizer["recipients"]
+                                </a>
+                            </li>
+                        }
                         if (isAdmin)
                         {
                             <li>

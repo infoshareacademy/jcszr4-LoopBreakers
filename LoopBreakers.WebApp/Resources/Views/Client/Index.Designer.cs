@@ -61,7 +61,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Client {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dodaj nowego klienta.
+        ///   Looks up a localized string similar to Dodaj nowego klienta.
         /// </summary>
         public static string addNew {
             get {
@@ -70,7 +70,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Client {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to wyczyść.
+        ///   Looks up a localized string similar to Wyczyść.
         /// </summary>
         public static string clear {
             get {
@@ -88,7 +88,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Client {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to szukaj.
+        ///   Looks up a localized string similar to Szukaj.
         /// </summary>
         public static string search {
             get {

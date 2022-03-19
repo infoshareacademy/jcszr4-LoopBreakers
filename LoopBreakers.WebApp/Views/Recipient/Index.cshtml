@@ -1,13 +1,12 @@
 ﻿@model RecipientViewDTO
-
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer _localizer
 
 @{
-    ViewData["Title"] = "Recipients";
+    ViewData["Title"] = @_localizer["recipients"];
 }
 
-<h3>@_localizer["recipents"]</h3>
+<h3>@_localizer["recipients"]</h3>
 
 <p>
     <a class="btn btn-primary" asp-action="Create"><i class="bi bi-person-plus me-2"></i>@_localizer["addNew"]</a>
@@ -84,7 +83,7 @@
                 </td>
                 <td>
                     <div class="btn-group-sm" role="group">
-                        <a class="btn btn-outline-info" asp-action="Send" asp-route-id="@item.Id"><i class="bi bi-reply"></i></a>
+                        <a class="btn btn-outline-success" asp-action="Send" asp-route-id="@item.Id"><i class="bi bi-reply"></i></a> | 
                         <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
                         <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
                     </div>

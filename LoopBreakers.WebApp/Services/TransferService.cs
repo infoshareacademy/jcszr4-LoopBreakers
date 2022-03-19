@@ -50,7 +50,16 @@ namespace LoopBreakers.WebApp.Services
                                                            n.Reference.Contains(filter.SearchText) ||
                                                            n.Iban.Contains(filter.SearchText));
             }
-            return await transfersQuery.ToListAsync();
+
+            var data = await transfersQuery.ToListAsync();
+            for(int i = 0; i< data.Count(); i++)
+            {
+                if (user.Iban == data[i].Iban)
+                {
+                    data[i].Type = TransferType.Funding;
+                }
+            }
+            return data;
         }
         public async Task<bool> CreateNew(Transfer transfer)
         {
@@ -66,6 +75,7 @@ namespace LoopBreakers.WebApp.Services
             
             transfer.Created = DateTime.Now;
             transfer.FromId = user.Id.ToString();
+            transfer.Type = TransferType.Payment;
             var transferOut = _mapper.Map<Transfer>(transfer);
             var transferReportOut = _mapper.Map<TransferReportDTO>(transfer);
             transferReportOut.CountryCode = transfer.Iban.Substring(0, 2).ToUpper();

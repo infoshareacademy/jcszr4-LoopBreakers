@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="cancel" xml:space="preserve">
-    <value>cancel</value>
+    <value>Cancel</value>
   </data>
   <data name="delete" xml:space="preserve">
-    <value>delete</value>
+    <value>Delete</value>
   </data>
-  <data name="deleteRecipent" xml:space="preserve">
-    <value>Delete recipent</value>
+  <data name="deleteRecipient" xml:space="preserve">
+    <value>Delete recipient</value>
   </data>
   <data name="ensureDelete" xml:space="preserve">
     <value>Are you sure you want to delete this Recipient?</value>
