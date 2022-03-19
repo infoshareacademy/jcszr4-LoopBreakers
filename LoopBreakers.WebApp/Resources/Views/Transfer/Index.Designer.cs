@@ -88,6 +88,24 @@ namespace LoopBreakers.WebApp.Resources.Views.Transfer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Przychodzący.
+        /// </summary>
+        public static string Funding {
+            get {
+                return ResourceManager.GetString("Funding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wychodzący.
+        /// </summary>
+        public static string Payment {
+            get {
+                return ResourceManager.GetString("Payment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Szukaj.
         /// </summary>
         public static string search {

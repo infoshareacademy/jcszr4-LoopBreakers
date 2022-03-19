@@ -126,6 +126,12 @@
   <data name="dateFrom" xml:space="preserve">
     <value>Szukaj od daty</value>
   </data>
+  <data name="Funding" xml:space="preserve">
+    <value>Przychodzący</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Wychodzący</value>
+  </data>
   <data name="search" xml:space="preserve">
     <value>Szukaj</value>
   </data>

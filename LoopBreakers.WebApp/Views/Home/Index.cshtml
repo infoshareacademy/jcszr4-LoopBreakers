@@ -71,7 +71,7 @@
                                                     @Html.DisplayFor(modelItem => item.LastName)
                                                 </td>
                                                 <td>
-                                                    <i class="@(item.Type == TransferType.Payment ? "bi bi-arrow-right-circle-fill text-danger" : "bi bi-arrow-left-circle-fill text-success")"></i> @Html.DisplayFor(modelItem => item.Type)
+                                                    <i class="@(item.Type == TransferType.Payment ? "bi bi-arrow-right-circle-fill text-danger" : "bi bi-arrow-left-circle-fill text-success")"></i> @_localizer[item.Type.ToString()]
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.Amount) @Html.DisplayFor(modelItem => item.Currency)

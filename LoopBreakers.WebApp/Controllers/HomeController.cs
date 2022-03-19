@@ -68,9 +68,7 @@ namespace LoopBreakers.WebApp.Controllers
                     };
                     var transfers = await _transferService.FilterBy(filter, user);
                     var transfersDto = _mapper.Map<IEnumerable<TransferDTO>>(transfers);
-                    transfersDto
-                        .OrderBy(x => x.Created)
-                        .Take(12);
+                    transfersDto = transfersDto.Take(10);
                     homeView.AccountNumber = user.Iban;
                     homeView.Firstname = user.FirstName;
                     homeView.Lastname = user.LastName;

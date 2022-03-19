@@ -61,7 +61,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to nowy przelew.
+        ///   Looks up a localized string similar to Nowy przelew.
         /// </summary>
         public static string createTransfer {
             get {
@@ -79,11 +79,29 @@ namespace LoopBreakers.WebApp.Resources.Views.Home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to historia transferów.
+        ///   Looks up a localized string similar to Historia transferów.
         /// </summary>
         public static string fullHistory {
             get {
                 return ResourceManager.GetString("fullHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przychodzący.
+        /// </summary>
+        public static string Funding {
+            get {
+                return ResourceManager.GetString("Funding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wychodzący.
+        /// </summary>
+        public static string Payment {
+            get {
+                return ResourceManager.GetString("Payment", resourceCulture);
             }
         }
         

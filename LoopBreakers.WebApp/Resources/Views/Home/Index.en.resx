@@ -118,13 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="createTransfer" xml:space="preserve">
-    <value>new transfer</value>
+    <value>New transfer</value>
   </data>
   <data name="financialApp" xml:space="preserve">
     <value>LoopBreakers Financial Application</value>
   </data>
   <data name="fullHistory" xml:space="preserve">
     <value>transfers history</value>
+  </data>
+  <data name="Funding" xml:space="preserve">
+    <value>Funding</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Payment</value>
   </data>
   <data name="recentTransfers" xml:space="preserve">
     <value>Recent transfers:</value>
