@@ -126,4 +126,16 @@
   <data name="createClient" xml:space="preserve">
     <value>Utwórz klienta</value>
   </data>
+  <data name="Female" xml:space="preserve">
+    <value>Kobieta</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Mężczyzna</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>Wybierz</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Nieznana</value>
+  </data>
 </root>

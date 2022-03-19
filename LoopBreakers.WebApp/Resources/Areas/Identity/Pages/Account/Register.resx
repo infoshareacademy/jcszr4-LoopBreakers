@@ -120,10 +120,19 @@
   <data name="createANewAccount" xml:space="preserve">
     <value>Utwórz nowe konto</value>
   </data>
+  <data name="Female" xml:space="preserve">
+    <value>Kobieta</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Mężczyzna</value>
+  </data>
   <data name="register" xml:space="preserve">
     <value>Zarejestruj</value>
   </data>
   <data name="select" xml:space="preserve">
     <value>Wybierz</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Nieznana</value>
   </data>
 </root>

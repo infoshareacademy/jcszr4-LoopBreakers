@@ -123,7 +123,16 @@
   <data name="editClient" xml:space="preserve">
     <value>Edycja klienta</value>
   </data>
+  <data name="Female" xml:space="preserve">
+    <value>Kobieta</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Mężczyzna</value>
+  </data>
   <data name="save" xml:space="preserve">
     <value>Zapisz</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Nieznana</value>
   </data>
 </root>

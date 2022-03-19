@@ -47,16 +47,16 @@ namespace LoopBreakers.WebApp
                 .AddDataAnnotationsLocalization();
 
             services.Configure<RequestLocalizationOptions>(opt =>
-           {
-               var suporrtedCultures = new List<CultureInfo>
-           {
-                new CultureInfo("en"),
-                new CultureInfo("pl")
-           };
+            {
+               var supportedCultures = new List<CultureInfo>
+               {
+                   new CultureInfo("en"), 
+                   new CultureInfo("pl")
+               };
                opt.DefaultRequestCulture = new RequestCulture("pl");
-               opt.SupportedCultures = suporrtedCultures;
-               opt.SupportedUICultures = suporrtedCultures;
-           });
+               opt.SupportedCultures = supportedCultures;
+               opt.SupportedUICultures = supportedCultures;
+            });
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
