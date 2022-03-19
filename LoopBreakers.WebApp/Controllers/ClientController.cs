@@ -51,12 +51,6 @@ namespace LoopBreakers.WebApp.Controllers
             return View(model);
         }
 
-        // GET: ClientController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: ClientController/Create
         public ActionResult Create()
         {

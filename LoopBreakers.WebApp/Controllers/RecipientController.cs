@@ -46,11 +46,6 @@ namespace LoopBreakers.WebApp.Controllers
             return View(recipientsModel);
         }
 
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         public ActionResult Create()
         {
             ViewBag.WrongUser = false; 

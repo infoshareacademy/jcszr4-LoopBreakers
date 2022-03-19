@@ -98,10 +98,7 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "address", ResourceType = typeof(Resources.DTOs.DTOs))]
             public string Address { get; set; }
-            public DateTime Registered { get; set; } = DateTime.Now;
-            [Required]
-            [Display(Name = "newIban", ResourceType = typeof(Resources.DTOs.DTOs))]
-            [MinLength(28), MaxLength(28)]
+            public DateTime Registered { get; set; }
             public string Iban { get; set; }
         }
 
@@ -133,7 +130,7 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
                     Phone = Input.Phone,
                     Registered = DateTime.Now,
                     Created = DateTime.Now,
-                    Iban = Input.Iban,
+                    Iban = DAL.Context.SeedData.GenerateIban(),
                     Address = Input.Address,
                 };
 

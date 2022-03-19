@@ -66,6 +66,11 @@ namespace LoopBreakers.DAL.Context
             //    context.SaveChanges();
             //}
         }
+        public static string GenerateIban()
+        {
+            var random = new Random();
+            return $"PL{random.Next(1000000, 9999999)}{random.Next(1000000, 9999999)}{random.Next(1000000, 9999999)}{random.Next(10000, 99999)}";
+        }
     }
 }
 
