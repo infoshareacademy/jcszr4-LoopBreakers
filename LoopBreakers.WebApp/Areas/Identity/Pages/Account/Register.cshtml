@@ -1,8 +1,10 @@
 ﻿@page
 @using LoopBreakers.DAL.Enums
+@using Microsoft.AspNetCore.Mvc.Localization
 @model RegisterModel
+@inject IViewLocalizer _localizer
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = @_localizer["register"];
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -11,7 +13,7 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
+            <h4>@_localizer["createANewAccount"].</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -37,7 +39,7 @@
             <div class="form-group">
                 <label asp-for="Input.Currency"></label>
                 <select asp-for="Input.Currency" asp-items="Html.GetEnumSelectList<Currency>()" class="form-control">
-                    <option selected="selected" value="">Please select</option>
+                    <option selected="selected" value="">@_localizer["select"]</option>
                 </select>
                 <span asp-validation-for="Input.Currency" class="text-danger"></span>
             </div>
@@ -59,7 +61,7 @@
             <div class="form-group">
                 <label asp-for="Input.Gender"></label>
                 <select asp-for="Input.Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-control">
-                    <option selected="selected" value="">Please select</option>
+                    <option selected="selected" value="">@_localizer["select"]</option>
                 </select>
                 <span asp-validation-for="Input.Gender" class="text-danger"></span>
             </div>
@@ -83,7 +85,7 @@
                 <input asp-for="Input.Iban" class="form-control" />
                 <span asp-validation-for="Input.Iban" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary mt-2 mb-3">Register</button>
+            <button type="submit" class="btn btn-primary mt-2 mb-3">@_localizer["register"]</button>
         </form>
     </div>
 </div>
