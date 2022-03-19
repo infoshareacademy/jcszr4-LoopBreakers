@@ -1,9 +1,6 @@
 ﻿using LoopBreakers.DAL.Enums;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LoopBreakers.WebApp.DTOs
 {
@@ -13,6 +10,7 @@ namespace LoopBreakers.WebApp.DTOs
 
         [Display(Name = "identityNumber", ResourceType = typeof(Resources.DTOs.DTOs))]
         public string IdentityNumber { get; set; }
+        [Display(Name = "isActive", ResourceType = typeof(Resources.DTOs.DTOs))]
         public bool IsActive { get; set; }
 
         [Required]
