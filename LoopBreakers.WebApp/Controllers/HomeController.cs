@@ -51,25 +51,46 @@ namespace LoopBreakers.WebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
-            var homeView = new HomePageViewDTO();
-            var filter = new SearchViewModel()
+            try
             {
-                DateFrom = DateTime.UtcNow.AddYears(-50),
-                DateTo = DateTime.UtcNow
-            };
-            var transfers = await _transferService.FilterBy(filter, user);
-            var transfersDto = _mapper.Map<IEnumerable<TransferDTO>>(transfers);
-            transfersDto
-                .OrderBy(x => x.Created)
-                .Take(12);
-            homeView.AccountNumber = user.Iban;
-            homeView.Firstname = user.FirstName;
-            homeView.Lastname = user.LastName;
-            homeView.Balance = user.Balance;
-            homeView.TransfersHistory = transfersDto;
-            homeView.Currency = user.Currency;
-            return View(homeView);
+                if (_signInManager.IsSignedIn(User))
+                {
+                    var user = await _userManager.FindByNameAsync(HttpContext?.User?.Identity?.Name);
+                    var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+                    if (isAdmin)
+                        return View();
+
+                    var homeView = new HomePageViewDTO();
+                    var filter = new SearchViewModel()
+                    {
+                        DateFrom = DateTime.UtcNow.AddYears(-50),
+                        DateTo = DateTime.UtcNow
+                    };
+                    var transfers = await _transferService.FilterBy(filter, user);
+                    var transfersDto = _mapper.Map<IEnumerable<TransferDTO>>(transfers);
+                    transfersDto
+                        .OrderBy(x => x.Created)
+                        .Take(12);
+                    homeView.AccountNumber = user.Iban;
+                    homeView.Firstname = user.FirstName;
+                    homeView.Lastname = user.LastName;
+                    homeView.Balance = user.Balance;
+                    homeView.TransfersHistory = transfersDto;
+                    homeView.Currency = user.Currency;
+
+                    return View(homeView);
+
+                }
+                else
+                {
+                    return View();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new AppException(ex.Message);
+            }
         }
     }
 }
