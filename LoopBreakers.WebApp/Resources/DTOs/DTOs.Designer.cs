@@ -178,6 +178,15 @@ namespace LoopBreakers.WebApp.Resources.DTOs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hasło.
+        /// </summary>
+        public static string password {
+            get {
+                return ResourceManager.GetString("password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Imię odbiorcy.
         /// </summary>
         public static string receiverFirstname {
@@ -201,6 +210,15 @@ namespace LoopBreakers.WebApp.Resources.DTOs {
         public static string reference {
             get {
                 return ResourceManager.GetString("reference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zapamiętaj mnie.
+        /// </summary>
+        public static string rememberMe {
+            get {
+                return ResourceManager.GetString("rememberMe", resourceCulture);
             }
         }
         

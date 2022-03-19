@@ -50,13 +50,15 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
         {
             [Required]
             [EmailAddress]
+            [Display(Name = "email", ResourceType = typeof(Resources.DTOs.DTOs))]
             public string Email { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
+            [Display(Name = "password", ResourceType = typeof(Resources.DTOs.DTOs))]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "rememberMe", ResourceType = typeof(Resources.DTOs.DTOs))]
             public bool RememberMe { get; set; }
 
         }

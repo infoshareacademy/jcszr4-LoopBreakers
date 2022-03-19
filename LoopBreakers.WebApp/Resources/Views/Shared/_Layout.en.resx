@@ -132,6 +132,9 @@
   <data name="recipients" xml:space="preserve">
     <value>Recipients</value>
   </data>
+  <data name="register" xml:space="preserve">
+    <value>Register</value>
+  </data>
   <data name="reports" xml:space="preserve">
     <value>Reports</value>
   </data>

@@ -117,61 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="address" xml:space="preserve">
-    <value>Adres</value>
+  <data name="logIn" xml:space="preserve">
+    <value>Log in</value>
   </data>
-  <data name="age" xml:space="preserve">
-    <value>Wiek</value>
+  <data name="registerAsANewUser" xml:space="preserve">
+    <value>Register as a new user</value>
   </data>
-  <data name="amount" xml:space="preserve">
-    <value>Kwota</value>
-  </data>
-  <data name="balance" xml:space="preserve">
-    <value>Saldo</value>
-  </data>
-  <data name="company" xml:space="preserve">
-    <value>Firma</value>
-  </data>
-  <data name="createdDate" xml:space="preserve">
-    <value>Data utworzenia</value>
-  </data>
-  <data name="currency" xml:space="preserve">
-    <value>Waluta</value>
-  </data>
-  <data name="displayName" xml:space="preserve">
-    <value>Nazwa wyświetlana</value>
-  </data>
-  <data name="email" xml:space="preserve">
-    <value>E-mail</value>
-  </data>
-  <data name="firstname" xml:space="preserve">
-    <value>Imię</value>
-  </data>
-  <data name="gender" xml:space="preserve">
-    <value>Płeć</value>
-  </data>
-  <data name="identityNumber" xml:space="preserve">
-    <value>Numer identyfikacyjny</value>
-  </data>
-  <data name="lastname" xml:space="preserve">
-    <value>Nazwisko</value>
-  </data>
-  <data name="password" xml:space="preserve">
-    <value>Hasło</value>
-  </data>
-  <data name="receiverFirstname" xml:space="preserve">
-    <value>Imię odbiorcy</value>
-  </data>
-  <data name="receiverLastname" xml:space="preserve">
-    <value>Nazwisko odbiorcy</value>
-  </data>
-  <data name="reference" xml:space="preserve">
-    <value>Tytuł</value>
-  </data>
-  <data name="rememberMe" xml:space="preserve">
-    <value>Zapamiętaj mnie</value>
-  </data>
-  <data name="transferType" xml:space="preserve">
-    <value>Typ transferu</value>
+  <data name="useALocalAccountToLogIn" xml:space="preserve">
+    <value>Use a local account to log in</value>
   </data>
 </root>
