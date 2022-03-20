@@ -17,5 +17,8 @@ namespace LoopBreakers.DAL.Entities
         public decimal Amount { get; set; }
         public string Reference { get; set; }
         public Currency Currency { get; set; }
+        public string SenderIban { get; set; }
+        public string SenderFirstName { get; set; }
+        public string SenderLastName { get; set; }
     }
 }

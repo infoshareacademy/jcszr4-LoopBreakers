@@ -55,6 +55,12 @@ namespace LoopBreakers.WebApp.Services
                 if (user.Iban == data[i].Iban)
                 {
                     data[i].Type = TransferType.Funding;
+                    if (user.Id > 1)
+                    {
+                        data[i].Iban = data[i].SenderIban;
+                        data[i].FirstName = data[i].SenderFirstName;
+                        data[i].LastName = data[i].SenderLastName;
+                    }
                 }
             }
             return data;
@@ -75,6 +81,10 @@ namespace LoopBreakers.WebApp.Services
             transfer.FromId = user.Id.ToString();
             transfer.Type = TransferType.Payment;
             var transferOut = _mapper.Map<Transfer>(transfer);
+            transferOut.SenderIban = user.Iban;
+            transferOut.SenderFirstName = user.FirstName;
+            transferOut.SenderLastName = user.LastName;
+            
             var transferReportOut = _mapper.Map<TransferReportDTO>(transfer);
             transferReportOut.CountryCode = transfer.Iban.Substring(0, 2).ToUpper();
             
