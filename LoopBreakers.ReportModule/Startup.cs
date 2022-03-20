@@ -2,6 +2,7 @@ using Hangfire;
 using Hangfire.SqlServer;
 using LoopBreakers.DAL.Context;
 using LoopBreakers.DAL.Repositories;
+using LoopBreakers.ReportModule.Helpers;
 using LoopBreakers.ReportModule.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -52,6 +53,9 @@ namespace LoopBreakers.ReportModule
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LoopBreakers.ReportModule v1"));
             }
+
+
+            app.UseMiddleware<ApiKeyMiddleware>();
 
             app.UseHttpsRedirection();
 
