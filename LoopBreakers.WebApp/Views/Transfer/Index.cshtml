@@ -1,7 +1,11 @@
 ﻿@model TransferViewDTO
 @using Microsoft.AspNetCore.Mvc.Localization
 @using LoopBreakers.DAL.Enums
+@using Microsoft.AspNetCore.Identity
+@using LoopBreakers.DAL.Entities
 @inject IViewLocalizer _localizer
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = @_localizer["transfers"];
@@ -10,10 +14,21 @@
 }
 
 <h3 class="mt-4">@_localizer["transfers"]</h3>
-
-<p>
-    <a class="btn btn-primary" asp-action="Create"><i class="bi bi-plus-circle me-2"></i>@_localizer["addNew"]</a>
-</p>
+@{
+    if (SignInManager.IsSignedIn(User))
+    {
+        {
+            var user = await UserManager.GetUserAsync(User);
+            bool isAdmin = await SignInManager.UserManager.IsInRoleAsync(user, "Admin");
+            if (!isAdmin)
+            {
+                <p>
+                    <a class="btn btn-primary" asp-action="Create"><i class="bi bi-plus-circle me-2"></i>@_localizer["addNew"]</a>
+                </p>
+            }
+        }
+    }
+}
 <hr />
 <div class="row">
     <div class="col-auto">
