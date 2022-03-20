@@ -26,7 +26,7 @@ namespace LoopBreakers.WebApp.Controllers
         private readonly IBaseRepository<Transfer> _transferRepository;
         private readonly ITransferService _transferService;
         private readonly IMapper _mapper;
-
+        
         public HomeController(ILogger<HomeController> logger, 
                                 UserManager<ApplicationUser> userManager, 
                                 SignInManager<ApplicationUser> signInManager,
@@ -60,7 +60,7 @@ namespace LoopBreakers.WebApp.Controllers
                     var user = await _userManager.FindByNameAsync(HttpContext?.User?.Identity?.Name);
                     var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
                     if (isAdmin)
-                        return View();
+                        return RedirectToAction("", "client");
 
                     var homeView = new HomePageViewDTO();
                     var filter = new SearchViewModel()
