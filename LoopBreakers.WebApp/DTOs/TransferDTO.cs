@@ -11,7 +11,6 @@ namespace LoopBreakers.WebApp.DTOs
     {
         public int Id { get; set; }
         public string Iban { get; set; }
-        
         [Display(Name="firstname", ResourceType = typeof(Resources.DTOs.DTOs))]
         public string FirstName { get; set; }
         [Display(Name = "lastname", ResourceType = typeof(Resources.DTOs.DTOs))]
@@ -19,7 +18,6 @@ namespace LoopBreakers.WebApp.DTOs
         [Display(Name = "displayName", ResourceType = typeof(Resources.DTOs.DTOs))]
         public string DisplayName { get; set; }
         [Display(Name = "lastname", ResourceType = typeof(Resources.DTOs.DTOs))]
-
         public string FromId { get; set; }
         [Display(Name = "transferType", ResourceType = typeof(Resources.DTOs.DTOs))]
         public TransferType Type { get; set; }
