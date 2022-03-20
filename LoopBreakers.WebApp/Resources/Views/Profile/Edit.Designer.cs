@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LoopBreakers.WebApp.Resources.Views.Shared {
+namespace LoopBreakers.WebApp.Resources.Views.Profile {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace LoopBreakers.WebApp.Resources.Views.Shared {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class _Layout {
+    public class Edit {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal _Layout() {
+        internal Edit() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Shared {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LoopBreakers.WebApp.Resources.Views.Shared._Layout", typeof(_Layout).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LoopBreakers.WebApp.Resources.Views.Profile.Edit", typeof(Edit).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,83 +61,56 @@ namespace LoopBreakers.WebApp.Resources.Views.Shared {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klienci.
+        ///   Looks up a localized string similar to Anuluj.
         /// </summary>
-        public static string clients {
+        public static string cancel {
             get {
-                return ResourceManager.GetString("clients", resourceCulture);
+                return ResourceManager.GetString("cancel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Strona główna.
+        ///   Looks up a localized string similar to Edycja profilu.
         /// </summary>
-        public static string home {
+        public static string editProfile {
             get {
-                return ResourceManager.GetString("home", resourceCulture);
+                return ResourceManager.GetString("editProfile", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zaloguj.
+        ///   Looks up a localized string similar to Kobieta.
         /// </summary>
-        public static string login {
+        public static string Female {
             get {
-                return ResourceManager.GetString("login", resourceCulture);
+                return ResourceManager.GetString("Female", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wyloguj.
+        ///   Looks up a localized string similar to Mężczyzna.
         /// </summary>
-        public static string logout {
+        public static string Male {
             get {
-                return ResourceManager.GetString("logout", resourceCulture);
+                return ResourceManager.GetString("Male", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profil.
+        ///   Looks up a localized string similar to Zapisz.
         /// </summary>
-        public static string profile {
+        public static string save {
             get {
-                return ResourceManager.GetString("profile", resourceCulture);
+                return ResourceManager.GetString("save", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Odbiorcy.
+        ///   Looks up a localized string similar to Nieznana.
         /// </summary>
-        public static string recipients {
+        public static string Unknown {
             get {
-                return ResourceManager.GetString("recipients", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zarejestruj.
-        /// </summary>
-        public static string register {
-            get {
-                return ResourceManager.GetString("register", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Raporty.
-        /// </summary>
-        public static string reports {
-            get {
-                return ResourceManager.GetString("reports", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Transfery.
-        /// </summary>
-        public static string transfers {
-            get {
-                return ResourceManager.GetString("transfers", resourceCulture);
+                return ResourceManager.GetString("Unknown", resourceCulture);
             }
         }
     }

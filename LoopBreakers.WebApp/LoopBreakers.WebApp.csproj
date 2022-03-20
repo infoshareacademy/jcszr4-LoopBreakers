@@ -115,6 +115,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Index.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Views\Profile\Edit.Designer.cs">
+      <DependentUpon>Edit.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\Views\Profile\Index.Designer.cs">
+      <DependentUpon>Index.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\Views\Recipient\Create.Designer.cs">
       <DependentUpon>Create.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -184,6 +194,14 @@
     <EmbeddedResource Update="Resources\Views\Home\Index.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Index.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Profile\Edit.resx">
+      <LastGenOutput>Edit.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Profile\Index.resx">
+      <LastGenOutput>Index.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Recipient\Create.resx">
       <LastGenOutput>Create.Designer.cs</LastGenOutput>

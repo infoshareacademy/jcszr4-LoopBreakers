@@ -259,6 +259,15 @@ namespace LoopBreakers.WebApp.Resources.DTOs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Telefon.
+        /// </summary>
+        public static string phone {
+            get {
+                return ResourceManager.GetString("phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Imię odbiorcy.
         /// </summary>
         public static string receiverFirstname {
@@ -282,6 +291,15 @@ namespace LoopBreakers.WebApp.Resources.DTOs {
         public static string reference {
             get {
                 return ResourceManager.GetString("reference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data rejestracji.
+        /// </summary>
+        public static string registered {
+            get {
+                return ResourceManager.GetString("registered", resourceCulture);
             }
         }
         

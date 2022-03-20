@@ -13,6 +13,7 @@ namespace LoopBreakers.WebApp.Profiles
         public UsersProfile()
         {
             CreateMap<UserDTO, ApplicationUser>().ReverseMap();
+            CreateMap<UserProfileDTO, ApplicationUser>().ReverseMap();
         }
     }
 }

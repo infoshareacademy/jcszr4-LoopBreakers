@@ -117,31 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="clients" xml:space="preserve">
-    <value>Klienci</value>
+  <data name="back" xml:space="preserve">
+    <value>Wróć</value>
   </data>
-  <data name="home" xml:space="preserve">
-    <value>Strona główna</value>
+  <data name="edit" xml:space="preserve">
+    <value>Edytuj</value>
   </data>
-  <data name="login" xml:space="preserve">
-    <value>Zaloguj</value>
+  <data name="Female" xml:space="preserve">
+    <value>Kobieta</value>
   </data>
-  <data name="logout" xml:space="preserve">
-    <value>Wyloguj</value>
+  <data name="informationAboutProfile" xml:space="preserve">
+    <value>Informacje o Twoim profilu</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Mężczyzna</value>
   </data>
   <data name="profile" xml:space="preserve">
     <value>Profil</value>
   </data>
-  <data name="recipients" xml:space="preserve">
-    <value>Odbiorcy</value>
-  </data>
-  <data name="register" xml:space="preserve">
-    <value>Zarejestruj</value>
-  </data>
-  <data name="reports" xml:space="preserve">
-    <value>Raporty</value>
-  </data>
-  <data name="transfers" xml:space="preserve">
-    <value>Transfery</value>
+  <data name="Unknown" xml:space="preserve">
+    <value>Nieznana</value>
   </data>
 </root>

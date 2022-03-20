@@ -1,0 +1,69 @@
+﻿@model UserProfileDTO
+@using LoopBreakers.DAL.Enums;
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer _localizer
+
+@{
+    ViewData["Title"] = @_localizer["editProfile"];
+}
+
+<h3 class="mt-4">@_localizer["editProfile"]</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <select asp-for="Gender" class="form-control">
+                    @{
+                        foreach (string genderName in Enum.GetNames(typeof(Gender)))
+                        {
+                            <option value="@Enum.Parse(typeof(Gender), genderName)">@_localizer[genderName]</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Company" class="control-label"></label>
+                <input asp-for="Company" class="form-control" />
+                <span asp-validation-for="Company" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <input type="submit" value="@_localizer["save"]" class="btn btn-primary" /> <a class="btn btn-danger" asp-action="Index">@_localizer["cancel"]</a>
+            </div>
+            <input type="hidden" asp-for="Id" />
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

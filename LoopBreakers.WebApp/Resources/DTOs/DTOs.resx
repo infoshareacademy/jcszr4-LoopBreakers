@@ -183,6 +183,9 @@
   <data name="password" xml:space="preserve">
     <value>Hasło</value>
   </data>
+  <data name="phone" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
   <data name="receiverFirstname" xml:space="preserve">
     <value>Imię odbiorcy</value>
   </data>
@@ -191,6 +194,9 @@
   </data>
   <data name="reference" xml:space="preserve">
     <value>Tytuł</value>
+  </data>
+  <data name="registered" xml:space="preserve">
+    <value>Data rejestracji</value>
   </data>
   <data name="rememberMe" xml:space="preserve">
     <value>Zapamiętaj mnie</value>

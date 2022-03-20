@@ -1,0 +1,85 @@
+﻿@model LoopBreakers.WebApp.DTOs.UserDTO
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer _localizer
+
+@{
+    ViewData["Title"] = @_localizer["profile"];
+}
+<h3 class="mt-4">@_localizer["profile"]</h3>
+<hr />
+<div>
+    <h4>@_localizer["informationAboutProfile"]</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Balance)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Balance) @Html.DisplayFor(model => model.Currency)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd class="col-sm-10">
+            @_localizer[Model.Gender.ToString()]
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Company)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Company)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Registered)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Registered)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Iban)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Iban)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-danger" asp-action="Edit" asp-route-id="@Model">@_localizer["edit"]</a> <a class="btn btn-primary" asp-controller="Home" asp-action="Index">@_localizer["back"]</a>
+</div>
