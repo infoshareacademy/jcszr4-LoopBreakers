@@ -63,6 +63,7 @@ namespace LoopBreakers.ReportModule.Services
         {
             return await _activityRepository.GetAllQueryable()
                 .Where(s => s.Created >= filter.dateFrom && s.Created < filter.dateTo)
+                .OrderByDescending(c=>c.Created)
                 .ToListAsync();
         }
 
