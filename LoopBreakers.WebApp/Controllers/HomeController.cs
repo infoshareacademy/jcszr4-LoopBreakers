@@ -51,6 +51,7 @@ namespace LoopBreakers.WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> Index()
         {
             try
@@ -60,8 +61,10 @@ namespace LoopBreakers.WebApp.Controllers
                     var user = await _userManager.FindByNameAsync(HttpContext?.User?.Identity?.Name);
                     var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
                     if (isAdmin)
+                    {
                         return RedirectToAction("", "client");
-
+                    }
+                    
                     var homeView = new HomePageViewDTO();
                     var filter = new SearchViewModel()
                     {
