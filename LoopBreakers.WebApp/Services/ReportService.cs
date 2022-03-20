@@ -81,6 +81,7 @@ namespace LoopBreakers.WebApp.Services
             var request = new HttpRequestMessage(HttpMethod.Post, url);
 
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            request.Headers.Add("X-API-Key", "SecretKey");
 
             request.Content = new StringContent(JsonConvert.SerializeObject(resource), Encoding.UTF8, "application/json");
 
@@ -98,6 +99,7 @@ namespace LoopBreakers.WebApp.Services
             var client = _httpClientFactory.CreateClient();
 
             var request = new HttpRequestMessage(HttpMethod.Get, url);
+            request.Headers.Add("X-API-Key", "SecretKey");
 
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

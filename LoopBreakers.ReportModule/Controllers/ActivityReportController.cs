@@ -8,7 +8,7 @@ using LoopBreakers.DAL.Entities;
 using LoopBreakers.ReportModule.Helpers;
 using LoopBreakers.ReportModule.Models;
 using LoopBreakers.ReportModule.Services;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace LoopBreakers.ReportModule.Controllers
 {
