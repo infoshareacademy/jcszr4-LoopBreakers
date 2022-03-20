@@ -46,7 +46,9 @@ namespace LoopBreakers.WebApp.Services
                 transfersQuery = transfersQuery.Where(n => n.LastName.Contains(filter.SearchText) ||
                                                            n.FirstName.Contains(filter.SearchText) ||
                                                            n.Reference.Contains(filter.SearchText) ||
-                                                           n.Iban.Contains(filter.SearchText));
+                                                           n.Iban.Contains(filter.SearchText) ||
+                                                           n.SenderFirstName.Contains(filter.SearchText) ||
+                                                           n.SenderLastName.Contains(filter.SearchText));
             }
 
             var data = await transfersQuery.OrderByDescending(d=>d.Created).ToListAsync();
