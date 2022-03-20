@@ -70,11 +70,29 @@ namespace LoopBreakers.WebApp.Resources.Views.Report {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aktywność.
+        /// </summary>
+        public static string activity {
+            get {
+                return ResourceManager.GetString("activity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Raport aktywności.
         /// </summary>
         public static string activityReport {
             get {
                 return ResourceManager.GetString("activityReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statystyka aktywności.
+        /// </summary>
+        public static string activityStats {
+            get {
+                return ResourceManager.GetString("activityStats", resourceCulture);
             }
         }
         
@@ -97,7 +115,7 @@ namespace LoopBreakers.WebApp.Resources.Views.Report {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Statystyki waluty.
+        ///   Looks up a localized string similar to Statystyka transferów w walucie.
         /// </summary>
         public static string currencyStats {
             get {
@@ -142,6 +160,15 @@ namespace LoopBreakers.WebApp.Resources.Views.Report {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Logowanie.
+        /// </summary>
+        public static string logging {
+            get {
+                return ResourceManager.GetString("logging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logowania.
         /// </summary>
         public static string logins {
@@ -160,6 +187,15 @@ namespace LoopBreakers.WebApp.Resources.Views.Report {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wylogowanie.
+        /// </summary>
+        public static string logout {
+            get {
+                return ResourceManager.GetString("logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Najczęstsze godziny transferów.
         /// </summary>
         public static string mostCommonTransferHrs {
@@ -174,6 +210,15 @@ namespace LoopBreakers.WebApp.Resources.Views.Report {
         public static string registerCounter {
             get {
                 return ResourceManager.GetString("registerCounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rejestracja.
+        /// </summary>
+        public static string registering {
+            get {
+                return ResourceManager.GetString("registering", resourceCulture);
             }
         }
         
@@ -228,6 +273,15 @@ namespace LoopBreakers.WebApp.Resources.Views.Report {
         public static string to {
             get {
                 return ResourceManager.GetString("to", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer.
+        /// </summary>
+        public static string transfering {
+            get {
+                return ResourceManager.GetString("transfering", resourceCulture);
             }
         }
         

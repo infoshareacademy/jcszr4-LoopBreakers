@@ -9,7 +9,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using LoopBreakers.DAL.Enums;
-using LoopBreakers.ReportModule.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

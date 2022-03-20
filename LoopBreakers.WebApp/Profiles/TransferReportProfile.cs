@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using LoopBreakers.DAL.Entities;
-using LoopBreakers.ReportModule.Models;
 using LoopBreakers.WebApp.DTOs;
 
 namespace LoopBreakers.WebApp.Profiles

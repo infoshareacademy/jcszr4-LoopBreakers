@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LoopBreakers.ReportModule.Models
+namespace LoopBreakers.WebApp.DTOs
 {
-    public class LoginStatisticsDTO
+    public class TransferStatsDTO
     {
-        [Display(Name = "Total logins:")]
+        [Display(Name = "Total transfers:")]
+
         public string Name { get; set; }
         public int Count { get; set; }
     }

@@ -11,12 +11,12 @@ namespace LoopBreakers.WebApp.DTOs
     {
         public List<TransferReportDTO> Transfer { get; set; }
         public List<ActivityReportDTO> Activity { get; set; }
-        [Display(Name = "firstname", ResourceType = typeof(Resources.DTOs.DTOs))]
         public List<MostCommonHoursDTO> MostCommonTransferHours { get; set; }
         public LoginStatisticsDTO LoginCounter { get; set; }
         public TransferStatsDTO TransferCounter { get; set; }
         public RegisterStatsDTO RegisterCounter { get; set; }
         public List<CurrencyStatisticsDTO> Currency { get; set; }
+        public List<ActivityStatisticsDTO> ActivityStatistics { get; set; }
         public SearchViewModel SearchFilter { get; set; }
     }
 }

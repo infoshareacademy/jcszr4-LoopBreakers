@@ -1,6 +1,8 @@
 @model ReportViewDTO
 @using LoopBreakers.WebApp.Helpers
 @using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.OpenApi.Extensions
+@using LoopBreakers.DAL.Enums
 @inject IViewLocalizer _localizer
 
 @{
@@ -94,7 +96,6 @@
                     <button type="submit" class="btn btn-primary"><i class="bi bi-search me-2"></i>@_localizer["set"]</button>
                 </div>
             </div>
-
         </form>
     </div>
 </div>
@@ -104,7 +105,6 @@
 <hr />
 <div class="row">
     <div class="col-7">
-
         <table class="table">
             <thead>
                 <tr>
@@ -181,7 +181,90 @@
         </div>
     </div>
 </div>
-<br />
+<h3>@_localizer["activityStats"]</h3>
+<hr />
+<div class="row">
+    <div class="col-7">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ActivityStatistics.First().ActivityName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ActivityStatistics.First().Count)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ActivityStatistics)
+                {
+                    <tr>
+                        <td>
+                        @_localizer[item.ActivityName.ToString()]
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Count)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-5">
+        <div class="card border-0" style="width: 70%;">
+            <div class="card-body">
+                @{
+                    List<string> activityNames = new List<string>();
+                    List<int> activityCounts = new List<int>();
+                    foreach (var x in Model.ActivityStatistics)
+                    {
+                        activityNames.Add(x.ActivityName.ToString());
+                        activityCounts.Add(x.Count);
+                    }
+                }
+                <canvas id="myChart_3" width="200" height="200"></canvas>
+                <script>
+                    var labels = [@{foreach (var label in activityNames)
+                                    {
+                                        @Html.Raw("\"")@_localizer[label]@Html.Raw("\"")@Html.Raw(",")
+                                   }}];
+                    const ctx_3 = document.getElementById('myChart_3');
+                    const myChart_3 = new Chart(ctx_3,
+                        {
+                            type: 'pie',
+                            data: {
+                                labels: labels,
+                                datasets: [
+                                    {
+                                        label: '@(_localizer["activity"])',
+                                        data: @Html.Raw(Json.Serialize(activityCounts)),
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }
+                                ]
+                            }
+                        });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
 <br />
 @{
     if (Model.MostCommonTransferHours != null)
@@ -200,8 +283,8 @@
 
                 <canvas id="myChart" width="100" height="50"></canvas>
                 <script>
-                        var labels = @Json.Serialize(labels);
-                        var values = @Json.Serialize(values);
+                    var labels = @Json.Serialize(labels);
+                    var values = @Json.Serialize(values);
 
                     const ctx = document.getElementById('myChart').getContext('2d');
                     const myChart = new Chart(ctx, {
@@ -209,27 +292,27 @@
                         data: {
                             labels: labels,
                             datasets: [{
-                                label: '@(_localizer["mostCommonTransferHrs"])',
-                                data: values,
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)',
-                                    'rgba(153, 102, 255, 0.2)',
-                                    'rgba(255, 159, 64, 0.2)'
-                                ],
-                                borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                borderWidth: 1
-                            }
-                           ]
+                                    label: '@(_localizer["mostCommonTransferHrs"])',
+                                    data: values,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }
+                            ]
                         },
                         options: {
                             scales: {
@@ -244,7 +327,7 @@
         </div>
     }
 }
-<br/>
+<br />
 <h3>@_localizer["activityReport"]</h3>
 <hr />
 <table class="table">
@@ -291,81 +374,3 @@
     </tbody>
 </table>
 <br />
-
-@{
-    if (Model.RegisterCounter != null)
-    {
-        <h3>@_localizer["registerCounter"]</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayFor(modelItem => Model.RegisterCounter.Name)
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.RegisterCounter.Count)
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <br />
-        <hr />
-    }
-}
-
-@{
-    if (Model.LoginCounter != null)
-    {
-        <h3>@_localizer["loginsCounter"]</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayFor(modelItem => Model.LoginCounter.Name)
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.LoginCounter.Count)
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <br />
-        <hr />
-    }
-}
-
-@{
-    if (Model.TransferCounter != null)
-    {
-        <h3>@_localizer["transfersCounter"]</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayFor(modelItem => Model.TransferCounter.Name)
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.TransferCounter.Count)
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <br />
-        <hr />
-    }
-}

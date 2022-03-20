@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LoopBreakers.DAL.Entities;
 using LoopBreakers.DAL.Enums;
+using LoopBreakers.WebApp.DTOs;
 using LoopBreakers.WebApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -41,7 +42,7 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
             var currentUser = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            await _reportService.SendActivityReport(new ReportModule.Models.ActivityReportDTO
+            await _reportService.SendActivityReport(new ActivityReportDTO
             {
                 Created = DateTime.UtcNow,
                 Email = currentUser.Email,
@@ -53,7 +54,7 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
 
             if (returnUrl != null)
             {
-                return LocalRedirect("/Home/Index");
+                return LocalRedirect("/Identity/Account/Login");
             }
             else
             {

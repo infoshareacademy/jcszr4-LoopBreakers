@@ -66,6 +66,12 @@ namespace LoopBreakers.ReportModule.Controllers
             return Ok(await _reportService.GetRegisterStatistics(ParseDate.Convert(dateFrom, dateTo)));
         }
 
+        [HttpGet("ActivityStatistics")]
+        public async Task<IActionResult> GetActivityStatistics([FromQuery] string dateFrom, [FromQuery] string dateTo)
+        {
+            return Ok(await _reportService.GetActivityStatistics(ParseDate.Convert(dateFrom, dateTo)));
+        }
+
         [HttpGet("MostCommonTransferHours")]
         public async Task<IActionResult> GetTransferStatisticsByHours([FromQuery] string dateFrom, [FromQuery] string dateTo)
         {

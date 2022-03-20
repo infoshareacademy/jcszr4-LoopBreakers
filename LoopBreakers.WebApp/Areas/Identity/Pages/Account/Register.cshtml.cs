@@ -7,6 +7,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using LoopBreakers.DAL.Entities;
 using LoopBreakers.DAL.Enums;
+using LoopBreakers.WebApp.DTOs;
 using LoopBreakers.WebApp.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -139,7 +140,7 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
                 {
                     await _userManager.AddToRoleAsync(user, "User");
                     _logger.LogInformation("User created a new account with password.");
-                    await _reportService.SendActivityReport(new ReportModule.Models.ActivityReportDTO
+                    await _reportService.SendActivityReport(new ActivityReportDTO
                     {
                         Created = DateTime.UtcNow,
                         Email = user.Email,

@@ -35,6 +35,7 @@ namespace LoopBreakers.WebApp.Controllers
             ReportModel.TransferCounter = await _reportService.GetTransferStatistics(filter);
             ReportModel.RegisterCounter = await _reportService.GetRegisterStatistics(filter);
             ReportModel.MostCommonTransferHours = await _reportService.GetMostCommonTransferHoursStatistics(filter);
+            ReportModel.ActivityStatistics = await _reportService.GetActivityStatistics(filter);
 
             if (filter.EmailSend != null)
             {

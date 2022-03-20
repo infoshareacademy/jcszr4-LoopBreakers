@@ -61,6 +61,15 @@ namespace LoopBreakers.WebApp.Resources.DTOs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Typ aktywności.
+        /// </summary>
+        public static string activityName {
+            get {
+                return ResourceManager.GetString("activityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adres.
         /// </summary>
         public static string address {
@@ -124,6 +133,15 @@ namespace LoopBreakers.WebApp.Resources.DTOs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ilość.
+        /// </summary>
+        public static string count {
+            get {
+                return ResourceManager.GetString("count", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data utworzenia.
         /// </summary>
         public static string createdDate {
@@ -138,6 +156,15 @@ namespace LoopBreakers.WebApp.Resources.DTOs {
         public static string currency {
             get {
                 return ResourceManager.GetString("currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opis.
+        /// </summary>
+        public static string description {
+            get {
+                return ResourceManager.GetString("description", resourceCulture);
             }
         }
         

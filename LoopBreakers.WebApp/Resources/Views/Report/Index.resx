@@ -120,8 +120,14 @@
   <data name="active" xml:space="preserve">
     <value>Aktywny</value>
   </data>
+  <data name="activity" xml:space="preserve">
+    <value>Aktywność</value>
+  </data>
   <data name="activityReport" xml:space="preserve">
     <value>Raport aktywności</value>
+  </data>
+  <data name="activityStats" xml:space="preserve">
+    <value>Statystyka aktywności</value>
   </data>
   <data name="clear" xml:space="preserve">
     <value>Wyczyść</value>
@@ -130,7 +136,7 @@
     <value>Waluty</value>
   </data>
   <data name="currencyStats" xml:space="preserve">
-    <value>Statystyki waluty</value>
+    <value>Statystyka transferów w walucie</value>
   </data>
   <data name="dailyReportEmailHour" xml:space="preserve">
     <value>Godzinna dziennego raportu email</value>
@@ -144,17 +150,26 @@
   <data name="inactive" xml:space="preserve">
     <value>Nieaktywny</value>
   </data>
+  <data name="logging" xml:space="preserve">
+    <value>Logowanie</value>
+  </data>
   <data name="logins" xml:space="preserve">
     <value>Logowania</value>
   </data>
   <data name="loginsCounter" xml:space="preserve">
     <value>Licznik logowań</value>
   </data>
+  <data name="logout" xml:space="preserve">
+    <value>Wylogowanie</value>
+  </data>
   <data name="mostCommonTransferHrs" xml:space="preserve">
     <value>Najczęstsze godziny transferów</value>
   </data>
   <data name="registerCounter" xml:space="preserve">
     <value>Licznik rejestracji</value>
+  </data>
+  <data name="registering" xml:space="preserve">
+    <value>Rejestracja</value>
   </data>
   <data name="registers" xml:space="preserve">
     <value>Rejestracje</value>
@@ -173,6 +188,9 @@
   </data>
   <data name="to" xml:space="preserve">
     <value>do</value>
+  </data>
+  <data name="transfering" xml:space="preserve">
+    <value>Transfer</value>
   </data>
   <data name="transferReport" xml:space="preserve">
     <value>Prześlij raport</value>

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using LoopBreakers.DAL.Entities;
 using LoopBreakers.DAL.Enums;
+using LoopBreakers.WebApp.DTOs;
 using LoopBreakers.WebApp.Services;
 
 namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
@@ -96,7 +97,7 @@ namespace LoopBreakers.WebApp.Areas.Identity.Pages.Account
                     
                     _logger.LogInformation("User logged in.");
                     var currentUser = await _userManager.FindByEmailAsync(Input.Email);
-                    await _reportService.SendActivityReport(new ReportModule.Models.ActivityReportDTO 
+                    await _reportService.SendActivityReport(new ActivityReportDTO 
                     { 
                         Created = DateTime.UtcNow,
                         Email = Input.Email,

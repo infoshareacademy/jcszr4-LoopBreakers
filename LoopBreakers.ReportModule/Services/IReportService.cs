@@ -19,6 +19,7 @@ namespace LoopBreakers.ReportModule.Services
         public Task<LoginStatisticsDTO> GetLoginStatistics(SearchDate filter);
         public Task<TransferStatsDTO> GetTransferStatistics(SearchDate filter);
         public Task<RegisterStatsDTO> GetRegisterStatistics(SearchDate filter);
+        public Task<List<ActivityStatisticsDTO>> GetActivityStatistics(SearchDate filter);
         public Task<List<MostCommonHoursDTO>> GetTransferStaticsByHours(SearchDate filter);
     }
 }

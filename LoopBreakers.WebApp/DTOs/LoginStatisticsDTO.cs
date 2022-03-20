@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LoopBreakers.ReportModule.Models
+namespace LoopBreakers.WebApp.DTOs
 {
     public class LoginStatisticsDTO
     {

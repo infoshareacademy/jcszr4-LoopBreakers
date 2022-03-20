@@ -102,6 +102,19 @@ namespace LoopBreakers.ReportModule.Services
             return new RegisterStatsDTO { Name = "Register quantity: ", Count = data };
         }
 
+        public async Task<List<ActivityStatisticsDTO>> GetActivityStatistics(SearchDate filter)
+        {
+            return await _activityRepository.GetAllQueryable()
+                .Where(s => s.Created >= filter.dateFrom && s.Created < filter.dateTo)
+                .GroupBy(s=>s.ActivityType)
+                .Select(s=> new ActivityStatisticsDTO()
+                {
+                    ActivityName = s.Key,
+                    Count = s.Count()
+                })
+                .ToListAsync();
+        }
+
         public async Task<List<MostCommonHoursDTO>> GetTransferStaticsByHours(SearchDate filter)
         {
             var result = await _activityRepository.GetAllQueryable()

@@ -1,4 +1,4 @@
-﻿using LoopBreakers.ReportModule.Models;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -43,27 +43,36 @@ namespace LoopBreakers.WebApp.Services
         {
             return await GetResource<List<ActivityReportDTO>>($"{ApiUrl}/ActivityReport?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
-
         public async Task<List<CurrencyStatisticsDTO>> GetCurrencyStatistics(SearchViewModel filter)
         {
             return await GetResource<List<CurrencyStatisticsDTO>>($"{ApiUrl}/TransferReport/CurrencyStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
+
         public async Task<LoginStatisticsDTO> GetLoginStatistics(SearchViewModel filter)
         {
             return await GetResource<LoginStatisticsDTO>($"{ApiUrl}/ActivityReport/LoginStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
+
         public async Task<TransferStatsDTO> GetTransferStatistics(SearchViewModel filter)
         {
             return await GetResource<TransferStatsDTO>($"{ApiUrl}/ActivityReport/TransferStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
+
         public async Task<RegisterStatsDTO> GetRegisterStatistics(SearchViewModel filter)
         {
             return await GetResource<RegisterStatsDTO>($"{ApiUrl}/ActivityReport/RegisterStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
         }
+
+        public async Task<List<ActivityStatisticsDTO>> GetActivityStatistics(SearchViewModel filter)
+        {
+            return await GetResource<List<ActivityStatisticsDTO>>($"{ApiUrl}/ActivityReport/ActivityStatistics?dateFrom={filter.DateFrom:dd-MM-yyyy}&dateTo={filter.DateTo:dd-MM-yyyy}");
+        }
+
         public async Task<List<MostCommonHoursDTO>> GetMostCommonTransferHoursStatistics(SearchViewModel filter)
         {
             return await GetResource<List<MostCommonHoursDTO>>($"{ApiUrl}/ActivityReport/MostCommonTransferHours?dateFrom={filter.DateFrom:dd-MM-yyyy-hh}&dateTo={filter.DateTo:dd-MM-yyyy-hh}");
         }
+
         private async Task<TReturn> SendResource<TReturn, TInput>(TInput resource, string url)
         {
 
